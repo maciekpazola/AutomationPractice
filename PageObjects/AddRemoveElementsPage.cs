@@ -16,9 +16,9 @@ namespace AutomationPractice.PageObjects
 {
     public class AddRemoveElementsPage
     {
-        string AddRemoveElementPage_url = "http://the-internet.herokuapp.com/";
-        private IWebDriver driver;
-        private WebDriverWait wait;
+        readonly string AddRemoveElementPage_url = "http://the-internet.herokuapp.com/";
+        private readonly IWebDriver driver;
+        private readonly WebDriverWait wait;
 
         public AddRemoveElementsPage(IWebDriver driver)
         {

@@ -40,9 +40,9 @@ namespace AutomationPractice.StepDefinitions
         public void WhenIWillRemoveElements()
         {
             AddRemoveElementsPage page = new AddRemoveElementsPage(driver);
-            bool isDeleteButtonEnabled = page.CheckDeleteElement();
                 while (true)
             {
+                bool isDeleteButtonEnabled = page.CheckDeleteElement();
                 if (isDeleteButtonEnabled == true)
                 {
                     page.DeleteElement();
@@ -52,7 +52,6 @@ namespace AutomationPractice.StepDefinitions
                     return;
                 }
             }
-            Thread.Sleep(2000);
         }
     }
 }
