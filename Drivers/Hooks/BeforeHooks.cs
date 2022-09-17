@@ -18,6 +18,7 @@ namespace AutomationPractice.Drivers.Hooks
             IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
             HomePage page = new HomePage(driver);
             page.GoToHomePage();
+            driver.Manage().Cookies.DeleteAllCookies();
         }
     }
 }

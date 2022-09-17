@@ -18,7 +18,6 @@ namespace AutomationPractice.PageObjects
     public class HomePage : BasePage
     {
         string homePage_url = "http://the-internet.herokuapp.com/";
-        public string test_url = "123";
         private IWebDriver driver;
         private WebDriverWait wait;
 

@@ -36,8 +36,8 @@ namespace AutomationPractice.StepDefinitions
             page.ClickAddElementButton();
         }
 
-        [When(@"I will remove elements")]
-        public void WhenIWillRemoveElements()
+        [When(@"I will remove all the elements")]
+        public void WhenIWillRemoveAllTheElements()
         {
             AddRemoveElementsPage page = new AddRemoveElementsPage(driver);
                 while (true)
