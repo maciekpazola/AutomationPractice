@@ -16,7 +16,8 @@ namespace AutomationPractice.PageObjects
         private readonly string BasicAuthPage_url = "http://the-internet.herokuapp.com/basic_auth";
         private readonly string BasicAuthPage_url_withCorrectCredentails = "http://admin:admin@the-internet.herokuapp.com/basic_auth";
         private readonly string BasicAuthPage_url_withInCorrectCredentails = "http://notAdmin:notAdmin@the-internet.herokuapp.com/basic_auth";
-        private readonly string OutputMessage = @"Basic Auth\n\nCongratulations! You must have the proper credentials.";
+        private readonly string OutputMessage = @"Basic Auth\n\nCongratulations! You must have the proper credentials."
+;
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
 
@@ -53,13 +54,16 @@ namespace AutomationPractice.PageObjects
         }
         public bool CheckThatYouAreLoggedIn()
         {
-            bool state = false;
-            var output = elem_Message.GetAttribute("innerText");
-            if (output == OutputMessage)
+            try
             {
-                return true;
+                var output = elem_Message.GetAttribute("innerText");
+                if (output != null)
+                {
+                    return true;
+                }
+                return false;
             }
-            else
+            catch (NoSuchElementException)
             {
                 return false;
             }

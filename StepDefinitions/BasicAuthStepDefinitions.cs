@@ -22,13 +22,22 @@ namespace AutomationPractice.StepDefinitions
         public void ThenIWillAssertThatIAmLoggedIn()
         {
             BasicAuthPage page = new BasicAuthPage(driver);
-            page.CheckThatYouAreLoggedIn();
+            bool state = page.CheckThatYouAreLoggedIn();
+            if (state == false)
+            {
+                throw new Exception("Test is failed, can't find the message after authorization");
+            }
         }
 
         [Then(@"I will assert that I am not logged in")]
         public void ThenIWillAssertThatIAmNotLoggedIn()
         {
             BasicAuthPage page = new BasicAuthPage(driver);
+            bool state = page.CheckThatYouAreLoggedIn();
+            if (state == true)
+            {
+                throw new Exception("Test is failed, message was found");
+            }
         }
     }
 }
