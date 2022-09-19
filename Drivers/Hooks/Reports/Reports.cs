@@ -21,7 +21,6 @@ namespace BMTests.Reporter
         {
             var htmlReporter = new ExtentHtmlReporter(reportFileLocation);
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
-
             extent = new ExtentReports();
             extent.AttachReporter(htmlReporter);
         }

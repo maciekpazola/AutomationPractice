@@ -17,9 +17,9 @@ namespace AutomationPractice.PageObjects
 {
     public class HomePage : BasePage
     {
-        string homePage_url = "http://the-internet.herokuapp.com/";
-        private IWebDriver driver;
-        private WebDriverWait wait;
+        private readonly string homePage_url = "http://the-internet.herokuapp.com/";
+        private readonly IWebDriver driver;
+        private readonly WebDriverWait wait;
 
         public HomePage(IWebDriver driver)
         {
@@ -31,12 +31,8 @@ namespace AutomationPractice.PageObjects
         [FindsBy(How = How.LinkText, Using = "Add/Remove Elements")]
         private IWebElement elem_AddRemoveElements;
 
-        [FindsBy(How = How.XPath, Using = "//a[contains(text(),'Basic Auth')]")]
+        [FindsBy(How = How.LinkText, Using = "Basic Auth")]
         private IWebElement elem_BasicAuth;
-
-        [FindsBy(How = How.XPath, Using = "//a[contains(text(),'Basic A123uth')]")]
-        [CacheLookup]
-        private IWebElement elem_wrongelement;
 
         // Go to the designated page
         public void GoToHomePage()
