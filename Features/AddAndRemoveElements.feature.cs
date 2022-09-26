@@ -74,14 +74,14 @@ namespace AutomationPractice.Features
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("AddAndRemoveElements")]
+        [NUnit.Framework.DescriptionAttribute("Add and remove elements")]
         [NUnit.Framework.CategoryAttribute("Test1")]
         public virtual void AddAndRemoveElements()
         {
             string[] tagsOfScenario = new string[] {
                     "Test1"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("AddAndRemoveElements", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Add and remove elements", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
 #line hidden

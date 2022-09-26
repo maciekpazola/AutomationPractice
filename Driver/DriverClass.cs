@@ -19,7 +19,6 @@ namespace AutomationPractice.Drivers.Driver
         {
             new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
         }
         public static DriverClass GetInstanceOfDriver()
         {

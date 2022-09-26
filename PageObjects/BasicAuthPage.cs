@@ -16,8 +16,6 @@ namespace AutomationPractice.PageObjects
         private readonly string BasicAuthPage_url = "http://the-internet.herokuapp.com/basic_auth";
         private readonly string BasicAuthPage_url_withCorrectCredentails = "http://admin:admin@the-internet.herokuapp.com/basic_auth";
         private readonly string BasicAuthPage_url_withInCorrectCredentails = "http://notAdmin:notAdmin@the-internet.herokuapp.com/basic_auth";
-        private readonly string OutputMessage = @"Basic Auth\n\nCongratulations! You must have the proper credentials."
-;
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
 

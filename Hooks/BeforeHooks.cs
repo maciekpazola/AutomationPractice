@@ -12,13 +12,19 @@ namespace AutomationPractice.Drivers.Hooks
     [Binding]
     public class BeforeHooks
     {
-        [BeforeFeature]
+        [BeforeTestRun]
         public static void Setup()
+        {
+            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            driver.Manage().Window.Maximize();
+            driver.Manage().Cookies.DeleteAllCookies();
+        }
+        [BeforeScenario]
+        public static void BeforeScenario()
         {
             IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
             HomePage page = new HomePage(driver);
             page.GoToHomePage();
-            driver.Manage().Cookies.DeleteAllCookies();
         }
     }
 }

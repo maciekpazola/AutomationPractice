@@ -11,10 +11,5 @@ namespace AutomationPractice.PageObjects
     public class BasePage
     {
         IWebDriver driver;
-
-        public void GoToPage(string test_url)
-        {
-            driver.Navigate().GoToUrl(test_url);
-        }
     }
 }

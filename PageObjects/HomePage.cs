@@ -41,13 +41,9 @@ namespace AutomationPractice.PageObjects
             ExpectedConditions.UrlMatches(homePage_url);
         }
 
-        public void OpenAddRemoveElementsLink()
+        public void OpenPage(string sectionName)
         {
-            elem_AddRemoveElements.Click();
-        }
-        public void OpenBasicAuthLink()
-        {
-            elem_BasicAuth.Click();
+            driver.FindElement(By.LinkText(sectionName)).Click();
         }
     }
 }
