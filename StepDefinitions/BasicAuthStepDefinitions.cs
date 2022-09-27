@@ -11,19 +11,22 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class BasicAuthStepDefinitions
     {
-        readonly IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+        public BasicAuthStepDefinitions(BasicAuthPage basicAuthPage)
+        {
+            _basicAuthPage = basicAuthPage;
+        }
+        private BasicAuthPage _basicAuthPage;
+
         [When(@"I will login as '([^']*)'")]
         public void WhenIWillLoginAs(string loginName)
         {
-            BasicAuthPage page = new(driver);
-            page.GoToAuthPage(loginName);
+            _basicAuthPage.GoToAuthPage(loginName);
         }
 
         [Then(@"I will assert that I am logged in")]
         public void ThenIWillAssertThatIAmLoggedIn()
         {
-            BasicAuthPage page = new(driver);
-            bool state = page.CheckThatYouAreLoggedIn();
+            bool state = _basicAuthPage.CheckThatYouAreLoggedIn();
             if (state == false)
             {
                 throw new Exception("Test is failed, can't find the message after authorization");
@@ -33,8 +36,7 @@ namespace AutomationPractice.StepDefinitions
         [Then(@"I will assert that I am not logged in")]
         public void ThenIWillAssertThatIAmNotLoggedIn()
         {
-            BasicAuthPage page = new(driver);
-            bool state = page.CheckThatYouAreLoggedIn();
+            bool state = _basicAuthPage.CheckThatYouAreLoggedIn();
             if (state == true)
             {
                 throw new Exception("Test is failed, message was found");

@@ -9,19 +9,22 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class DropdownStepDefinitions
     {
-        readonly IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+        public DropdownStepDefinitions(DropdownPage dropdownPage)
+        {
+            _dropdownPage = dropdownPage;
+        }
+        private DropdownPage _dropdownPage;
+
         [When(@"I will select every option")]
         public void WhenIWillSelectEveryOption()
         {
-            DropdownPage page = new DropdownPage(driver);
-            page.SelectAllElementsInDropdown();
+            _dropdownPage.SelectAllElementsInDropdown();
         }
 
         [Then(@"I will assert if number of options in dropdow are equal '([^']*)'")]
         public void ThenIWillAssertIfNumberOfOptionsInDropdowAreEqual(string numberOfOptions)
         {
-            DropdownPage page = new DropdownPage(driver);
-            page.AssertNumberOfElementsInDropdown(Int16.Parse(numberOfOptions));
+            _dropdownPage.AssertNumberOfElementsInDropdown(Int16.Parse(numberOfOptions));
         }
     }
 }

@@ -1,7 +1,8 @@
-﻿using AutomationPractice.AbstractionLayer.Components;
+﻿using AutomationPractice.AbstractionLayer.Elements;
 using FluentAssertions;
 using NUnit.Framework;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
@@ -15,7 +16,8 @@ namespace AutomationPractice.PageObjects
 {
     public class ContextMenuPage
     {
-        private readonly string BasicAuthPage_url = "http://the-internet.herokuapp.com/basic_auth";
+        private readonly string contextMenu_url = "http://the-internet.herokuapp.com/context_menu";
+        private readonly string expectedTextInTheAlert = "You selected a context menu";
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
 
@@ -28,5 +30,30 @@ namespace AutomationPractice.PageObjects
 
         [FindsBy(How = How.Id, Using = "hot-spot")]
         private IWebElement elem_ContextMenu;
+
+        public void RightClickOnContextMenu()
+        {
+            Actions action = new Actions(driver);
+            action.MoveToElement(elem_ContextMenu).ContextClick().Perform();
+        }
+
+        public IAlert GetAlertWindow()
+        {
+            var alert_win = driver.SwitchTo().Alert();
+            return alert_win;
+        }
+        public void AssertTextInTheAlert()
+        {
+            var alert = GetAlertWindow();
+            string textInTheAlert = alert.Text;
+            Assert.AreEqual(expectedTextInTheAlert, textInTheAlert);
+        }
+        public void AcceptTheAllert()
+        {
+            var alert = GetAlertWindow();
+            alert.Accept();
+            alert.Equals(null);
+            elem_ContextMenu.Click();
+        }
     }
 }

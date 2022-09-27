@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AutomationPractice.AbstractionLayer.Components
+namespace AutomationPractice.AbstractionLayer.Elements
 {
     public class DropdownElement
     {

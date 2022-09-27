@@ -9,31 +9,35 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class AddAndRemoveElementsStepDefinitions
     {
-        readonly IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+        public AddAndRemoveElementsStepDefinitions(HomePage homePage, AddRemoveElementsPage addRemoveElementsPage)
+        {
+            _homePage = homePage;
+            _addRemoveElementsPage = addRemoveElementsPage;
+        }
+        private HomePage _homePage;
+        private AddRemoveElementsPage _addRemoveElementsPage;
+
         [When(@"I will go to '([^']*)' section")]
         public void WhenIWillGoToSection(string sectionName)
         {
-            HomePage page = new(driver);
-            page.OpenPage(sectionName);
+            _homePage.OpenPage(sectionName);
         }
 
         [When(@"I will add element")]
         public void WhenIWillAddElement()
         {
-            AddRemoveElementsPage page = new(driver);
-            page.ClickAddElementButton();
+            _addRemoveElementsPage.ClickAddElementButton();
         }
 
         [When(@"I will remove all the elements")]
         public void WhenIWillRemoveAllTheElements()
         {
-            AddRemoveElementsPage page = new(driver);
                 while (true)
             {
-                bool isDeleteButtonEnabled = page.CheckDeleteElement();
+                bool isDeleteButtonEnabled = _addRemoveElementsPage.CheckDeleteElement();
                 if (isDeleteButtonEnabled == true)
                 {
-                    page.DeleteElement();
+                    _addRemoveElementsPage.DeleteElement();
                 }
                 if (isDeleteButtonEnabled == false)
                 {

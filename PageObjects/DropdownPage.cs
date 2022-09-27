@@ -1,4 +1,4 @@
-﻿using AutomationPractice.AbstractionLayer.Components;
+﻿using AutomationPractice.AbstractionLayer.Elements;
 using FluentAssertions;
 using NUnit.Framework;
 using OpenQA.Selenium;
