@@ -2,9 +2,9 @@
 
 This short scenario will check the Add/Remove Elements section 
 
-@test1
-Scenario: AddAndRemoveElements
+@Test1
+Scenario: Add and remove elements
 	When I will go to 'Add/Remove Elements' section
-	When I will add element
-	When I will add element
-	When I will remove elements
+	And I will add element
+	And I will add element
+	And I will remove all the elements

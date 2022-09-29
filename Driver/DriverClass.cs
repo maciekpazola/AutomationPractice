@@ -11,7 +11,7 @@ namespace AutomationPractice.Drivers.Driver
 {
     public class DriverClass
     {
-        private static DriverClass instanceOfDriverClass = null;
+        private static DriverClass instanceOfDriverClass;
 
         private readonly WebDriver driver;
 
@@ -19,7 +19,6 @@ namespace AutomationPractice.Drivers.Driver
         {
             new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
             driver = new ChromeDriver();
-            driver.Manage().Window.Maximize();
         }
         public static DriverClass GetInstanceOfDriver()
         {

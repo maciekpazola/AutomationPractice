@@ -10,17 +10,16 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
-
-
+using AutomationPractice.Drivers.Driver;
 
 namespace AutomationPractice.PageObjects
 {
-    public class HomePage : BasePage
+    public class HomePage
     {
-        string homePage_url = "http://the-internet.herokuapp.com/";
-        public string test_url = "123";
-        private IWebDriver driver;
-        private WebDriverWait wait;
+        private readonly string homePage_url = "http://the-internet.herokuapp.com/";
+        private readonly IWebDriver driver;
+        private readonly WebDriverWait wait;
+        private static HomePage instanceOfPage;
 
         public HomePage(IWebDriver driver)
         {
@@ -32,12 +31,18 @@ namespace AutomationPractice.PageObjects
         [FindsBy(How = How.LinkText, Using = "Add/Remove Elements")]
         private IWebElement elem_AddRemoveElements;
 
-        [FindsBy(How = How.XPath, Using = "//a[contains(text(),'Basic Auth')]")]
+        [FindsBy(How = How.LinkText, Using = "Basic Auth")]
         private IWebElement elem_BasicAuth;
 
-        [FindsBy(How = How.XPath, Using = "//a[contains(text(),'Basic A123uth')]")]
-        [CacheLookup]
-        private IWebElement elem_wrongelement;
+            public static HomePage GetHomePage()
+            {
+                IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+                if (instanceOfPage == null)
+                {
+                instanceOfPage = new HomePage(driver);
+                }
+                return instanceOfPage;
+            }
 
         // Go to the designated page
         public void GoToHomePage()
@@ -46,13 +51,9 @@ namespace AutomationPractice.PageObjects
             ExpectedConditions.UrlMatches(homePage_url);
         }
 
-        public void OpenAddRemoveElementsLink()
+        public void OpenPage(string sectionName)
         {
-            elem_AddRemoveElements.Click();
-        }
-        public void OpenBasicAuthLink()
-        {
-            elem_BasicAuth.Click();
+            driver.FindElement(By.LinkText(sectionName)).Click();
         }
     }
 }

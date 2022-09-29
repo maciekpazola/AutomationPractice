@@ -9,50 +9,37 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class AddAndRemoveElementsStepDefinitions
     {
-        IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+        readonly HomePage homePage = HomePage.GetHomePage();
+        readonly AddRemoveElementsPage addRemoveElementsPage = AddRemoveElementsPage.GetAddRemoveElementsPage();
+
         [When(@"I will go to '([^']*)' section")]
         public void WhenIWillGoToSection(string sectionName)
         {
-            HomePage page = new HomePage(driver);
-            switch (sectionName)
-            {
-                case "Add/Remove Elements":
-                    {
-                        page.OpenAddRemoveElementsLink();
-                        return;
-                    }
-                case "BasicAuth":
-                    {
-                        page.OpenBasicAuthLink();
-                        return;
-                    }
-            }
+
+            homePage.OpenPage(sectionName);
         }
 
         [When(@"I will add element")]
         public void WhenIWillAddElement()
         {
-            AddRemoveElementsPage page = new AddRemoveElementsPage(driver);
-            page.ClickAddElementButton();
+            addRemoveElementsPage.ClickAddElementButton();
         }
 
-        [When(@"I will remove elements")]
-        public void WhenIWillRemoveElements()
+        [When(@"I will remove all the elements")]
+        public void WhenIWillRemoveAllTheElements()
         {
-            AddRemoveElementsPage page = new AddRemoveElementsPage(driver);
-            bool isDeleteButtonEnabled = page.CheckDeleteElement();
                 while (true)
             {
+                bool isDeleteButtonEnabled = addRemoveElementsPage.CheckDeleteElement();
                 if (isDeleteButtonEnabled == true)
                 {
-                    page.DeleteElement();
+                    addRemoveElementsPage.DeleteElement();
                 }
                 if (isDeleteButtonEnabled == false)
                 {
                     return;
                 }
             }
-            Thread.Sleep(2000);
         }
     }
 }
