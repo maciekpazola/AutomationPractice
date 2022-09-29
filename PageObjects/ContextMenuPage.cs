@@ -1,4 +1,5 @@
 ﻿using AutomationPractice.AbstractionLayer.Elements;
+using AutomationPractice.Drivers.Driver;
 using FluentAssertions;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -20,6 +21,8 @@ namespace AutomationPractice.PageObjects
         private readonly string expectedTextInTheAlert = "You selected a context menu";
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
+        private static ContextMenuPage instanceOfPage;
+
 
         public ContextMenuPage(IWebDriver driver)
         {
@@ -30,6 +33,16 @@ namespace AutomationPractice.PageObjects
 
         [FindsBy(How = How.Id, Using = "hot-spot")]
         private IWebElement elem_ContextMenu;
+
+        public static ContextMenuPage GetContextMenuPage()
+        {
+            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            if (instanceOfPage == null)
+            {
+                instanceOfPage = new ContextMenuPage(driver);
+            }
+            return instanceOfPage;
+        }
 
         public void RightClickOnContextMenu()
         {

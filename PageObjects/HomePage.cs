@@ -10,16 +10,16 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
-
-
+using AutomationPractice.Drivers.Driver;
 
 namespace AutomationPractice.PageObjects
 {
-    public class HomePage : BasePage
+    public class HomePage
     {
         private readonly string homePage_url = "http://the-internet.herokuapp.com/";
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
+        private static HomePage instanceOfPage;
 
         public HomePage(IWebDriver driver)
         {
@@ -33,6 +33,16 @@ namespace AutomationPractice.PageObjects
 
         [FindsBy(How = How.LinkText, Using = "Basic Auth")]
         private IWebElement elem_BasicAuth;
+
+            public static HomePage GetHomePage()
+            {
+                IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+                if (instanceOfPage == null)
+                {
+                instanceOfPage = new HomePage(driver);
+                }
+                return instanceOfPage;
+            }
 
         // Go to the designated page
         public void GoToHomePage()

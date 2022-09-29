@@ -9,28 +9,24 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class ContextMenuStepDefinitions
     {
-        public ContextMenuStepDefinitions(ContextMenuPage contextMenuPage)
-        {
-            _contextMenuPage = contextMenuPage;
-        }
-        private ContextMenuPage _contextMenuPage;
+        readonly ContextMenuPage contextMenuPage = ContextMenuPage.GetContextMenuPage();
 
         [When(@"I will right-click on the context menu")]
         public void WhenIWillRight_ClickOnTheContextMenu()
         {
-            _contextMenuPage.RightClickOnContextMenu();
+            contextMenuPage.RightClickOnContextMenu();
         }
 
         [Then(@"Alert will be shown")]
         public void ThenAlertWillBeShown()
         {
-            _contextMenuPage.AssertTextInTheAlert();
+            contextMenuPage.AssertTextInTheAlert();
         }
 
         [When(@"I will click OK on the alert")]
         public void WhenIWillClickOKOnTheAlert()
         {
-            _contextMenuPage.AcceptTheAllert();
+            contextMenuPage.AcceptTheAllert();
         }
     }
 }

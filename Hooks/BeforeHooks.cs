@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using AutomationPractice.Drivers.Driver;
 using AutomationPractice.PageObjects;
+using BoDi;
 using OpenQA.Selenium;
 
 namespace AutomationPractice.Drivers.Hooks
@@ -15,6 +16,7 @@ namespace AutomationPractice.Drivers.Hooks
         [BeforeTestRun]
         public static void Setup()
         {
+            IObjectContainer container = new ObjectContainer();
             IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
             driver.Manage().Window.Maximize();
             driver.Manage().Cookies.DeleteAllCookies();

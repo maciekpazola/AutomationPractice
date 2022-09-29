@@ -1,4 +1,5 @@
 ﻿using AutomationPractice.AbstractionLayer.Elements;
+using AutomationPractice.Drivers.Driver;
 using FluentAssertions;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -18,6 +19,7 @@ namespace AutomationPractice.PageObjects
         private readonly string BasicAuthPage_url = "http://the-internet.herokuapp.com/basic_auth";
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
+        private static DropdownPage instanceOfPage;
 
         public DropdownPage(IWebDriver driver)
         {
@@ -28,6 +30,16 @@ namespace AutomationPractice.PageObjects
 
         [FindsBy(How = How.Id, Using = "dropdown")]
         private IWebElement elem_Dropdown;
+
+        public static DropdownPage GetDropdownPage()
+        {
+            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            if (instanceOfPage == null)
+            {
+                instanceOfPage = new DropdownPage(driver);
+            }
+            return instanceOfPage;
+        }
 
         public void SelectAllElementsInDropdown()
         {

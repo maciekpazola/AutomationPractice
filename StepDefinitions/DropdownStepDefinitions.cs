@@ -9,22 +9,19 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class DropdownStepDefinitions
     {
-        public DropdownStepDefinitions(DropdownPage dropdownPage)
-        {
-            _dropdownPage = dropdownPage;
-        }
-        private DropdownPage _dropdownPage;
+        readonly DropdownPage dropdownPage = DropdownPage.GetDropdownPage();
+
 
         [When(@"I will select every option")]
         public void WhenIWillSelectEveryOption()
         {
-            _dropdownPage.SelectAllElementsInDropdown();
+            dropdownPage.SelectAllElementsInDropdown();
         }
 
         [Then(@"I will assert if number of options in dropdow are equal '([^']*)'")]
         public void ThenIWillAssertIfNumberOfOptionsInDropdowAreEqual(string numberOfOptions)
         {
-            _dropdownPage.AssertNumberOfElementsInDropdown(Int16.Parse(numberOfOptions));
+            dropdownPage.AssertNumberOfElementsInDropdown(Int16.Parse(numberOfOptions));
         }
     }
 }

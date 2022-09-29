@@ -9,24 +9,20 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class AddAndRemoveElementsStepDefinitions
     {
-        public AddAndRemoveElementsStepDefinitions(HomePage homePage, AddRemoveElementsPage addRemoveElementsPage)
-        {
-            _homePage = homePage;
-            _addRemoveElementsPage = addRemoveElementsPage;
-        }
-        private HomePage _homePage;
-        private AddRemoveElementsPage _addRemoveElementsPage;
+        readonly HomePage homePage = HomePage.GetHomePage();
+        readonly AddRemoveElementsPage addRemoveElementsPage = AddRemoveElementsPage.GetAddRemoveElementsPage();
 
         [When(@"I will go to '([^']*)' section")]
         public void WhenIWillGoToSection(string sectionName)
         {
-            _homePage.OpenPage(sectionName);
+
+            homePage.OpenPage(sectionName);
         }
 
         [When(@"I will add element")]
         public void WhenIWillAddElement()
         {
-            _addRemoveElementsPage.ClickAddElementButton();
+            addRemoveElementsPage.ClickAddElementButton();
         }
 
         [When(@"I will remove all the elements")]
@@ -34,10 +30,10 @@ namespace AutomationPractice.StepDefinitions
         {
                 while (true)
             {
-                bool isDeleteButtonEnabled = _addRemoveElementsPage.CheckDeleteElement();
+                bool isDeleteButtonEnabled = addRemoveElementsPage.CheckDeleteElement();
                 if (isDeleteButtonEnabled == true)
                 {
-                    _addRemoveElementsPage.DeleteElement();
+                    addRemoveElementsPage.DeleteElement();
                 }
                 if (isDeleteButtonEnabled == false)
                 {

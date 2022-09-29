@@ -11,6 +11,7 @@ using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
 using AutomationPractice.PageObjects;
+using AutomationPractice.Drivers.Driver;
 
 namespace AutomationPractice.PageObjects
 {
@@ -19,6 +20,7 @@ namespace AutomationPractice.PageObjects
         readonly string AddRemoveElementPage_url = "http://the-internet.herokuapp.com/";
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
+        private static AddRemoveElementsPage instanceOfPage;
 
         public AddRemoveElementsPage(IWebDriver driver)
         {
@@ -32,6 +34,16 @@ namespace AutomationPractice.PageObjects
 
         [FindsBy(How = How.XPath, Using = "//button[@class='added-manually']")]
         private IWebElement elem_Delete;
+
+        public static AddRemoveElementsPage GetAddRemoveElementsPage()
+        {
+            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            if (instanceOfPage == null)
+            {
+                instanceOfPage = new AddRemoveElementsPage(driver);
+            }
+            return instanceOfPage;
+        }
 
         public void ClickAddElementButton()
         {

@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AutomationPractice.Drivers.Driver;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
@@ -18,6 +19,8 @@ namespace AutomationPractice.PageObjects
         private readonly string BasicAuthPage_url_withInCorrectCredentails = "http://notAdmin:notAdmin@the-internet.herokuapp.com/basic_auth";
         private readonly IWebDriver driver;
         private readonly WebDriverWait wait;
+        private static BasicAuthPage instanceOfPage;
+
 
         public BasicAuthPage(IWebDriver driver)
         {
@@ -31,6 +34,16 @@ namespace AutomationPractice.PageObjects
 
         [FindsBy(How = How.XPath, Using = "//button[@class='added-manually']")]
         private IWebElement elem_Delete;
+
+        public static BasicAuthPage GetBasicAuthPage()
+        {
+            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            if (instanceOfPage == null)
+            {
+                instanceOfPage = new BasicAuthPage(driver);
+            }
+            return instanceOfPage;
+        }
 
         public void GoToAuthPage(string loginName)
         {
