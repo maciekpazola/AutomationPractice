@@ -6,16 +6,16 @@ using AventStack.ExtentReports;
 using System.Reflection;
 using OpenQA.Selenium;
 
-namespace BMTests.Reporter
+namespace AutomationPractice.Drivers.Hooks.Reports
 {
      [Binding]
-    class Reporter : TechTalk.SpecFlow.Steps
+    class Reporter : Steps
     {
         private static ExtentTest featureName;
         private static ExtentTest scenario;
         private static ExtentReports extent;
-        private readonly static string reportFileLocation = @"C:\\Users\\MAPA\\source\\repos\\AutomationPractice\\Drivers\\Hooks\\Reports";
-        private static IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+        private readonly static string reportFileLocation = @"C:\Users\MAPA\source\repos\AutomationPractice\Hooks\Reports\ReporterHooks";
+
         [BeforeTestRun]
         public static void InitializeReport()
         {
@@ -26,10 +26,10 @@ namespace BMTests.Reporter
         }
 
         [BeforeFeature]
-        public static void BeforeFeature()
+        public static void BeforeFeature(FeatureContext featureContext)
         {
-            featureName = extent.CreateTest(new GherkinKeyword("Feature"), FeatureContext.Current.FeatureInfo.Title);
-            scenario = featureName.CreateNode(new GherkinKeyword("Scenario"), FeatureContext.Current.FeatureInfo.Title);
+            featureName = extent.CreateTest(new GherkinKeyword("Feature") + featureContext.FeatureInfo.Title);
+            scenario = featureName.CreateNode(new GherkinKeyword("Scenario") + featureContext.FeatureInfo.Title);
         }
 
         [AfterTestRun]

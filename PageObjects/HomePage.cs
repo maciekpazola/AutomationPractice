@@ -16,15 +16,15 @@ namespace AutomationPractice.PageObjects
 {
     public class HomePage
     {
-        private readonly string homePage_url = "http://the-internet.herokuapp.com/";
-        private readonly IWebDriver driver;
-        private readonly WebDriverWait wait;
+        private readonly string _homePageUrl = "http://the-internet.herokuapp.com/";
+        private readonly IWebDriver _driver;
+        private readonly WebDriverWait _wait;
         private static HomePage instanceOfPage;
 
         public HomePage(IWebDriver driver)
         {
-            this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            this._driver = driver;
+            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             PageFactory.InitElements(driver, this);
         }
 
@@ -36,7 +36,7 @@ namespace AutomationPractice.PageObjects
 
             public static HomePage GetHomePage()
             {
-                IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+                IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
                 if (instanceOfPage == null)
                 {
                 instanceOfPage = new HomePage(driver);
@@ -44,16 +44,12 @@ namespace AutomationPractice.PageObjects
                 return instanceOfPage;
             }
 
-        // Go to the designated page
         public void GoToHomePage()
         {
-            driver.Navigate().GoToUrl(homePage_url);
-            ExpectedConditions.UrlMatches(homePage_url);
+            _driver.Navigate().GoToUrl(_homePageUrl);
+            ExpectedConditions.UrlMatches(_homePageUrl);
         }
 
-        public void OpenPage(string sectionName)
-        {
-            driver.FindElement(By.LinkText(sectionName)).Click();
-        }
+        public void OpenPage(string sectionName) => _driver.FindElement(By.LinkText(sectionName)).Click();
     }
 }

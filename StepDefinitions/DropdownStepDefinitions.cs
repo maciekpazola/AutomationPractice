@@ -12,15 +12,9 @@ namespace AutomationPractice.StepDefinitions
         readonly DropdownPage dropdownPage = DropdownPage.GetDropdownPage();
 
         [When(@"I will select every option")]
-        public void WhenIWillSelectEveryOption()
-        {
-            dropdownPage.SelectAllElementsInDropdown();
-        }
+        public void WhenIWillSelectEveryOption() => dropdownPage.SelectAllElementsInDropdown();
 
         [Then(@"I will assert if number of options in dropdow are equal '([^']*)'")]
-        public void ThenIWillAssertIfNumberOfOptionsInDropdowAreEqual(string numberOfOptions)
-        {
-            dropdownPage.AssertNumberOfElementsInDropdown(Int16.Parse(numberOfOptions));
-        }
+        public void ThenIWillAssertIfNumberOfOptionsInDropdowAreEqual(string numberOfOptions) => dropdownPage.AssertNumberOfElementsInDropdown(Int16.Parse(numberOfOptions));
     }
 }

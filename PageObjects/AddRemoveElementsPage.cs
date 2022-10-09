@@ -17,15 +17,14 @@ namespace AutomationPractice.PageObjects
 {
     public class AddRemoveElementsPage
     {
-        readonly string AddRemoveElementPage_url = "http://the-internet.herokuapp.com/";
-        private readonly IWebDriver driver;
-        private readonly WebDriverWait wait;
+        private readonly IWebDriver _driver;
+        private readonly WebDriverWait _wait;
         private static AddRemoveElementsPage instanceOfPage;
 
         public AddRemoveElementsPage(IWebDriver driver)
         {
-            this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            this._driver = driver;
+            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             PageFactory.InitElements(driver, this);
         }
 
@@ -37,7 +36,7 @@ namespace AutomationPractice.PageObjects
 
         public static AddRemoveElementsPage GetAddRemoveElementsPage()
         {
-            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
             if (instanceOfPage == null)
             {
                 instanceOfPage = new AddRemoveElementsPage(driver);
@@ -45,14 +44,10 @@ namespace AutomationPractice.PageObjects
             return instanceOfPage;
         }
 
-        public void ClickAddElementButton()
-        {
-            elem_AddElementButton.Click();
-        }
-        public void DeleteElement()
-        {
-            elem_Delete.Click();
-        }
+        public void ClickAddElementButton()=> elem_AddElementButton.Click();
+
+        public void DeleteElement() => elem_Delete.Click();
+
         public bool CheckDeleteElement()
         {
             try

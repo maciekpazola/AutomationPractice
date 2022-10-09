@@ -10,11 +10,11 @@ using SeleniumExtras.WaitHelpers;
 
 namespace AutomationPractice.Helper
 {
-    public class WaitsClass
+    public static class Waits
     {
         public static void FluentWait()
         {
-            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
             DefaultWait<IWebDriver> fluentWait = new DefaultWait<IWebDriver>(driver);
         }
     }

@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 namespace AutomationPractice.Drivers.Hooks
 {
     [Binding]
-    public class AfterHooks
+    public static class AfterHooks
     {
         [AfterTestRun]
         public static void CloseApp()
         {
-            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            IWebDriver driver = Driver.Driver.GetInstanceOfDriver().GetDriver();
             driver.Quit();
         }
     }

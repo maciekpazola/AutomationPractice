@@ -9,28 +9,29 @@ using WebDriverManager.DriverConfigs.Impl;
 
 namespace AutomationPractice.Drivers.Driver
 {
-    public class DriverClass
+    public class Driver
     {
-        private static DriverClass instanceOfDriverClass;
+        private static Driver instanceOfDriverClass;
+        private readonly WebDriver _driver;
 
-        private readonly WebDriver driver;
-
-        private DriverClass()
+        private Driver()
         {
             new WebDriverManager.DriverManager().SetUpDriver(new ChromeConfig());
-            driver = new ChromeDriver();
+            _driver = new ChromeDriver();
         }
-        public static DriverClass GetInstanceOfDriver()
+
+        public static Driver GetInstanceOfDriver()
         {
             if (instanceOfDriverClass == null)
             {
-                instanceOfDriverClass = new DriverClass();
+                instanceOfDriverClass = new Driver();
             }
             return instanceOfDriverClass;
         }
+
         public WebDriver GetDriver()
         {
-            return driver;
+            return _driver;
         }
     }
 }

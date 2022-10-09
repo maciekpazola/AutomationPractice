@@ -11,20 +11,20 @@ using OpenQA.Selenium;
 namespace AutomationPractice.Drivers.Hooks
 {
     [Binding]
-    public class BeforeHooks
+    public static class BeforeHooks
     {
         [BeforeTestRun]
         public static void Setup()
         {
-            IObjectContainer container = new ObjectContainer();
-            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            IWebDriver driver = Driver.Driver.GetInstanceOfDriver().GetDriver();
             driver.Manage().Window.Maximize();
             driver.Manage().Cookies.DeleteAllCookies();
         }
+
         [BeforeScenario]
         public static void BeforeScenario()
         {
-            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            IWebDriver driver = Driver.Driver.GetInstanceOfDriver().GetDriver();
             HomePage page = new HomePage(driver);
             page.GoToHomePage();
         }

@@ -16,15 +16,14 @@ namespace AutomationPractice.PageObjects
 {
     public class DropdownPage
     {
-        private readonly string BasicAuthPage_url = "http://the-internet.herokuapp.com/basic_auth";
-        private readonly IWebDriver driver;
-        private readonly WebDriverWait wait;
+        private readonly IWebDriver _driver;
+        private readonly WebDriverWait _wait;
         private static DropdownPage instanceOfPage;
 
         public DropdownPage(IWebDriver driver)
         {
-            this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            this._driver = driver;
+            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             PageFactory.InitElements(driver, this);
         }
 
@@ -33,7 +32,7 @@ namespace AutomationPractice.PageObjects
 
         public static DropdownPage GetDropdownPage()
         {
-            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
             if (instanceOfPage == null)
             {
                 instanceOfPage = new DropdownPage(driver);
@@ -46,6 +45,7 @@ namespace AutomationPractice.PageObjects
             DropdownElement dropdown = new DropdownElement(elem_Dropdown);
             dropdown.SelectAllElementsInDropdown();
         }
+
         public void AssertNumberOfElementsInDropdown(int numberOfOptions)
         {
             DropdownElement dropdown = new DropdownElement(elem_Dropdown);

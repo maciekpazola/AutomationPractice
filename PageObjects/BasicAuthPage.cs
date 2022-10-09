@@ -14,18 +14,17 @@ namespace AutomationPractice.PageObjects
 {
     public class BasicAuthPage
     {
-        private readonly string BasicAuthPage_url = "http://the-internet.herokuapp.com/basic_auth";
-        private readonly string BasicAuthPage_url_withCorrectCredentails = "http://admin:admin@the-internet.herokuapp.com/basic_auth";
-        private readonly string BasicAuthPage_url_withInCorrectCredentails = "http://notAdmin:notAdmin@the-internet.herokuapp.com/basic_auth";
-        private readonly IWebDriver driver;
-        private readonly WebDriverWait wait;
+        private readonly string _basicAuthPageUrlWithCorrectCredentails = "http://admin:admin@the-internet.herokuapp.com/basic_auth";
+        private readonly string _basicAuthPageUrlWithInCorrectCredentails = "http://notAdmin:notAdmin@the-internet.herokuapp.com/basic_auth";
+        private readonly IWebDriver _driver;
+        private readonly WebDriverWait _wait;
         private static BasicAuthPage instanceOfPage;
 
 
         public BasicAuthPage(IWebDriver driver)
         {
-            this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            this._driver = driver;
+            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             PageFactory.InitElements(driver, this);
         }
 
@@ -37,7 +36,7 @@ namespace AutomationPractice.PageObjects
 
         public static BasicAuthPage GetBasicAuthPage()
         {
-            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
             if (instanceOfPage == null)
             {
                 instanceOfPage = new BasicAuthPage(driver);
@@ -51,28 +50,25 @@ namespace AutomationPractice.PageObjects
             {
                 case "admin":
                     {
-                        driver.Navigate().GoToUrl(BasicAuthPage_url_withCorrectCredentails);
-                        ExpectedConditions.UrlMatches(BasicAuthPage_url_withCorrectCredentails);
+                        _driver.Navigate().GoToUrl(_basicAuthPageUrlWithCorrectCredentails);
+                        ExpectedConditions.UrlMatches(_basicAuthPageUrlWithCorrectCredentails);
                         return;
                     }
                 case "notAdmin":
                     {
-                        driver.Navigate().GoToUrl(BasicAuthPage_url_withInCorrectCredentails);
-                        ExpectedConditions.UrlMatches(BasicAuthPage_url_withInCorrectCredentails);
+                        _driver.Navigate().GoToUrl(_basicAuthPageUrlWithInCorrectCredentails);
+                        ExpectedConditions.UrlMatches(_basicAuthPageUrlWithInCorrectCredentails);
                         return;
                     }
             }
         }
+
         public bool CheckThatYouAreLoggedIn()
         {
             try
             {
                 var MessageInnerText = elem_Message.GetAttribute("innerText");
-                if (MessageInnerText != null)
-                {
-                    return true;
-                }
-                return false;
+                return MessageInnerText != null;
             }
             catch (NoSuchElementException)
             {

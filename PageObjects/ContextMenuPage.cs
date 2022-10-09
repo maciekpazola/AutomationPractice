@@ -17,17 +17,16 @@ namespace AutomationPractice.PageObjects
 {
     public class ContextMenuPage
     {
-        private readonly string contextMenu_url = "http://the-internet.herokuapp.com/context_menu";
-        private readonly string expectedTextInTheAlert = "You selected a context menu";
-        private readonly IWebDriver driver;
-        private readonly WebDriverWait wait;
+        private readonly string _expectedTextInTheAlert = "You selected a context menu";
+        private readonly IWebDriver _driver;
+        private readonly WebDriverWait _wait;
         private static ContextMenuPage instanceOfPage;
 
 
         public ContextMenuPage(IWebDriver driver)
         {
-            this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            this._driver = driver;
+            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
             PageFactory.InitElements(driver, this);
         }
 
@@ -36,7 +35,7 @@ namespace AutomationPractice.PageObjects
 
         public static ContextMenuPage GetContextMenuPage()
         {
-            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
             if (instanceOfPage == null)
             {
                 instanceOfPage = new ContextMenuPage(driver);
@@ -44,29 +43,31 @@ namespace AutomationPractice.PageObjects
             return instanceOfPage;
         }
 
+        private IAlert GetAlertWindow()
+        {
+            var alert_win = _driver.SwitchTo().Alert();
+            return alert_win;
+        }
+
         public void RightClickOnContextMenu()
         {
-            Actions action = new Actions(driver);
+            Actions action = new Actions(_driver);
             action.MoveToElement(elem_ContextMenu).ContextClick().Perform();
         }
 
-        public IAlert GetAlertWindow()
-        {
-            var alert_win = driver.SwitchTo().Alert();
-            return alert_win;
-        }
         public void AssertTextInTheAlert()
         {
             var alert = GetAlertWindow();
             string textInTheAlert = alert.Text;
-            Assert.AreEqual(expectedTextInTheAlert, textInTheAlert);
+            Assert.AreEqual(_expectedTextInTheAlert, textInTheAlert);
         }
+
         public void AcceptTheAllert()
         {
             var alert = GetAlertWindow();
             alert.Accept();
             //Will wait until alert dissapear
-            wait.Until(ExpectedConditions.AlertState(false));
+            _wait.Until(ExpectedConditions.AlertState(false));
         }
     }
 }

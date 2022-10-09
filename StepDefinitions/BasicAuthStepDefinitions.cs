@@ -11,18 +11,15 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class BasicAuthStepDefinitions
     {
-        readonly BasicAuthPage basicAuthPage = BasicAuthPage.GetBasicAuthPage();
+        private readonly BasicAuthPage _basicAuthPage = BasicAuthPage.GetBasicAuthPage();
 
         [When(@"I will login as '([^']*)'")]
-        public void WhenIWillLoginAs(string loginName)
-        {
-            basicAuthPage.GoToAuthPage(loginName);
-        }
+        public void WhenIWillLoginAs(string loginName) => _basicAuthPage.GoToAuthPage(loginName);
 
         [Then(@"I will assert that I am logged in")]
         public void ThenIWillAssertThatIAmLoggedIn()
         {
-            bool state = basicAuthPage.CheckThatYouAreLoggedIn();
+            bool state = _basicAuthPage.CheckThatYouAreLoggedIn();
             if (state == false)
             {
                 throw new Exception("Test is failed, can't find the message after authorization");
@@ -32,7 +29,7 @@ namespace AutomationPractice.StepDefinitions
         [Then(@"I will assert that I am not logged in")]
         public void ThenIWillAssertThatIAmNotLoggedIn()
         {
-            bool state = basicAuthPage.CheckThatYouAreLoggedIn();
+            bool state = _basicAuthPage.CheckThatYouAreLoggedIn();
             if (state == true)
             {
                 throw new Exception("Test is failed, message was found");
