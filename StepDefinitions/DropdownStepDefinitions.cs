@@ -11,7 +11,6 @@ namespace AutomationPractice.StepDefinitions
     {
         readonly DropdownPage dropdownPage = DropdownPage.GetDropdownPage();
 
-
         [When(@"I will select every option")]
         public void WhenIWillSelectEveryOption()
         {

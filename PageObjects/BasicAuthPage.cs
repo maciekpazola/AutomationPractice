@@ -67,8 +67,8 @@ namespace AutomationPractice.PageObjects
         {
             try
             {
-                var output = elem_Message.GetAttribute("innerText");
-                if (output != null)
+                var MessageInnerText = elem_Message.GetAttribute("innerText");
+                if (MessageInnerText != null)
                 {
                     return true;
                 }

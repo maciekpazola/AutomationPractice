@@ -1,6 +1,7 @@
 using AutomationPractice.Drivers.Driver;
 using AutomationPractice.PageObjects;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using System;
 using TechTalk.SpecFlow;
 

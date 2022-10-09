@@ -65,8 +65,8 @@ namespace AutomationPractice.PageObjects
         {
             var alert = GetAlertWindow();
             alert.Accept();
-            alert.Equals(null);
-            elem_ContextMenu.Click();
+            //Will wait until alert dissapear
+            wait.Until(ExpectedConditions.AlertState(false));
         }
     }
 }

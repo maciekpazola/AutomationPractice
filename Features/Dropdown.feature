@@ -1,6 +1,6 @@
 ﻿Feature: Dropdown
 
-This short scenario will check the Add/Remove Elements section 
+This test will check the dropdown with multiple options
 
 @Test4
 Scenario: Select all elements from droprown
