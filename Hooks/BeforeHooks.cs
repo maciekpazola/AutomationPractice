@@ -16,10 +16,6 @@ namespace AutomationPractice.Drivers.Hooks
         }
 
         [BeforeScenario]
-        public static void BeforeScenario()
-        {
-            //Driver.GetInstanceOfDriver().GetDriver();
-            Page.Home.GoToHomePage();
-        }
+        public static void BeforeScenario() => Page.Home.GoToHomePage();
     }
 }

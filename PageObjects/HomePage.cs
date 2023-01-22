@@ -21,10 +21,10 @@ namespace AutomationPractice.PageObjects
 
 
         [FindsBy(How = How.LinkText, Using = "Add/Remove Elements")]
-        private IWebElement elem_AddRemoveElements;
+        private IWebElement addRemoveElements;
 
         [FindsBy(How = How.LinkText, Using = "Basic Auth")]
-        private IWebElement elem_BasicAuth;
+        private IWebElement basicAuth;
 
         public void GoToHomePage()
         {

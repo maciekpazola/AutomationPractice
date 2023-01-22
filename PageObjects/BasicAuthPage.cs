@@ -12,7 +12,7 @@ namespace AutomationPractice.PageObjects
         private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
 
         [FindsBy(How = How.ClassName, Using = "example")]
-        private IWebElement elem_Message;
+        private IWebElement message;
 
         public void GoToAuthPage(string loginName)
         {
@@ -37,7 +37,7 @@ namespace AutomationPractice.PageObjects
         {
             try
             {
-                var MessageInnerText = elem_Message.GetAttribute("innerText");
+                var MessageInnerText = message.GetAttribute("innerText");
                 return MessageInnerText != null;
             }
             catch (NoSuchElementException)

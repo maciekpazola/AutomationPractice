@@ -10,16 +10,16 @@ namespace AutomationPractice.PageObjects
     public class AddRemoveElementsPage
     {
         [FindsBy(How = How.XPath, Using = "//div[@class='example']/button")]
-        private IWebElement elem_AddElementButton;
+        private IWebElement addElementButton;
 
         [FindsBy(How = How.CssSelector, Using = "button.added-manually[onclick='deleteElement()']")]
-        private IList<IWebElement> elem_Delete;
+        private IList<IWebElement> deleteButtons;
 
-        public void ClickAddElementButton()=> elem_AddElementButton.Click();
+        public void ClickAddElementButton()=> addElementButton.Click();
 
         public void RemoveAllTheElements()
         {
-            foreach (IWebElement element in elem_Delete)
+            foreach (IWebElement element in deleteButtons)
                 element.Click();
         }
     }

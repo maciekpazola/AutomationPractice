@@ -8,18 +8,18 @@ namespace AutomationPractice.PageObjects
     public class DropdownPage
     {
         [FindsBy(How = How.Id, Using = "dropdown")]
-        private IWebElement elem_Dropdown;
+        private IWebElement dropdown;
 
         public void SelectAllElementsInDropdown()
         {
-            DropdownElement dropdown = new DropdownElement(elem_Dropdown);
-            dropdown.SelectAllElementsInDropdown();
+            DropdownElement dropdownElement = new DropdownElement(dropdown);
+            dropdownElement.SelectAllElementsInDropdown();
         }
 
         public void AssertNumberOfElementsInDropdown(int numberOfOptions)
         {
-            DropdownElement dropdown = new DropdownElement(elem_Dropdown);
-            dropdown.GetNumberOfElementsInDropdown().Should().Be(numberOfOptions);
+            DropdownElement dropdownElement = new DropdownElement(dropdown);
+            dropdownElement.GetNumberOfElementsInDropdown().Should().Be(numberOfOptions);
         }
 
     }
