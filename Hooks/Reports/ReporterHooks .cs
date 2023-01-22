@@ -1,4 +1,4 @@
-﻿using AutomationPractice.Drivers.Driver;
+﻿using AutomationPractice.DriverFolder;
 using System;
 using TechTalk.SpecFlow;
 using AventStack.ExtentReports.Reporter;
@@ -33,10 +33,7 @@ namespace AutomationPractice.Drivers.Hooks.Reports
         }
 
         [AfterTestRun]
-        public static void TearDownReport()
-        {
-            extent.Flush();
-        }
+        public static void TearDownReport() => extent.Flush();
 
         [AfterStep]
         public void InsertReportingSteps(ScenarioContext sc)

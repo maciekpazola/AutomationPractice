@@ -7,7 +7,7 @@ using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using WebDriverManager.DriverConfigs.Impl;
 
-namespace AutomationPractice.Drivers.Driver
+namespace AutomationPractice.DriverFolder
 {
     public class Driver
     {

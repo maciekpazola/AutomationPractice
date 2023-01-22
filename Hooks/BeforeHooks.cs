@@ -1,11 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using AutomationPractice.Drivers.Driver;
+﻿using AutomationPractice.DriverFolder;
 using AutomationPractice.PageObjects;
-using BoDi;
 using OpenQA.Selenium;
 
 namespace AutomationPractice.Drivers.Hooks
@@ -16,7 +10,7 @@ namespace AutomationPractice.Drivers.Hooks
         [BeforeTestRun]
         public static void Setup()
         {
-            IWebDriver driver = Driver.Driver.GetInstanceOfDriver().GetDriver();
+            IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
             driver.Manage().Window.Maximize();
             driver.Manage().Cookies.DeleteAllCookies();
         }
@@ -24,9 +18,8 @@ namespace AutomationPractice.Drivers.Hooks
         [BeforeScenario]
         public static void BeforeScenario()
         {
-            IWebDriver driver = Driver.Driver.GetInstanceOfDriver().GetDriver();
-            HomePage page = new HomePage(driver);
-            page.GoToHomePage();
+            //Driver.GetInstanceOfDriver().GetDriver();
+            Page.Home.GoToHomePage();
         }
     }
 }

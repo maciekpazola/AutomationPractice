@@ -1,39 +1,35 @@
-﻿using AutomationPractice.Drivers.Driver;
+﻿using AutomationPractice.DriverFolder;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using SeleniumExtras.WaitHelpers;
 
 namespace AutomationPractice.PageObjects
 {
     public class DragAndDropPage
     {
-        private readonly IWebDriver _driver;
-        private readonly WebDriverWait _wait;
-        private static DropdownPage instanceOfPage;
+        private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
+        private readonly WebDriverWait _wait = new WebDriverWait(Driver.GetInstanceOfDriver().GetDriver(), TimeSpan.FromSeconds(10));
 
-        public DragAndDropPage(IWebDriver driver)
+        [FindsBy(How = How.Id, Using = "column-a")]
+        private IWebElement element_A;
+
+        [FindsBy(How = How.Id, Using = "column-b")]
+        private IWebElement element_B;
+
+
+        public void DragAndDropElementAtoElementB()
         {
-            this._driver = driver;
-            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            PageFactory.InitElements(driver, this);
+            Actions action = new Actions(_driver);
+            var locationA = element_A.Location;
+            var locationB = element_B.Location;
+            action.ClickAndHold(element_A).MoveToElement(element_B).Release().Build().Perform();
         }
 
-        [FindsBy(How = How.Id, Using = "dropdown")]
-        private IWebElement elem_Dropdown;
-
-        public static DropdownPage GetDropdownPage()
+        public void AssertPositionOfElements()
         {
-            IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
-            if (instanceOfPage == null)
-            {
-                instanceOfPage = new DropdownPage(driver);
-            }
-            return instanceOfPage;
+            _wait.Until(ExpectedConditions.TextToBePresentInElement(element_A, "B"));
         }
     }
 }

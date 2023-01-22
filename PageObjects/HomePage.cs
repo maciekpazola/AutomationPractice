@@ -10,23 +10,15 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
-using AutomationPractice.Drivers.Driver;
+using AutomationPractice.DriverFolder;
 
 namespace AutomationPractice.PageObjects
 {
     public class HomePage
     {
         private readonly string _homePageUrl = "http://the-internet.herokuapp.com/";
-        private readonly IWebDriver _driver;
-        private readonly WebDriverWait _wait;
-        private static HomePage instanceOfPage;
+        private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
 
-        public HomePage(IWebDriver driver)
-        {
-            this._driver = driver;
-            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            PageFactory.InitElements(driver, this);
-        }
 
         [FindsBy(How = How.LinkText, Using = "Add/Remove Elements")]
         private IWebElement elem_AddRemoveElements;
@@ -34,19 +26,9 @@ namespace AutomationPractice.PageObjects
         [FindsBy(How = How.LinkText, Using = "Basic Auth")]
         private IWebElement elem_BasicAuth;
 
-            public static HomePage GetHomePage()
-            {
-                IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
-                if (instanceOfPage == null)
-                {
-                instanceOfPage = new HomePage(driver);
-                }
-                return instanceOfPage;
-            }
-
         public void GoToHomePage()
         {
-            _driver.Navigate().GoToUrl(_homePageUrl);
+            _driver.Navigate().GoToUrl("http://the-internet.herokuapp.com/");
             ExpectedConditions.UrlMatches(_homePageUrl);
         }
 

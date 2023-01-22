@@ -23,7 +23,7 @@ namespace AutomationPractice.AbstractionLayer.Elements
         public void SelectAllElementsInDropdown()
         {
             int numberOfElements = GetNumberOfElementsInDropdown();
-            for (int i = 0; i < numberOfElements; i++)
+            for (int i = 1; i < numberOfElements; i++)
             {
                 _dropdown.SelectByIndex(i);
                 //Assertion will check if the element is selected

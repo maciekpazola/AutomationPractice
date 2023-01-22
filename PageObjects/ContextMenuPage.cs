@@ -1,47 +1,21 @@
-﻿using AutomationPractice.AbstractionLayer.Elements;
-using AutomationPractice.Drivers.Driver;
-using FluentAssertions;
+﻿using AutomationPractice.DriverFolder;
+using AutomationPractice.Helper;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace AutomationPractice.PageObjects
 {
     public class ContextMenuPage
     {
         private readonly string _expectedTextInTheAlert = "You selected a context menu";
-        private readonly IWebDriver _driver;
-        private readonly WebDriverWait _wait;
-        private static ContextMenuPage instanceOfPage;
-
-
-        public ContextMenuPage(IWebDriver driver)
-        {
-            this._driver = driver;
-            _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            PageFactory.InitElements(driver, this);
-        }
-
+        private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
         [FindsBy(How = How.Id, Using = "hot-spot")]
         private IWebElement elem_ContextMenu;
-
-        public static ContextMenuPage GetContextMenuPage()
-        {
-            IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
-            if (instanceOfPage == null)
-            {
-                instanceOfPage = new ContextMenuPage(driver);
-            }
-            return instanceOfPage;
-        }
 
         private IAlert GetAlertWindow()
         {
@@ -67,7 +41,7 @@ namespace AutomationPractice.PageObjects
             var alert = GetAlertWindow();
             alert.Accept();
             //Will wait until alert dissapear
-            _wait.Until(ExpectedConditions.AlertState(false));
+            Waits.GetWebDriverWait().Until(ExpectedConditions.AlertState(false));
         }
     }
 }
