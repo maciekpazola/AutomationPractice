@@ -29,7 +29,7 @@ namespace AutomationPractice.Drivers.Hooks.Reports
         public static void BeforeFeature(FeatureContext featureContext)
         {
             _featureName = _extent.CreateTest(new GherkinKeyword("Feature") + featureContext.FeatureInfo.Title);
-            _scenario = _featureName.CreateNode(new GherkinKeyword("_scenario") + featureContext.FeatureInfo.Title);
+            _scenario = _featureName.CreateNode(new GherkinKeyword("Scenario") + featureContext.FeatureInfo.Title);
         }
 
         [AfterTestRun]
