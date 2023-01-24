@@ -1,72 +1,47 @@
-﻿using AutomationPractice.AbstractionLayer.Elements;
-using AutomationPractice.Drivers.Driver;
-using FluentAssertions;
+﻿using AutomationPractice.DriverFolder;
+using AutomationPractice.Helper;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace AutomationPractice.PageObjects
 {
     public class ContextMenuPage
     {
-        private readonly string contextMenu_url = "http://the-internet.herokuapp.com/context_menu";
-        private readonly string expectedTextInTheAlert = "You selected a context menu";
-        private readonly IWebDriver driver;
-        private readonly WebDriverWait wait;
-        private static ContextMenuPage instanceOfPage;
-
-
-        public ContextMenuPage(IWebDriver driver)
-        {
-            this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            PageFactory.InitElements(driver, this);
-        }
-
+        private readonly string _expectedTextInTheAlert = "You selected a context menu";
+        private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
         [FindsBy(How = How.Id, Using = "hot-spot")]
-        private IWebElement elem_ContextMenu;
+        private IWebElement contextMenu;
 
-        public static ContextMenuPage GetContextMenuPage()
+        private IAlert GetAlertWindow()
         {
-            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
-            if (instanceOfPage == null)
-            {
-                instanceOfPage = new ContextMenuPage(driver);
-            }
-            return instanceOfPage;
+            IAlert alert_win = _driver.SwitchTo().Alert();
+            return alert_win;
         }
 
         public void RightClickOnContextMenu()
         {
-            Actions action = new Actions(driver);
-            action.MoveToElement(elem_ContextMenu).ContextClick().Perform();
+            Actions action = new Actions(_driver);
+            action.MoveToElement(contextMenu).ContextClick().Perform();
         }
 
-        public IAlert GetAlertWindow()
-        {
-            var alert_win = driver.SwitchTo().Alert();
-            return alert_win;
-        }
         public void AssertTextInTheAlert()
         {
-            var alert = GetAlertWindow();
+            IAlert alert = GetAlertWindow();
             string textInTheAlert = alert.Text;
-            Assert.AreEqual(expectedTextInTheAlert, textInTheAlert);
+            Assert.AreEqual(_expectedTextInTheAlert, textInTheAlert);
         }
+
         public void AcceptTheAllert()
         {
-            var alert = GetAlertWindow();
+            IAlert alert = GetAlertWindow();
             alert.Accept();
-            alert.Equals(null);
-            elem_ContextMenu.Click();
+            //Will wait until alert dissapear
+            Waits.GetWebDriverWait().Until(ExpectedConditions.AlertState(false));
         }
     }
 }

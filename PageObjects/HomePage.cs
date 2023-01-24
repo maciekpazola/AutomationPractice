@@ -10,50 +10,28 @@ using System.Threading.Tasks;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
-using AutomationPractice.Drivers.Driver;
+using AutomationPractice.DriverFolder;
 
 namespace AutomationPractice.PageObjects
 {
     public class HomePage
     {
-        private readonly string homePage_url = "http://the-internet.herokuapp.com/";
-        private readonly IWebDriver driver;
-        private readonly WebDriverWait wait;
-        private static HomePage instanceOfPage;
+        private readonly string _homePageUrl = "http://the-internet.herokuapp.com/";
+        private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
 
-        public HomePage(IWebDriver driver)
-        {
-            this.driver = driver;
-            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
-            PageFactory.InitElements(driver, this);
-        }
 
         [FindsBy(How = How.LinkText, Using = "Add/Remove Elements")]
-        private IWebElement elem_AddRemoveElements;
+        private IWebElement addRemoveElements;
 
         [FindsBy(How = How.LinkText, Using = "Basic Auth")]
-        private IWebElement elem_BasicAuth;
+        private IWebElement basicAuth;
 
-            public static HomePage GetHomePage()
-            {
-                IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
-                if (instanceOfPage == null)
-                {
-                instanceOfPage = new HomePage(driver);
-                }
-                return instanceOfPage;
-            }
-
-        // Go to the designated page
         public void GoToHomePage()
         {
-            driver.Navigate().GoToUrl(homePage_url);
-            ExpectedConditions.UrlMatches(homePage_url);
+            _driver.Navigate().GoToUrl("http://the-internet.herokuapp.com/");
+            ExpectedConditions.UrlMatches(_homePageUrl);
         }
 
-        public void OpenPage(string sectionName)
-        {
-            driver.FindElement(By.LinkText(sectionName)).Click();
-        }
+        public void OpenPage(string sectionName) => _driver.FindElement(By.LinkText(sectionName)).Click();
     }
 }

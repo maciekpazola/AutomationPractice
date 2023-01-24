@@ -1,20 +1,15 @@
-﻿using AutomationPractice.Drivers.Driver;
+﻿using AutomationPractice.DriverFolder;
 using OpenQA.Selenium;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutomationPractice.Drivers.Hooks
 {
     [Binding]
-    public class AfterHooks
+    public static class AfterHooks
     {
         [AfterTestRun]
         public static void CloseApp()
         {
-            IWebDriver driver = DriverClass.GetInstanceOfDriver().GetDriver();
+            IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
             driver.Quit();
         }
     }
