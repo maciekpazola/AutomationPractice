@@ -5,6 +5,7 @@ using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
 using System.Reflection;
 using OpenQA.Selenium;
+using AutomationPractice.Helper;
 
 namespace AutomationPractice.Drivers.Hooks.Reports
 {
