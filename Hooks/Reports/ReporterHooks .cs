@@ -1,13 +1,9 @@
-﻿using AutomationPractice.DriverFolder;
-using System;
-using TechTalk.SpecFlow;
-using AventStack.ExtentReports.Reporter;
+﻿using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
 using System.Reflection;
-using OpenQA.Selenium;
-using AutomationPractice.Helper;
 
-namespace AutomationPractice.Drivers.Hooks.Reports
+
+namespace AutomationPractice.Drivers.Hooks.Reports.Properties
 {
      [Binding]
     class Reporter : Steps
@@ -15,7 +11,7 @@ namespace AutomationPractice.Drivers.Hooks.Reports
         private static ExtentTest _featureName;
         private static ExtentTest _scenario;
         private static ExtentReports _extent;
-        private readonly static string reportFileLocation = @"C:\Users\MAPA\source\repos\AutomationPractice\Hooks\Reports\ReporterHooks";
+        private readonly static string reportFileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 
         [BeforeTestRun]
         public static void InitializeReport()
@@ -29,8 +25,8 @@ namespace AutomationPractice.Drivers.Hooks.Reports
         [BeforeFeature]
         public static void BeforeFeature(FeatureContext featureContext)
         {
-            _featureName = _extent.CreateTest(new GherkinKeyword("Feature") + featureContext.FeatureInfo.Title);
-            _scenario = _featureName.CreateNode(new GherkinKeyword("Scenario") + featureContext.FeatureInfo.Title);
+            _featureName = _extent.CreateTest(new GherkinKeyword("Feature"), featureContext.FeatureInfo.Title);
+            _scenario = _featureName.CreateNode(new GherkinKeyword("Scenario"), featureContext.FeatureInfo.Title);
         }
 
         [AfterTestRun]
