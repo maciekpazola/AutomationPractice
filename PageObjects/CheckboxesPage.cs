@@ -1,5 +1,4 @@
-﻿using AutomationPractice.AbstractionLayer.Elements;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 
@@ -13,7 +12,7 @@ namespace AutomationPractice.PageObjects
 
         private string GetStateOfCheckbox(IWebElement checkbox)
         {
-            return checkbox.GetDomProperty("checked");
+            return checkbox.GetDomProperty(Properties.Checked);
         }
 
         public void CheckAllCheckboxes()
