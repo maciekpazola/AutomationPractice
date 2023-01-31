@@ -43,5 +43,9 @@ namespace AutomationPractice.PageObjects
         {
             get { return GetPage<AddRemoveElementsPage>(); }
         }
+        public static CheckboxesPage Checkboxes
+        {
+            get { return GetPage<CheckboxesPage>(); }
+        }
     }
 }
