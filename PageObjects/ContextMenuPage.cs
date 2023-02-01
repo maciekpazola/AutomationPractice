@@ -19,15 +19,10 @@ namespace AutomationPractice.PageObjects
 
         private IAlert GetAlertWindow()
         {
-            IAlert alert_win = _driver.SwitchTo().Alert();
-            return alert_win;
+            return _driver.SwitchTo().Alert();
         }
 
-        public void RightClickOnContextMenu()
-        {
-            Actions action = new Actions(_driver);
-            action.MoveToElement(contextMenu).ContextClick().Perform();
-        }
+        public void RightClickOnContextMenu()=> ActionsBuilder.RightClickOnContextMenu(contextMenu).Perform();
 
         public void AssertTextInTheAlert()
         {

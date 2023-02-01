@@ -27,10 +27,7 @@ namespace AutomationPractice.PageObjects
         {
             get { return GetPage<DropdownPage>(); }
         }
-        public static DragAndDropPage DragAndDrop
-        {
-            get { return GetPage<DragAndDropPage>(); }
-        }
+
         public static ContextMenuPage ContextMenu
         {
             get { return GetPage<ContextMenuPage>(); }

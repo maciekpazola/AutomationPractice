@@ -10,19 +10,19 @@ namespace AutomationPractice.PageObjects
         [FindsBy(How = How.CssSelector, Using = "input[type='checkbox']")]
         private IList<IWebElement> checkboxes;
 
-        private string GetStateOfCheckbox(IWebElement checkbox)
+        private bool GetStateOfCheckbox(IWebElement checkbox)
         {
-            return checkbox.GetDomProperty(Properties.Checked);
+            return Convert.ToBoolean(checkbox.GetDomProperty(Properties.Checked));
         }
 
         public void CheckAllCheckboxes()
         {
             foreach (IWebElement checkbox in checkboxes)
             {
-                string isChecked = GetStateOfCheckbox(checkbox);
-                if (isChecked == "True")
+                bool isChecked = GetStateOfCheckbox(checkbox);
+                if (isChecked)
                     break;
-                else if(isChecked == "False")
+                else if(!isChecked)
                     checkbox.Click();
             }
         }
@@ -30,23 +30,23 @@ namespace AutomationPractice.PageObjects
         {
             foreach (IWebElement checkbox in checkboxes)
             {
-                string isChecked = GetStateOfCheckbox(checkbox);
-                if (isChecked == "True")
+                bool isChecked = GetStateOfCheckbox(checkbox);
+                if (isChecked)
                     checkbox.Click();
-                else if (isChecked == "False")
+                else if (!isChecked)
                     break;
             }
         }
-        private void AssertCheckboxes(string expectedResult)
+        private void AssertCheckboxes(bool expectedResult)
         {
             foreach (IWebElement checkbox in checkboxes)
             {
-                string isChecked = GetStateOfCheckbox(checkbox);
+                bool isChecked = GetStateOfCheckbox(checkbox);
                 Assert.AreEqual(expectedResult, isChecked);
             }
         }
-        public void AssertIfAllCheckboxesAreChecked() => AssertCheckboxes("True");
+        public void AssertIfAllCheckboxesAreChecked() => AssertCheckboxes(expectedResult : true);
 
-        public void AssertIfAllCheckboxesAreUnChecked() => AssertCheckboxes("False");
+        public void AssertIfAllCheckboxesAreUnChecked() => AssertCheckboxes(expectedResult : false);
     }
 }
