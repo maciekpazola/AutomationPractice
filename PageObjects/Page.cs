@@ -27,10 +27,7 @@ namespace AutomationPractice.PageObjects
         {
             get { return GetPage<DropdownPage>(); }
         }
-        public static DragAndDropPage DragAndDrop
-        {
-            get { return GetPage<DragAndDropPage>(); }
-        }
+
         public static ContextMenuPage ContextMenu
         {
             get { return GetPage<ContextMenuPage>(); }
@@ -42,6 +39,10 @@ namespace AutomationPractice.PageObjects
         public static AddRemoveElementsPage AddRemoveElements
         {
             get { return GetPage<AddRemoveElementsPage>(); }
+        }
+        public static CheckboxesPage Checkboxes
+        {
+            get { return GetPage<CheckboxesPage>(); }
         }
     }
 }

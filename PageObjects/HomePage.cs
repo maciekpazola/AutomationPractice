@@ -19,13 +19,6 @@ namespace AutomationPractice.PageObjects
         private readonly string _homePageUrl = "http://the-internet.herokuapp.com/";
         private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
 
-
-        [FindsBy(How = How.LinkText, Using = "Add/Remove Elements")]
-        private IWebElement addRemoveElements;
-
-        [FindsBy(How = How.LinkText, Using = "Basic Auth")]
-        private IWebElement basicAuth;
-
         public void GoToHomePage()
         {
             _driver.Navigate().GoToUrl("http://the-internet.herokuapp.com/");

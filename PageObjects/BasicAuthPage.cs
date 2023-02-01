@@ -37,7 +37,7 @@ namespace AutomationPractice.PageObjects
         {
             try
             {
-                var MessageInnerText = message.GetAttribute("innerText");
+                var MessageInnerText = message.GetAttribute(Properties.InnerText);
                 return MessageInnerText != null;
             }
             catch (NoSuchElementException)
@@ -48,15 +48,15 @@ namespace AutomationPractice.PageObjects
         public void AssertThatYouAreloggedIn()
         {
             bool visibilityOfMessage = CheckIfYouAreLoggedInByMessage();
-            if (visibilityOfMessage == false)
+            if (!visibilityOfMessage)
             {
                 throw new Exception("Test is failed, can't find the message after authorization");
             }
         }
         public void AssertThatYouAreNotloggedIn()
         {
-            bool state = CheckIfYouAreLoggedInByMessage();
-            if (state)
+            bool visibilityOfMessage = CheckIfYouAreLoggedInByMessage();
+            if (visibilityOfMessage)
             {
                 throw new Exception("Test is failed, message was found");
             }
