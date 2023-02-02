@@ -44,5 +44,9 @@ namespace AutomationPractice.PageObjects
         {
             get { return GetPage<CheckboxesPage>(); }
         }
+        public static DynamicControlsPage DynamicControls
+        {
+            get { return GetPage<DynamicControlsPage>(); }
+        }
     }
 }

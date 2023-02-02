@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AutomationPractice.AbstractionLayer.Elements;
+using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 
@@ -10,16 +11,12 @@ namespace AutomationPractice.PageObjects
         [FindsBy(How = How.CssSelector, Using = "input[type='checkbox']")]
         private IList<IWebElement> checkboxes;
 
-        private bool GetStateOfCheckbox(IWebElement checkbox)
-        {
-            return Convert.ToBoolean(checkbox.GetDomProperty(Properties.Checked));
-        }
-
         public void CheckAllCheckboxes()
         {
             foreach (IWebElement checkbox in checkboxes)
             {
-                bool isChecked = GetStateOfCheckbox(checkbox);
+                CheckboxElement checkboxElement = new CheckboxElement(checkbox);
+                bool isChecked = checkboxElement.GetCheckedState(checkbox);
                 if (isChecked)
                     break;
                 else if(!isChecked)
@@ -30,7 +27,8 @@ namespace AutomationPractice.PageObjects
         {
             foreach (IWebElement checkbox in checkboxes)
             {
-                bool isChecked = GetStateOfCheckbox(checkbox);
+                CheckboxElement checkboxElement = new CheckboxElement(checkbox);
+                bool isChecked = checkboxElement.GetCheckedState(checkbox);
                 if (isChecked)
                     checkbox.Click();
                 else if (!isChecked)
@@ -41,8 +39,8 @@ namespace AutomationPractice.PageObjects
         {
             foreach (IWebElement checkbox in checkboxes)
             {
-                bool isChecked = GetStateOfCheckbox(checkbox);
-                Assert.AreEqual(expectedResult, isChecked);
+                CheckboxElement checkboxElement = new CheckboxElement(checkbox);
+                checkboxElement.AssertIfChecked(expectedResult);
             }
         }
         public void AssertIfAllCheckboxesAreChecked() => AssertCheckboxes(expectedResult : true);
