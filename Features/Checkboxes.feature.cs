@@ -75,11 +75,11 @@ namespace AutomationPractice.Features
         
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Click on checkboxes")]
-        [NUnit.Framework.CategoryAttribute("Test7")]
+        [NUnit.Framework.CategoryAttribute("Test6")]
         public void ClickOnCheckboxes()
         {
             string[] tagsOfScenario = new string[] {
-                    "Test7"};
+                    "Test6"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Click on checkboxes", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6

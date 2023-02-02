@@ -2,7 +2,7 @@
 
 This scenario will check if checkboxes page works correctly.
 
-@Test7
+@Test6
 Scenario: Click on checkboxes
 	When I will go to 'Checkboxes' section
 	And I will check all checkboxes

@@ -8,7 +8,9 @@ namespace AutomationPractice.Helper
     {
         public static DefaultWait<IWebDriver> GetWebDriverWait()
         {
-            return new DefaultWait<IWebDriver>(Driver.GetInstanceOfDriver().GetDriver());
+            var wait = new DefaultWait<IWebDriver>(Driver.GetInstanceOfDriver().GetDriver());
+            wait.Timeout = TimeSpan.FromSeconds(5);
+            return wait;
         }
     }
 }
