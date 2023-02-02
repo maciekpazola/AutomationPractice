@@ -1,8 +1,4 @@
-﻿using System;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Remote;
-using NUnit.Framework;
-using System.Threading;
+﻿using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 
 namespace AutomationPractice.PageObjects

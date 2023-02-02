@@ -1,5 +1,4 @@
 ﻿using AutomationPractice.AbstractionLayer.Elements;
-using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 

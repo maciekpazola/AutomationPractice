@@ -13,3 +13,12 @@ Scenario: Remove and add checkbox
 	Then Checkbox will gone
 	When I will add checkbox
 	Then Checkbox will appear
+
+@Test8
+Scenario: Enable form and type text
+	When I will go to 'Dynamic Controls' section
+	And I will click enable
+	Then form will be enable
+	When I will fill in form
+	And I will click disable
+	Then form will be disable
