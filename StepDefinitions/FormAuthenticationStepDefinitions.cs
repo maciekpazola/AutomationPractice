@@ -1,3 +1,5 @@
+using AutomationPractice.PageObjects;
+using NUnit.Framework;
 using System;
 using TechTalk.SpecFlow;
 
@@ -7,33 +9,18 @@ namespace AutomationPractice.StepDefinitions
     public class FormAuthenticationStepDefinitions
     {
         [When(@"Correct credentials are filled in")]
-        public void WhenCorrectCredentialsAreFilledIn()
-        {
-            throw new PendingStepException();
-        }
+        public void WhenCorrectCredentialsAreFilledIn() => Page.FormAuthentication.Login(username: "tomsmith", password: "SuperSecretPassword!");
 
         [When(@"Login button is clicked")]
-        public void WhenLoginButtonIsClicked()
-        {
-            throw new PendingStepException();
-        }
+        public void WhenLoginButtonIsClicked() => Page.FormAuthentication.ClickLoginButton();
 
         [Then(@"User is successfully logged in")]
-        public void ThenUserIsSuccessfullyLoggedIn()
-        {
-            throw new PendingStepException();
-        }
+        public void ThenUserIsSuccessfullyLoggedIn() => Assert.IsTrue(Page.FormAuthentication.CheckIfUserIsLoggedIn());
 
         [When(@"Wrong credentials are filled in")]
-        public void WhenWrongCredentialsAreFilledIn()
-        {
-            throw new PendingStepException();
-        }
+        public void WhenWrongCredentialsAreFilledIn() => Page.FormAuthentication.Login(username: "WrongUser", password: "WrongPassword!");
 
         [Then(@"User is not successfully logged in")]
-        public void ThenUserIsNotSuccessfullyLoggedIn()
-        {
-            throw new PendingStepException();
-        }
+        public void ThenUserIsNotSuccessfullyLoggedIn() => Assert.IsFalse(Page.FormAuthentication.CheckIfUserIsLoggedIn());
     }
 }

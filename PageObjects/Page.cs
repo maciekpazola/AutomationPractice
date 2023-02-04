@@ -48,5 +48,9 @@ namespace AutomationPractice.PageObjects
         {
             get { return GetPage<DynamicControlsPage>(); }
         }
+        public static FormAuthenticationPage FormAuthentication
+        {
+            get { return GetPage<FormAuthenticationPage>(); }
+        }
     }
 }

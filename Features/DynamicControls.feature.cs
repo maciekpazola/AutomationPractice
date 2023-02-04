@@ -36,9 +36,9 @@ namespace AutomationPractice.Features
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
             TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "DynamicControls", "Controls present on the page are dynamic. Feature contrain scenario foreach contr" +
-                    "ol.\r\nFirst one for checkbox that is can be removed and added.\r\nSecond one is for" +
-                    "m that is disabled when site is loaded, after clicking button it will change sta" +
-                    "te.", ProgrammingLanguage.CSharp, featureTags);
+                    "ol.\r\nFirst one for checkbox that can be removed and added.\r\nSecond one is form t" +
+                    "hat is disabled when site is loaded, after clicking button it will change state." +
+                    "", ProgrammingLanguage.CSharp, featureTags);
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -96,7 +96,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 9
- testRunner.When("I will go to \'Dynamic Controls\' section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("\'Dynamic Controls\' section is opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 10
  testRunner.And("I will check all checkboxes", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -140,7 +140,7 @@ this.ScenarioInitialize(scenarioInfo);
             {
                 this.ScenarioStart();
 #line 19
- testRunner.When("I will go to \'Dynamic Controls\' section", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("\'Dynamic Controls\' section is opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 20
  testRunner.And("I will click enable", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
