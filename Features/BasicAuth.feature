@@ -3,13 +3,13 @@
 This quick scenarios will check browser alert window authorization.
 
 @Test2
-Scenario: Authorization happy path
-	When I will go to 'Basic Auth' section
-	And I will login as 'admin'
-	Then I will assert that I am logged in
+Scenario: Authentication happy path
+	When 'Basic Auth' section is opened
+	And User login as 'admin'
+	Then User will be logged in
 
 @Test3
-Scenario: Authoization fail path
-	When I will go to 'Basic Auth' section
-	And I will login as 'notAdmin'
-	Then I will assert that I am not logged in
+Scenario: Authentication fail path
+	When 'Basic Auth' section is opened
+	And User login as 'notAdmin'
+	Then User will not be logged in

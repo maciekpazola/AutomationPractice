@@ -8,13 +8,14 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class AddAndRemoveElementsStepDefinitions
     {
-        [When(@"I will go to '([^']*)' section")]
-        public void WhenIWillGoToSection(string sectionName) => Page.Home.OpenPage(sectionName);
+        [When(@"'([^']*)' section is opened")]
+        public void WhenSectionIsOpened(string sectionName) => Page.Home.OpenPage(sectionName);
 
-        [When(@"I will add element")]
-        public void WhenIWillAddElement() => Page.AddRemoveElements.ClickAddElementButton();
+        [When(@"Element is added")]
+        public void WhenElementIsAdded() => Page.AddRemoveElements.ClickAddElementButton();
 
-        [When(@"I will remove all the elements")]
-        public void WhenIWillRemoveAllTheElements() => Page.AddRemoveElements.RemoveAllTheElements();
+        [When(@"All elements are removed")]
+        public void WhenAllElementsAreRemoved() => Page.AddRemoveElements.RemoveAllTheElements();
+
     }
 }

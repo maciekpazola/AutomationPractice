@@ -5,14 +5,13 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class BasicAuthStepDefinitions
     {
-        [When(@"I will login as '([^']*)'")]
-        public void WhenIWillLoginAs(string loginName) => Page.BasicAuth.GoToAuthPage(loginName);
+        [When(@"User login as '([^']*)'")]
+        public void WhenUserLoginAs(string loginName) => Page.BasicAuth.GoToAuthPage(loginName);
 
-        [Then(@"I will assert that I am logged in")]
+        [Then(@"User will be logged in")]
+        public void ThenUserWillBeLoggedIn() => Page.BasicAuth.AssertThatYouAreloggedIn();
 
-        public void ThenIWillAssertThatIAmLoggedIn()=> Page.BasicAuth.AssertThatYouAreloggedIn();
-
-        [Then(@"I will assert that I am not logged in")]
-        public void ThenIWillAssertThatIAmNotLoggedIn()=> Page.BasicAuth.AssertThatYouAreNotloggedIn();
+        [Then(@"User will not be logged in")]
+        public void ThenUserWillNotBeLoggedIn() => Page.BasicAuth.AssertThatYouAreNotloggedIn();
     }
 }

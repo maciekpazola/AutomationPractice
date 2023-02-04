@@ -33,8 +33,18 @@ namespace AutomationPractice.PageObjects
         {
             IAlert alert = GetAlertWindow();
             alert.Accept();
-            //Will wait until alert dissapear
-            Waits.GetWebDriverWait().Until(ExpectedConditions.AlertState(false));
+        }
+
+        public void AssertIfAllertDissapeared()
+        {
+            try
+            {
+                Waits.GetWebDriverWait().Until(ExpectedConditions.AlertState(false));
+            }
+            catch (WebDriverTimeoutException)
+            {
+                throw new Exception("Alert is visible");
+            }
         }
     }
 }

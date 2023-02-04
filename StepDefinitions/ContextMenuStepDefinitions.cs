@@ -5,13 +5,16 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class ContextMenuStepDefinitions
     {
-        [When(@"I will right-click on the context menu")]
-        public void WhenIWillRight_ClickOnTheContextMenu() => Page.ContextMenu.RightClickOnContextMenu();
+        [When(@"User right click on the context menu")]
+        public void WhenUserRightClickOnTheContextMenu() => Page.ContextMenu.RightClickOnContextMenu();
 
         [Then(@"Alert will be shown")]
         public void ThenAlertWillBeShown() => Page.ContextMenu.AssertTextInTheAlert();
 
-        [When(@"I will click OK on the alert")]
-        public void WhenIWillClickOKOnTheAlert() => Page.ContextMenu.AcceptTheAllert();
+        [When(@"User will click OK on the alert")]
+        public void WhenUserWillClickOKOnTheAlert() => Page.ContextMenu.AcceptTheAllert();
+
+        [Then(@"Alert will disappear")]
+        public void ThenAlertWillDisappear() => Page.ContextMenu.AssertIfAllertDissapeared();
     }
 }
