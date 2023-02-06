@@ -6,14 +6,8 @@ namespace AutomationPractice.Helper
 {
     public static class ActionsBuilder
     {
-        public static Actions GetInstanceOfActions()
-        {
-            return new Actions(Driver.GetInstanceOfDriver().GetDriver());
-        }
+        public static Actions GetInstanceOfActions() => new Actions(Driver.GetInstanceOfDriver().GetDriver());
 
-        public static IAction RightClickOnContextMenu(IWebElement contextMenu)
-        {
-            return GetInstanceOfActions().MoveToElement(contextMenu).ContextClick().Build();
-        }
+        public static IAction RightClickOnContextMenu(IWebElement contextMenu) => GetInstanceOfActions().MoveToElement(contextMenu).ContextClick().Build();
     }
 }

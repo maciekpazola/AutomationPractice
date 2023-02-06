@@ -1,4 +1,5 @@
 ﻿using AutomationPractice.DriverFolder;
+using AutomationPractice.Helper;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
@@ -33,21 +34,9 @@ namespace AutomationPractice.PageObjects
             }
         }
 
-        private bool CheckIfYouAreLoggedInByMessage()
-        {
-            try
-            {
-                var MessageInnerText = message.GetAttribute(Properties.InnerText);
-                return MessageInnerText != null;
-            }
-            catch (NoSuchElementException)
-            {
-                return false;
-            }
-        }
         public void AssertThatYouAreloggedIn()
         {
-            bool visibilityOfMessage = CheckIfYouAreLoggedInByMessage();
+            bool visibilityOfMessage = StateCheck.CheckIfYouAreLoggedInByMessage(message);
             if (!visibilityOfMessage)
             {
                 throw new Exception("Test is failed, can't find the message after authorization");
@@ -55,7 +44,7 @@ namespace AutomationPractice.PageObjects
         }
         public void AssertThatYouAreNotloggedIn()
         {
-            bool visibilityOfMessage = CheckIfYouAreLoggedInByMessage();
+            bool visibilityOfMessage = StateCheck.CheckIfYouAreLoggedInByMessage(message);
             if (visibilityOfMessage)
             {
                 throw new Exception("Test is failed, message was found");

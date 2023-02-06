@@ -1,10 +1,6 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationPractice.Helper;
+using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AutomationPractice.PageObjects
 {
@@ -36,18 +32,13 @@ namespace AutomationPractice.PageObjects
 
         public bool CheckIfUserIsLoggedIn()
         {
-            try
-            {
-                if (messageWhenLoggedIn.Enabled)
-                    return true;
-                else if (messageWhenNotLoggedIn.Enabled)
-                    return false;
-            }
-            catch (NoSuchElementException ex)
-            {
+            if (StateCheck.CheckIfItemIsEnabled(messageWhenLoggedIn))
+                return true;
+
+            else if (StateCheck.CheckIfItemIsEnabled(messageWhenNotLoggedIn))
                 return false;
-            }
-            return false;
+
+            throw new Exception("Can't find message!");
         }
     }
 }
