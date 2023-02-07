@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using AutomationPractice.Helper;
+using NUnit.Framework;
 using OpenQA.Selenium;
 
 namespace AutomationPractice.AbstractionLayer.Elements
@@ -8,7 +9,7 @@ namespace AutomationPractice.AbstractionLayer.Elements
         private readonly IWebElement _checkboxElement;
         public CheckboxElement(IWebElement checkboxElement) => _checkboxElement = checkboxElement;
 
-        public bool GetCheckedState(IWebElement checkbox)=> Convert.ToBoolean(checkbox.GetDomProperty(Properties.Checked));
+        public bool GetCheckedState(IWebElement checkbox)=> StateCheck.GetPropertyState(checkbox, Properties.Checked);
 
         public void AssertIfChecked(bool expectedResult)
         {

@@ -15,24 +15,21 @@ namespace AutomationPractice.PageObjects
         [FindsBy(How = How.Id, Using = "hot-spot")]
         private IWebElement contextMenu;
 
-        private IAlert GetAlertWindow()
-        {
-            return _driver.SwitchTo().Alert();
-        }
+        private IAlert GetAlertWindow() => _driver.SwitchTo().Alert();
 
         public void RightClickOnContextMenu()=> ActionsBuilder.RightClickOnContextMenu(contextMenu).Perform();
+
+        public void AcceptTheAllert()
+        {
+            IAlert alert = GetAlertWindow();
+            alert.Accept();
+        }
 
         public void AssertTextInTheAlert()
         {
             IAlert alert = GetAlertWindow();
             string textInTheAlert = alert.Text;
             Assert.AreEqual(_expectedTextInTheAlert, textInTheAlert);
-        }
-
-        public void AcceptTheAllert()
-        {
-            IAlert alert = GetAlertWindow();
-            alert.Accept();
         }
 
         public void AssertIfAllertDissapeared()
@@ -43,7 +40,7 @@ namespace AutomationPractice.PageObjects
             }
             catch (WebDriverTimeoutException)
             {
-                throw new Exception("Alert is visible");
+                throw new Exception("Alert doesn't dissapear!");
             }
         }
     }
