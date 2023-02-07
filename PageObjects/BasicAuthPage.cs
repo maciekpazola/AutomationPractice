@@ -36,15 +36,15 @@ namespace AutomationPractice.PageObjects
 
         public void AssertThatYouAreloggedIn()
         {
-            bool visibilityOfMessage = StateCheck.CheckIfYouAreLoggedInByMessage(message);
-            if (!visibilityOfMessage)
+            bool visibilityOfMessage = StateCheck.CheckIfItemIsEnabled(message);
+            if (!visibilityOfMessage )
             {
                 throw new Exception("Test is failed, can't find the message after authorization");
             }
         }
         public void AssertThatYouAreNotloggedIn()
         {
-            bool visibilityOfMessage = StateCheck.CheckIfYouAreLoggedInByMessage(message);
+            bool visibilityOfMessage = StateCheck.CheckIfItemIsEnabled(message);
             if (visibilityOfMessage)
             {
                 throw new Exception("Test is failed, message was found");

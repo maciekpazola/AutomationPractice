@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="AbstractionLayer\Interfaces\" />
     <Folder Include="Support\" />
   </ItemGroup>
 
