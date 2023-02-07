@@ -13,6 +13,11 @@ namespace AutomationPractice.Helper
                             ScenarioContext.Current.ScenarioInfo.Title.ToIdentifier(),
                             DateTime.Now.ToString("yyyyMMdd_HHmmss"));
         }
+        private static string GetFileNameBaseForReport()
+        {
+            return string.Format("Report_{0}",
+                            DateTime.Now.ToString("yyyyMMdd_HHmmss"));
+        }
 
         public static string GetArtifactDirectory()
         {
@@ -20,6 +25,14 @@ namespace AutomationPractice.Helper
             if (!Directory.Exists(artifactDirectory))
                 Directory.CreateDirectory(artifactDirectory);
             return artifactDirectory;
+        }
+
+        public static string GetReportFilePath()
+        {
+            string artifactDirectory = GetArtifactDirectory();
+            string fileNameBase = GetFileNameBaseForReport();
+
+            return Path.Combine(artifactDirectory, fileNameBase);
         }
 
         public static void CreateSourceFile(IWebDriver driver, string artifactDirectory, string fileNameBase)

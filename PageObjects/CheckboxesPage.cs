@@ -42,7 +42,7 @@ namespace AutomationPractice.PageObjects
                 checkboxElement.AssertIfChecked(expectedResult);
             }
         }
-        public void AssertIfAllCheckboxesAreChecked() => AssertCheckboxes(expectedResult : true);
+        public void AssertIfAllCheckboxesAreChecked() => AssertCheckboxes(expectedResult : false);
 
         public void AssertIfAllCheckboxesAreUnChecked() => AssertCheckboxes(expectedResult : false);
     }

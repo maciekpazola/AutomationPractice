@@ -15,7 +15,7 @@ namespace AutomationPractice.Drivers.Hooks.Reports.Properties
         [BeforeTestRun]
         public static void InitializeReport()
         {
-            var htmlReporter = new ExtentHtmlReporter(FileManager.GetArtifactDirectory());
+            var htmlReporter = new ExtentHtmlReporter(FileManager.GetReportFilePath());
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             _extent = new ExtentReports();
             _extent.AttachReporter(htmlReporter);
