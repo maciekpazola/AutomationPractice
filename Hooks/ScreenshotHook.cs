@@ -7,12 +7,13 @@ namespace AutomationPractice.Hooks
     [Binding]
     public class ScreenshotHook
     {
-        IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
+        private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
         [AfterScenario]
         public void AfterWebTest()
         {
             if (ScenarioContext.Current.TestError != null)
             {
+                logger.Logger.WriteWarningLog("Screenshot is taken, because test is failed");
                 TakeScreenshot(_driver);
             }
         }

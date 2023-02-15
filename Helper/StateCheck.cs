@@ -10,6 +10,7 @@ namespace AutomationPractice.Helper
         {
             var wait = Waits.GetWebDriverWait();
             wait.Until(driver => clickedButton.Enabled);
+            logger.Logger.WriteInfoLog("Clicked element enable state: " + clickedButton.Enabled);
             return CheckIfItemIsEnabled(itemToCheck);
         }
 
@@ -18,10 +19,12 @@ namespace AutomationPractice.Helper
             {
                 try
                 {
+                    logger.Logger.WriteInfoLog("Clicked element enable state: " + element.Enabled);
                     return element.Enabled;
                 }
                 catch (NoSuchElementException ex)
                 {
+                    logger.Logger.WriteInfoLog("Clicked element enable state: False");
                     return false;
                 }
             }

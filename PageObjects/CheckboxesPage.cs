@@ -2,7 +2,6 @@
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 
-
 namespace AutomationPractice.PageObjects
 {
     public class CheckboxesPage

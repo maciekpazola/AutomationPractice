@@ -1,4 +1,7 @@
-﻿using OpenQA.Selenium;
+﻿using log4net;
+using logger;
+using NUnit.Framework;
+using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 
 namespace AutomationPractice.PageObjects
