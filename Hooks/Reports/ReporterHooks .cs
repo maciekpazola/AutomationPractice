@@ -1,7 +1,7 @@
 ﻿using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
 using System.Reflection;
-
+using AutomationPractice.Helper;
 
 namespace AutomationPractice.Drivers.Hooks.Reports.Properties
 {
@@ -11,12 +11,11 @@ namespace AutomationPractice.Drivers.Hooks.Reports.Properties
         private static ExtentTest _featureName;
         private static ExtentTest _scenario;
         private static ExtentReports _extent;
-        private readonly static string reportFileLocation = Directory.GetParent(Directory.GetCurrentDirectory()).Parent.FullName;
 
         [BeforeTestRun]
         public static void InitializeReport()
         {
-            var htmlReporter = new ExtentHtmlReporter(reportFileLocation);
+            var htmlReporter = new ExtentHtmlReporter(FileManager.GetReportFilePath());
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             _extent = new ExtentReports();
             _extent.AttachReporter(htmlReporter);

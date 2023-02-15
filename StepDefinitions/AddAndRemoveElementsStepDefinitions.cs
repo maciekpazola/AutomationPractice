@@ -1,6 +1,3 @@
-using System;
-using TechTalk.SpecFlow;
-using OpenQA.Selenium;
 using AutomationPractice.PageObjects;
 
 namespace AutomationPractice.StepDefinitions

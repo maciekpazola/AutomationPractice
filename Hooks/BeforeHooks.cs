@@ -1,5 +1,6 @@
 ﻿using AutomationPractice.DriverFolder;
 using AutomationPractice.PageObjects;
+using logger;
 using OpenQA.Selenium;
 
 namespace AutomationPractice.Drivers.Hooks
@@ -13,9 +14,16 @@ namespace AutomationPractice.Drivers.Hooks
             IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
             driver.Manage().Window.Maximize();
             driver.Manage().Cookies.DeleteAllCookies();
+            Logger.ClearLogFile();
         }
 
+
         [BeforeScenario]
-        public static void BeforeScenario() => Page.Home.GoToHomePage();
+        public static void BeforeScenario()
+        {
+            Logger.WriteToLog("");
+            Logger.WriteToLog(ScenarioContext.Current.ScenarioInfo.Title + ":");
+            Page.Home.GoToHomePage();
+        }
     }
 }
