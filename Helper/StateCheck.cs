@@ -1,10 +1,13 @@
-﻿using OpenQA.Selenium;
+﻿using AutomationPractice.DriverFolder;
+using OpenQA.Selenium;
 
 namespace AutomationPractice.Helper
 {
     public static class StateCheck
     {
         public static bool GetPropertyState(IWebElement element, string property) => Convert.ToBoolean(element.GetDomProperty(property));
+
+        public static int GetNumberOfElements(By by) => Driver.GetInstanceOfDriver().GetDriver().FindElements(by).Count;
 
         public static bool CheckIfItemIsLoaded(IWebElement clickedButton, IWebElement itemToCheck)
         {
@@ -22,11 +25,16 @@ namespace AutomationPractice.Helper
                     logger.Logger.WriteInfoLog("Clicked element enable state: " + element.Enabled);
                     return element.Enabled;
                 }
-                catch (NoSuchElementException ex)
+                catch (Exception ex)
                 {
-                    logger.Logger.WriteInfoLog("Clicked element enable state: False");
-                    return false;
+                    if (ex is NoSuchElementException || ex is StaleElementReferenceException)
+                    {
+                        logger.Logger.WriteInfoLog("Clicked element enable state: False");
+                        return false;
+                    }
+                    throw;
                 }
+
             }
         }
     }

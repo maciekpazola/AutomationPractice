@@ -12,6 +12,7 @@ namespace AutomationPractice.PageObjects
     {
         private readonly string _expectedTextInTheAlert = "You selected a context menu";
         private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
+
         [FindsBy(How = How.Id, Using = "hot-spot")]
         private IWebElement contextMenu;
 

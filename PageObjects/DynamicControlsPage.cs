@@ -1,4 +1,5 @@
-﻿using AutomationPractice.Helper;
+﻿using AutomationPractice.AbstractionLayer.Elements;
+using AutomationPractice.Helper;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
@@ -8,31 +9,49 @@ namespace AutomationPractice.PageObjects
 {
     public class DynamicControlsPage
     {
-        [FindsBy(How = How.CssSelector, Using = "button[onclick='swapCheckbox()']")]
-        private IWebElement removeOrAddButton;
+        private ButtonElement RemoveOrAddButton() => new ButtonElement(Locator.GetButtonLocator("swapCheckbox"));
 
-        [FindsBy(How = How.CssSelector, Using = "button[onclick='swapInput()']")]
-        private IWebElement enableOrDisableButton;
+        private ButtonElement EnableOrDisableButton() => new ButtonElement(Locator.GetButtonLocator("swapInput"));
 
-        [FindsBy(How = How.Id, Using = "checkbox")]
-        private IWebElement checkbox;
+        private CheckboxElement Checkbox() => new CheckboxElement(Locator.GetCheckboxLocator());
+
 
         [FindsBy(How = How.CssSelector, Using = "input[type='text']")]
         private IWebElement formField;
 
 
-        public void RemoveCheckbox()=> removeOrAddButton.Click();
+        public void RemoveCheckbox()=> RemoveOrAddButton().Click();
 
-        public void AssertIfCheckboxIsPresent(bool expectedResult)=> Assert.AreEqual(expectedResult, StateCheck.CheckIfItemIsLoaded(removeOrAddButton, checkbox));
+        public void AssertIfCheckboxIsPresent(bool expectedResult)
+        {
+            bool state;
+            if (!expectedResult)
+            {
+                try
+                {
+                    state = StateCheck.CheckIfItemIsLoaded(RemoveOrAddButton().Button, Checkbox().Checkbox);
+                }
+                catch (WebDriverTimeoutException ex)
+                {
+                    state = false;
+                }
+                Assert.AreEqual(expectedResult, state);
+            }
+            if(expectedResult)
+            {
+                state = StateCheck.CheckIfItemIsLoaded(RemoveOrAddButton().Button, Checkbox().Checkbox);
+                Assert.AreEqual(expectedResult, state);
+            }
+        }
 
-        public void AddCheckbox() => removeOrAddButton.Click();
+        public void AddCheckbox() => RemoveOrAddButton().Click();
 
-        public void ClickEnable() => enableOrDisableButton.Click();
+        public void ClickEnable() => EnableOrDisableButton().Click();
 
-        public void AssertIfFormIsEnable(bool expectedResult) => Assert.AreEqual(expectedResult, StateCheck.CheckIfItemIsLoaded(enableOrDisableButton, formField));
+        public void AssertIfFormIsEnable(bool expectedResult) => Assert.AreEqual(expectedResult, StateCheck.CheckIfItemIsLoaded(EnableOrDisableButton().Button, formField));
 
         public void FillInFormField(string text) => formField.SendKeys(text);
 
-        public void ClickDisable() => enableOrDisableButton.Click();
+        public void ClickDisable() => EnableOrDisableButton().Click();
     }
 }
