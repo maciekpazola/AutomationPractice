@@ -99,7 +99,7 @@ this.ScenarioInitialize(scenarioInfo);
  testRunner.And("User right click on the context menu", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 9
- testRunner.Then("Alert will be shown", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("Alert will be shown with text \'You selected a context menu\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
 #line 10
  testRunner.When("User will click OK on the alert", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");

@@ -8,8 +8,8 @@ namespace AutomationPractice.StepDefinitions
         [When(@"User right click on the context menu")]
         public void WhenUserRightClickOnTheContextMenu() => Page.ContextMenu.RightClickOnContextMenu();
 
-        [Then(@"Alert will be shown")]
-        public void ThenAlertWillBeShown() => Page.ContextMenu.AssertTextInTheAlert();
+        [Then(@"Alert will be shown with text '([^']*)'")]
+        public void ThenAlertWillBeShownWithText(string textInAlert) => Page.ContextMenu.AssertTextInTheAlert(textInAlert);
 
         [When(@"User will click OK on the alert")]
         public void WhenUserWillClickOKOnTheAlert() => Page.ContextMenu.AcceptTheAllert();

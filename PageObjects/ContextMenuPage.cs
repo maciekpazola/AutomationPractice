@@ -1,4 +1,5 @@
-﻿using AutomationPractice.DriverFolder;
+﻿using AutomationPractice.AbstractionLayer.Elements;
+using AutomationPractice.DriverFolder;
 using AutomationPractice.Helper;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -10,38 +11,24 @@ namespace AutomationPractice.PageObjects
 {
     public class ContextMenuPage
     {
-        private readonly string _expectedTextInTheAlert = "You selected a context menu";
-        private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
         [FindsBy(How = How.Id, Using = "hot-spot")]
         private IWebElement contextMenu;
 
-        private IAlert GetAlertWindow() => _driver.SwitchTo().Alert();
+        [FindsBy(How = How.Id, Using = "page-footer")]
+        private IWebElement element;
+
+        private AlertElement Alert() => new AlertElement();
+
 
         public void RightClickOnContextMenu()=> ActionsBuilder.RightClickOnContextMenu(contextMenu).Perform();
 
         public void AcceptTheAllert()
         {
-            IAlert alert = GetAlertWindow();
-            alert.Accept();
+            Alert().Alert.Accept();
         }
 
-        public void AssertTextInTheAlert()
-        {
-            IAlert alert = GetAlertWindow();
-            string textInTheAlert = alert.Text;
-            Assert.AreEqual(_expectedTextInTheAlert, textInTheAlert);
-        }
+        public void AssertTextInTheAlert(string textInAlert) => Alert().AssertTextInTheAlert(textInAlert);
 
-        public void AssertIfAllertDissapeared()
-        {
-            try
-            {
-                Waits.GetWebDriverWait().Until(ExpectedConditions.AlertState(false));
-            }
-            catch (WebDriverTimeoutException)
-            {
-                throw new Exception("Alert doesn't dissapear!");
-            }
-        }
+        public void AssertIfAllertDissapeared() => Alert().CheckIfAlertDissapeared();
     }
 }
