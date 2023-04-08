@@ -12,7 +12,14 @@ namespace AutomationPractice.AbstractionLayer.Elements
         public CheckboxElement(string locator)
         {
             this.locator = locator;
-            Checkbox = Driver.GetInstanceOfDriver().GetDriver().FindElement(By.CssSelector(locator));
+            try
+            {
+                Checkbox = Driver.GetInstanceOfDriver().GetDriver().FindElement(By.CssSelector(locator));
+            }
+            catch (NoSuchElementException ex)
+            {
+                logger.Logger.WriteInfoLog("Can't find checkbox element");
+            }
         }
 
         public bool GetCheckedState()=> StateCheck.GetPropertyState(Checkbox, Properties.Checked);

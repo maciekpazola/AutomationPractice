@@ -19,22 +19,23 @@ namespace AutomationPractice.Helper
 
         public static bool CheckIfItemIsEnabled(IWebElement element)
         {
+            try
             {
-                try
+                var wait = Waits.GetWebDriverWait();
+                wait.Until(driver => element.Enabled);
+                logger.Logger.WriteInfoLog("Clicked element enable state: " + element.Enabled);
+                return element.Enabled;
+            }
+            catch (Exception ex)
+            {
+                if (ex is NoSuchElementException || ex is StaleElementReferenceException ||
+                    ex is WebDriverTimeoutException)
                 {
-                    logger.Logger.WriteInfoLog("Clicked element enable state: " + element.Enabled);
-                    return element.Enabled;
+                    logger.Logger.WriteInfoLog("Clicked element enable state: False" +"\n" + 
+                        "Exception occurred: " + ex.Message);
+                    return false;
                 }
-                catch (Exception ex)
-                {
-                    if (ex is NoSuchElementException || ex is StaleElementReferenceException)
-                    {
-                        logger.Logger.WriteInfoLog("Clicked element enable state: False");
-                        return false;
-                    }
-                    throw;
-                }
-
+                throw;
             }
         }
     }

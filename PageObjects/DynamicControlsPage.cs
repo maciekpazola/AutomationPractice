@@ -3,7 +3,7 @@ using AutomationPractice.Helper;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
-
+using SeleniumExtras.WaitHelpers;
 
 namespace AutomationPractice.PageObjects
 {
@@ -31,14 +31,18 @@ namespace AutomationPractice.PageObjects
                 {
                     state = StateCheck.CheckIfItemIsLoaded(RemoveOrAddButton().Button, Checkbox().Checkbox);
                 }
-                catch (WebDriverTimeoutException ex)
+                catch (Exception ex)
                 {
-                    state = false;
+                    if (ex is WebDriverTimeoutException || ex is NullReferenceException)
+                        state = false;
+                    else throw new Exception("Unexpected exception occured");
                 }
                 Assert.AreEqual(expectedResult, state);
             }
             if(expectedResult)
             {
+                var wait = Waits.GetFluentWait(timeoutInSeconds:5);
+                wait.Until(driver => Checkbox().Checkbox);
                 state = StateCheck.CheckIfItemIsLoaded(RemoveOrAddButton().Button, Checkbox().Checkbox);
                 Assert.AreEqual(expectedResult, state);
             }

@@ -52,5 +52,9 @@ namespace AutomationPractice.PageObjects
         {
             get { return GetPage<FormAuthenticationPage>(); }
         }
+        public static JavaScriptAlertsPage JavaScriptAlerts
+        {
+            get { return GetPage<JavaScriptAlertsPage>(); }
+        }
     }
 }
