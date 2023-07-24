@@ -1,6 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
-using AutomationPractice.DriverFolder;
+using AutomationPractice.Drivers;
 
 namespace AutomationPractice.PageObjects
 {

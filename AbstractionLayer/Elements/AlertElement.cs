@@ -1,13 +1,9 @@
-﻿using AutomationPractice.DriverFolder;
-using AutomationPractice.Helper;
+﻿using AutomationPractice.Drivers;
+using AutomationPractice.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace AutomationPractice.AbstractionLayer.Elements
 {
@@ -20,17 +16,13 @@ namespace AutomationPractice.AbstractionLayer.Elements
             {
                 Alert = Driver.GetInstanceOfDriver().GetDriver().SwitchTo().Alert();
             }
-            catch (NoAlertPresentException ex)
+            catch (NoAlertPresentException)
             {
-                logger.Logger.WriteInfoLog("Can't find alert element");
+                Logger.WriteInfoLog("Can't find alert element");
             }
         }
 
-        public void AssertTextInTheAlert(string expectedText)
-        {
-            string textInTheAlert = Alert.Text;
-            Assert.AreEqual(expectedText, textInTheAlert);
-        }
+        public void AssertTextInTheAlert(string expectedText) => Assert.AreEqual(expectedText, Alert.Text);
 
         public void CheckIfAlertDissapeared()
         {

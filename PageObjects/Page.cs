@@ -1,6 +1,4 @@
-﻿using System;
-using AutomationPractice.DriverFolder;
-using AutomationPractice.PageObjects;
+﻿using AutomationPractice.Drivers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;

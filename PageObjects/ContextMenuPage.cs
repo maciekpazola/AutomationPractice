@@ -1,10 +1,7 @@
 ﻿using AutomationPractice.AbstractionLayer.Elements;
-using AutomationPractice.DriverFolder;
-using AutomationPractice.Helper;
-using NUnit.Framework;
+using AutomationPractice.Helpers;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
-using SeleniumExtras.WaitHelpers;
 
 
 namespace AutomationPractice.PageObjects
@@ -12,23 +9,17 @@ namespace AutomationPractice.PageObjects
     public class ContextMenuPage
     {
         [FindsBy(How = How.Id, Using = "hot-spot")]
-        private IWebElement contextMenu;
+        private readonly IWebElement _contextMenu;
 
-        [FindsBy(How = How.Id, Using = "page-footer")]
-        private IWebElement element;
-
-        private AlertElement Alert() => new AlertElement();
+        private readonly AlertElement _alert = new();
 
 
-        public void RightClickOnContextMenu()=> ActionsBuilder.RightClickOnContextMenu(contextMenu).Perform();
+        public void RightClickOnContextMenu()=> ActionsBuilder.RightClickOnContextMenu(_contextMenu).Perform();
 
-        public void AcceptTheAllert()
-        {
-            Alert().Alert.Accept();
-        }
+        public void AcceptTheAllert() => _alert.Alert.Accept();
 
-        public void AssertTextInTheAlert(string textInAlert) => Alert().AssertTextInTheAlert(textInAlert);
+        public void AssertTextInTheAlert(string textInAlert) => _alert.AssertTextInTheAlert(textInAlert);
 
-        public void AssertIfAllertDissapeared() => Alert().CheckIfAlertDissapeared();
+        public void AssertIfAllertDissapeared() => _alert.CheckIfAlertDissapeared();
     }
 }

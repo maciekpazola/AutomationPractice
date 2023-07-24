@@ -1,9 +1,9 @@
-﻿using AutomationPractice.DriverFolder;
+﻿using AutomationPractice.Drivers;
 using OpenQA.Selenium;
 
-namespace AutomationPractice.Helper
+namespace AutomationPractice.Helpers
 {
-    public static class StateCheck
+    public static class StateChecker
     {
         public static bool GetPropertyState(IWebElement element, string property) => Convert.ToBoolean(element.GetDomProperty(property));
 
@@ -12,8 +12,9 @@ namespace AutomationPractice.Helper
         public static bool CheckIfItemIsLoaded(IWebElement clickedButton, IWebElement itemToCheck)
         {
             var wait = Waits.GetWebDriverWait();
-            wait.Until(driver => clickedButton.Enabled);
-            logger.Logger.WriteInfoLog("Clicked element enable state: " + clickedButton.Enabled);
+            wait.Until(_ => clickedButton.Enabled);
+
+            Logger.WriteInfoLog($"Clicked element enable state: {clickedButton.Enabled}");
             return CheckIfItemIsEnabled(itemToCheck);
         }
 
@@ -22,17 +23,18 @@ namespace AutomationPractice.Helper
             try
             {
                 var wait = Waits.GetWebDriverWait();
-                wait.Until(driver => element.Enabled);
-                logger.Logger.WriteInfoLog("Clicked element enable state: " + element.Enabled);
+                wait.Until(_ => element.Enabled);
+
+                Logger.WriteInfoLog($"Clicked element enable state: {element.Enabled}");
                 return element.Enabled;
             }
             catch (Exception ex)
             {
-                if (ex is NoSuchElementException || ex is StaleElementReferenceException ||
-                    ex is WebDriverTimeoutException)
+                if (ex is NoSuchElementException
+                    || ex is StaleElementReferenceException
+                    || ex is WebDriverTimeoutException)
                 {
-                    logger.Logger.WriteInfoLog("Clicked element enable state: False" +"\n" + 
-                        "Exception occurred: " + ex.Message);
+                    Logger.WriteInfoLog($"Clicked element enable state: False\nException occurred: {ex.Message}");
                     return false;
                 }
                 throw;

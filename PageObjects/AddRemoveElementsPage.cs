@@ -1,29 +1,23 @@
 ﻿using AutomationPractice.AbstractionLayer.Elements;
-using AutomationPractice.DriverFolder;
-using AutomationPractice.Helper;
-using log4net;
-using logger;
-using NUnit.Framework;
+using AutomationPractice.Helpers;
 using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
 
 namespace AutomationPractice.PageObjects
 {
     public class AddRemoveElementsPage
     {
-        private readonly string DeleteButtonLocator = Locator.GetButtonLocator("deleteElement");
+        private readonly ButtonElement _addElementButton = new(Locator.GetButtonLocator("addElement"));
 
-        private ButtonElement AddElementButton() => new ButtonElement(Locator.GetButtonLocator("addElement"));
-        private ButtonElement DeleteButton() => new ButtonElement(DeleteButtonLocator);
-
-
-        public void ClickAddElementButton()=> AddElementButton().Click();
+        public void ClickAddElementButton()=> _addElementButton.Click();
 
         public void RemoveAllTheElements()
         {
-            int numberOfRemoveButtons = StateCheck.GetNumberOfElements(By.CssSelector(DeleteButtonLocator));
+            int numberOfRemoveButtons = StateChecker.GetNumberOfElements(By.CssSelector(Locator.GetButtonLocator("deleteElement")));
             for(int i = 0; i < numberOfRemoveButtons; i++)
-                DeleteButton().Click();
+            {
+                ButtonElement deleteButton = new(Locator.GetButtonLocator("deleteElement"));
+                deleteButton.Click();
+            }
         }
     }
 }

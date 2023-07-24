@@ -1,20 +1,18 @@
 ﻿using AutomationPractice.AbstractionLayer.Elements;
-using AutomationPractice.Helper;
-using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+using AutomationPractice.Helpers;
 
 namespace AutomationPractice.PageObjects
 {
     public class CheckboxesPage
     {
-        private CheckboxElement Checkbox() => new CheckboxElement(Locator.GetCheckboxLocator());
+        private readonly CheckboxElement _checkbox = new(Locator.GetCheckboxLocator());
 
 
-        public void CheckAllCheckboxes() => Checkbox().CheckAll();
+        public void CheckAllCheckboxes() => _checkbox.CheckAll();
 
-        public void UnCheckAllCheckboxes() => Checkbox().UnCheckAll();
+        public void UnCheckAllCheckboxes() => _checkbox.UnCheckAll();
 
-        private void AssertCheckboxes(bool expectedResult) => Checkbox().AssertIfChecked(expectedResult);
+        private void AssertCheckboxes(bool expectedResult) => _checkbox.AssertIfChecked(expectedResult);
 
         public void AssertIfAllCheckboxesAreChecked() => AssertCheckboxes(expectedResult : true);
 

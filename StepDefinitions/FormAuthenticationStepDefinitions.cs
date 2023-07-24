@@ -1,7 +1,5 @@
 using AutomationPractice.PageObjects;
 using NUnit.Framework;
-using System;
-using TechTalk.SpecFlow;
 
 namespace AutomationPractice.StepDefinitions
 {
