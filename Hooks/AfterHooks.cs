@@ -1,5 +1,5 @@
-﻿using AutomationPractice.DriverFolder;
-using OpenQA.Selenium;
+﻿using AutomationPractice.Drivers;
+using AutomationPractice.Helpers;
 using System.Reflection;
 
 namespace AutomationPractice.Drivers.Hooks
@@ -8,11 +8,8 @@ namespace AutomationPractice.Drivers.Hooks
     public static class AfterHooks
     {
         [AfterTestRun]
-        public static void CloseApp()
-        {
-            IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
-            driver.Quit();
-        }
+        public static void CloseApp() => Driver.GetInstanceOfDriver().GetDriver().Quit();
+
         [AfterStep]
         public static void InsertLogs(ScenarioContext sc)
         {
@@ -23,12 +20,12 @@ namespace AutomationPractice.Drivers.Hooks
 
                 if (sc.TestError == null)
                 {
-                    logger.Logger.WriteInfoLog(ScenarioStepContext.Current.StepInfo.Text);
-                    logger.Logger.WriteToLog(TestResult.ToString());
+                    Logger.WriteInfoLog(ScenarioStepContext.Current.StepInfo.Text);
+                    Logger.WriteToLog(TestResult.ToString());
                 }
                 if (sc.TestError != null)
                 {
-                    logger.Logger.WriteErrorLog(sc.TestError.ToString());
+                    Logger.WriteErrorLog(sc.TestError.ToString());
                 }
             }
         }

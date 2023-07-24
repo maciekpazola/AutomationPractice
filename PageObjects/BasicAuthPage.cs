@@ -1,5 +1,5 @@
-﻿using AutomationPractice.DriverFolder;
-using AutomationPractice.Helper;
+﻿using AutomationPractice.Drivers;
+using AutomationPractice.Helpers;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
@@ -13,7 +13,7 @@ namespace AutomationPractice.PageObjects
         private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
 
         [FindsBy(How = How.ClassName, Using = "example")]
-        private IWebElement message;
+        private readonly IWebElement _message;
 
         public void GoToAuthPage(string loginName)
         {
@@ -36,7 +36,7 @@ namespace AutomationPractice.PageObjects
 
         public void AssertThatYouAreloggedIn()
         {
-            bool visibilityOfMessage = StateCheck.CheckIfItemIsEnabled(message);
+            bool visibilityOfMessage = StateChecker.CheckIfItemIsEnabled(_message);
             if (!visibilityOfMessage )
             {
                 throw new Exception("Test is failed, can't find the message after authorization");
@@ -44,7 +44,7 @@ namespace AutomationPractice.PageObjects
         }
         public void AssertThatYouAreNotloggedIn()
         {
-            bool visibilityOfMessage = StateCheck.CheckIfItemIsEnabled(message);
+            bool visibilityOfMessage = StateChecker.CheckIfItemIsEnabled(_message);
             if (visibilityOfMessage)
             {
                 throw new Exception("Test is failed, message was found");

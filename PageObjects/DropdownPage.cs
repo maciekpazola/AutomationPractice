@@ -1,17 +1,14 @@
 ﻿using AutomationPractice.AbstractionLayer.Elements;
-using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
-
 
 namespace AutomationPractice.PageObjects
 {
     public class DropdownPage
     {
-        private DropdownElement Dropdown() => new DropdownElement("#dropdown");
+        private readonly DropdownElement _dropdown = new("#dropdown");
 
-        public void SelectAllElementsInDropdown() => Dropdown().SelectAllElementsInDropdown();
+        public void SelectAllElementsInDropdown() => _dropdown.SelectAllElementsInDropdown();
 
-        public void AssertNumberOfElementsInDropdown(int numberOfOptions) => Dropdown().GetNumberOfElementsInDropdown()
-                                                                                          .Should().Be(numberOfOptions);
+        public void AssertNumberOfElementsInDropdown(int numberOfOptions) =>
+            _dropdown.GetNumberOfElementsInDropdown().Should().Be(numberOfOptions);
     }
 }

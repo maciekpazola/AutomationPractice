@@ -1,6 +1,4 @@
 using AutomationPractice.PageObjects;
-using System;
-using TechTalk.SpecFlow;
 
 namespace AutomationPractice.StepDefinitions
 {

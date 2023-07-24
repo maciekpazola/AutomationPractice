@@ -1,5 +1,5 @@
-﻿using AutomationPractice.DriverFolder;
-using AutomationPractice.Helper;
+﻿using AutomationPractice.Drivers;
+using AutomationPractice.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
 
@@ -8,21 +8,20 @@ namespace AutomationPractice.AbstractionLayer.Elements
     public class CheckboxElement
     {
         public readonly IWebElement Checkbox;
-        private readonly string locator;
+
+        private readonly string _locator;
         public CheckboxElement(string locator)
         {
-            this.locator = locator;
+            _locator = locator;
             try
             {
                 Checkbox = Driver.GetInstanceOfDriver().GetDriver().FindElement(By.CssSelector(locator));
             }
-            catch (NoSuchElementException ex)
+            catch (NoSuchElementException)
             {
-                logger.Logger.WriteInfoLog("Can't find checkbox element");
+                Logger.WriteInfoLog("Can't find checkbox element");
             }
         }
-
-        public bool GetCheckedState()=> StateCheck.GetPropertyState(Checkbox, Properties.Checked);
 
         public void AssertIfChecked(bool expectedResult)
         {
@@ -32,7 +31,7 @@ namespace AutomationPractice.AbstractionLayer.Elements
 
         public void CheckAll()
         {
-            int numberOfCheckboxes = StateCheck.GetNumberOfElements(By.CssSelector(locator));
+            int numberOfCheckboxes = StateChecker.GetNumberOfElements(By.CssSelector(_locator));
             for (int i = 0; i < numberOfCheckboxes; i++)
             {
                 bool isChecked = GetCheckedState();
@@ -45,7 +44,7 @@ namespace AutomationPractice.AbstractionLayer.Elements
 
         public void UnCheckAll()
         {
-            int numberOfCheckboxes = StateCheck.GetNumberOfElements(By.CssSelector(locator));
+            int numberOfCheckboxes = StateChecker.GetNumberOfElements(By.CssSelector(_locator));
             for (int i = 0; i < numberOfCheckboxes; i++)
             {
                 bool isChecked = GetCheckedState();
@@ -56,6 +55,8 @@ namespace AutomationPractice.AbstractionLayer.Elements
             }
         }
 
-        public void Click() => Checkbox.Click();
+        private void Click() => Checkbox.Click();
+
+        private bool GetCheckedState() => StateChecker.GetPropertyState(Checkbox, Properties.Checked);
     }
 }

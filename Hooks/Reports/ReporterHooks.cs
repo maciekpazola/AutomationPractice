@@ -1,7 +1,7 @@
 ﻿using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
 using System.Reflection;
-using AutomationPractice.Helper;
+using AutomationPractice.Helpers;
 
 namespace AutomationPractice.Drivers.Hooks.Reports.Properties
 {

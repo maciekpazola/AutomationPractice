@@ -1,5 +1,5 @@
-﻿using AutomationPractice.DriverFolder;
-using AutomationPractice.Helper;
+﻿using AutomationPractice.Drivers;
+using AutomationPractice.Helpers;
 using OpenQA.Selenium;
 
 namespace AutomationPractice.Hooks
@@ -8,12 +8,13 @@ namespace AutomationPractice.Hooks
     public class ScreenshotHook
     {
         private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
+
         [AfterScenario]
         public void AfterWebTest()
         {
             if (ScenarioContext.Current.TestError != null)
             {
-                logger.Logger.WriteWarningLog("Screenshot is taken, because test is failed");
+                Logger.WriteWarningLog("Screenshot is taken, because test is failed");
                 TakeScreenshot(_driver);
             }
         }
@@ -37,7 +38,7 @@ namespace AutomationPractice.Hooks
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Error while taking screenshot: {0}", ex);
+                Console.WriteLine($"Error while taking screenshot: {ex}");
             }
         }
     }

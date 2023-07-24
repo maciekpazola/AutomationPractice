@@ -2,7 +2,7 @@
 using OpenQA.Selenium.Chrome;
 using WebDriverManager.DriverConfigs.Impl;
 
-namespace AutomationPractice.DriverFolder
+namespace AutomationPractice.Drivers
 {
     public class Driver
     {
@@ -24,9 +24,6 @@ namespace AutomationPractice.DriverFolder
             return instanceOfDriverClass;
         }
 
-        public WebDriver GetDriver()
-        {
-            return _driver;
-        }
+        public WebDriver GetDriver() => _driver;
     }
 }
