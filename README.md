@@ -1,17 +1,17 @@
 # Automated Testing Project Using Selenium, C#, SpecFlow, and POM Pattern
 
 ## Project Description
-This project aims to demonstrate the process of creating and executing automated tests on the website "http://the-internet.herokuapp.com/". The tests are written in C# using the Selenium framework, SpecFlow for describing test scenarios in natural language, and the Page Object Model (POM) pattern for organizing the test structure.
+This project aims to demonstrate the process of creating and executing automated tests on the website "http://the-internet.herokuapp.com/". The tests are written in C# using the Selenium framework, SpecFlow for describing test scenarios in gherkin language, and the Page Object Model (POM) pattern for organizing the test structure.
 
 ## The project includes:
-- A login system for accessing the Selenium Grid server.
+- A logging system.
 - A reporting mechanism for test results.
 - Capturing screenshots in case of test failures.
 - Running tests in parallel across different browsers using Selenium Grid.
 - Using a `docker-compose` file to set up and manage the Selenium Grid server.
 
 ## Requirements:
-- Visual Studio or another C#-compatible editor.
+- Visual Studio or another C# compatible editor.
 - Docker installed on your computer to run the Selenium Grid.
 
 ## How to Run:
