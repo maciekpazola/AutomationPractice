@@ -1,5 +1,3 @@
-Oczywiście, oto przekształcony plik README.md z odpowiednim formatowaniem:
-
 # Automated Testing Project Using Selenium, C#, SpecFlow, and POM Pattern
 
 ## Project Description
