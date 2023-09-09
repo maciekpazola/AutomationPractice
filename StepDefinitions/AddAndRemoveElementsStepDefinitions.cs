@@ -12,28 +12,34 @@ namespace AutomationPractice.StepDefinitions
         private readonly ScenarioContext _scenarioContext;
         public AddAndRemoveElementsStepDefinitions(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
 
-
         [Given(@"Website is opened with following browsers")]
         public void GivenWebsiteIsOpenedWithFollowingBrowsers(Table table)
         {
-            HomePage home = new HomePage(_scenarioContext);
+            HomePage page = new(_scenarioContext);
             dynamic data = table.CreateDynamicInstance();
             _scenarioContext.Add("BrowserName", (string)data.Browsers);
 
-            home.GoToHomePage();
+            page.GoToHomePage();
         }
 
         [When(@"'([^']*)' section is opened")]
         public void WhenSectionIsOpened(string sectionName)
         {
-            HomePage home = new HomePage(_scenarioContext);
-            home.OpenPage(sectionName);
+            HomePage page = new(_scenarioContext);
+            page.OpenPage(sectionName);
         }
 
         [When(@"Element is added")]
-        public void WhenElementIsAdded() => Page.AddRemoveElements.ClickAddElementButton();
-
+        public void WhenElementIsAdded()
+        {
+            AddRemoveElementsPage page = new(_scenarioContext);
+            page.ClickAddElementButton();
+        }
         [When(@"All elements are removed")]
-        public void WhenAllElementsAreRemoved() => Page.AddRemoveElements.RemoveAllTheElements();
+        public void WhenAllElementsAreRemoved()
+        {
+            AddRemoveElementsPage page = new(_scenarioContext);
+            page.RemoveAllTheElements();
+        }
     }
 }

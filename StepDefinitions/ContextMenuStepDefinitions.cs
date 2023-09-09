@@ -12,13 +12,11 @@ namespace AutomationPractice.StepDefinitions
     {
         private readonly ScenarioContext _scenarioContext;
         public ContextMenuStepDefinitions(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
-        public Driver driver = new();
-        public readonly IWebDriver = Driver.GetDriver(TestScenarioContext.ScenarioContext.Get<string>("BrowserName")
+
 
         [When(@"User right click on the context menu")]
         public void WhenUserRightClickOnTheContextMenu()
         {
-            Driver.GetDriver(TestScenarioContext.ScenarioContext.Get<string>("BrowserName")
             ContextMenuPage page = new(_scenarioContext);
             page.RightClickOnContextMenu();
         }

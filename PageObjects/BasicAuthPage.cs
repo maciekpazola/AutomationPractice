@@ -9,14 +9,20 @@ namespace AutomationPractice.PageObjects
 {
     public class BasicAuthPage
     {
+        private readonly ScenarioContext _scenarioContext;
+        private readonly StateChecker _stateChecker;
         private readonly string _basicAuthPageUrlWithCorrectCredentails = "http://admin:admin@the-internet.herokuapp.com/basic_auth";
         private readonly string _basicAuthPageUrlWithInCorrectCredentails = "http://notAdmin:notAdmin@the-internet.herokuapp.com/basic_auth";
-        [FindsBy(How = How.ClassName, Using = "example")]
-        private readonly IWebElement _message;
+
+        public BasicAuthPage(ScenarioContext scenarioContext)
+        {
+            _scenarioContext = scenarioContext;
+            _stateChecker = new(_scenarioContext);
+        }
 
         public void GoToAuthPage(string loginName)
         {
-            var driver = Driver.GetDriver(TestScenarioContext.ScenarioContext.Get<string>("BrowserName"));
+            var driver = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName"));
             switch (loginName)
             {
                 case "admin":
@@ -36,7 +42,8 @@ namespace AutomationPractice.PageObjects
 
         public void AssertThatYouAreloggedIn()
         {
-            bool visibilityOfMessage = StateChecker.CheckIfItemIsEnabled(_message);
+            By _messageLocator = By.ClassName("example");
+            bool visibilityOfMessage = _stateChecker.CheckIfItemIsEnabled(_messageLocator);
             if (!visibilityOfMessage )
             {
                 throw new Exception("Test is failed, can't find the message after authorization");
@@ -44,10 +51,11 @@ namespace AutomationPractice.PageObjects
         }
         public void AssertThatYouAreNotloggedIn()
         {
-            bool visibilityOfMessage = StateChecker.CheckIfItemIsEnabled(_message);
+            By _messageLocator = By.ClassName("example");
+            bool visibilityOfMessage = _stateChecker.CheckIfItemIsEnabled(_messageLocator);
             if (visibilityOfMessage)
             {
-                throw new Exception("Test is failed, message was found");
+                throw new Exception("Test is failed, can't find the message after authorization");
             }
         }
     }

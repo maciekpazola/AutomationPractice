@@ -5,16 +5,33 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class CheckboxesStepDefinitions
     {
+        private readonly ScenarioContext _scenarioContext;
+        public CheckboxesStepDefinitions(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
         [When(@"I will check all checkboxes")]
-        public void WhenIWillCheckAllCheckboxes()=> Page.Checkboxes.CheckAllCheckboxes();
+        public void WhenIWillCheckAllCheckboxes()
+        {
+            CheckboxesPage page = new(_scenarioContext);
+            page.CheckAllCheckboxes();
+        }
 
         [Then(@"All checkboxes are checked")]
-        public void ThenAllCheckboxesAreChecked()=> Page.Checkboxes.AssertIfAllCheckboxesAreChecked();
+        public void ThenAllCheckboxesAreChecked()
+        {
+            CheckboxesPage page = new(_scenarioContext);
+            page.AssertIfAllCheckboxesAreChecked();
+        }
 
         [When(@"I will uncheck all checkboxes")]
-        public void WhenIWillUncheckAllCheckboxes() => Page.Checkboxes.UnCheckAllCheckboxes();
-
+        public void WhenIWillUncheckAllCheckboxes()
+        {
+            CheckboxesPage page = new(_scenarioContext);
+            page.UnCheckAllCheckboxes();
+        }
         [Then(@"All checkboxes are unchecked")]
-        public void ThenAllCheckboxesAreUnchecked() => Page.Checkboxes.AssertIfAllCheckboxesAreUnChecked();
+        public void ThenAllCheckboxesAreUnchecked()
+        {
+            CheckboxesPage page = new(_scenarioContext);
+            page.AssertIfAllCheckboxesAreUnChecked();
+        }
     }
 }

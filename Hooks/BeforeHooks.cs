@@ -23,7 +23,7 @@ namespace AutomationPractice.Drivers.Hooks
             //Logger.ClearLogFile();
         }
 
-        //[BeforeScenario]
+        //[BeforeScenario] NEED TO FIX LOGGING
         public void BeforeScenario()
         {
             Logger.WriteToLog(string.Empty);

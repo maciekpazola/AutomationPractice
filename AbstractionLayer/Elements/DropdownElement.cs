@@ -3,18 +3,20 @@ using AutomationPractice.Drivers.Hooks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
+using TechTalk.SpecFlow;
 
 namespace AutomationPractice.AbstractionLayer.Elements
 {
     public class DropdownElement
     {
         public readonly IWebElement Dropdown;
-
+        private readonly ScenarioContext _scenarioContext;
         private readonly SelectElement _dropdown;
 
-        public DropdownElement(string cssSelector)
+        public DropdownElement(ScenarioContext scenarioContext, string cssSelector)
         {
-            Dropdown = Driver.GetDriver(TestScenarioContext.ScenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector(cssSelector));
+            _scenarioContext = scenarioContext;
+            Dropdown = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector(cssSelector));
             _dropdown = new SelectElement(Dropdown);
         }
 

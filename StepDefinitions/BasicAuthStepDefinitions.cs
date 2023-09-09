@@ -11,17 +11,20 @@ namespace AutomationPractice.StepDefinitions
         [When(@"User login as '([^']*)'")]
         public void WhenUserLoginAs(string loginName)
         {
-            Page.BasicAuth.GoToAuthPage(loginName);
+            BasicAuthPage page = new(_scenarioContext);
+            page.GoToAuthPage(loginName);
         }
         [Then(@"User will be logged in")]
         public void ThenUserWillBeLoggedIn()
         {
-            Page.BasicAuth.AssertThatYouAreloggedIn();
+            BasicAuthPage page = new(_scenarioContext);
+            page.AssertThatYouAreloggedIn();
         }
         [Then(@"User will not be logged in")]
         public void ThenUserWillNotBeLoggedIn()
         {
-            Page.BasicAuth.AssertThatYouAreNotloggedIn();
+            BasicAuthPage page = new(_scenarioContext);
+            page.AssertThatYouAreNotloggedIn();
         }
     }
 }

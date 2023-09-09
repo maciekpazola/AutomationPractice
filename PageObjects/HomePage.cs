@@ -8,8 +8,9 @@ namespace AutomationPractice.PageObjects
 {
     public class HomePage
     {
-        private readonly string _homePageUrl = "http://the-internet.herokuapp.com/";
         private readonly ScenarioContext _scenarioContext;
+        private readonly string _homePageUrl = "http://the-internet.herokuapp.com/";
+
         public HomePage(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
         public void GoToHomePage()
         {
