@@ -1,4 +1,6 @@
 ﻿using AutomationPractice.AbstractionLayer.Elements;
+using AutomationPractice.Drivers;
+using AutomationPractice.Drivers.Hooks;
 using AutomationPractice.Helpers;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
@@ -8,13 +10,20 @@ namespace AutomationPractice.PageObjects
 {
     public class ContextMenuPage
     {
-        [FindsBy(How = How.Id, Using = "hot-spot")]
-        private readonly IWebElement _contextMenu;
-
+        private readonly ScenarioContext _scenarioContext;
+        private readonly IWebDriver _driver;
+        public ContextMenuPage(ScenarioContext scenarioContext, IWebDriver driver)
+        {
+            _scenarioContext = scenarioContext;
+            _driver = driver;
+        }
         private readonly AlertElement _alert = new();
 
-
-        public void RightClickOnContextMenu()=> ActionsBuilder.RightClickOnContextMenu(_contextMenu).Perform();
+        public void RightClickOnContextMenu()
+        {
+            ActionsBuilder actionsBuilder = new(_scenarioContext);
+            actionsBuilder.RightClickOnContextMenu(Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.Id("hot-spot"))).Perform();
+        }
 
         public void AcceptTheAllert() => _alert.Alert.Accept();
 

@@ -1,4 +1,5 @@
 ﻿using AutomationPractice.Drivers;
+using AutomationPractice.Drivers.Hooks;
 using AutomationPractice.Helpers;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
@@ -10,24 +11,23 @@ namespace AutomationPractice.PageObjects
     {
         private readonly string _basicAuthPageUrlWithCorrectCredentails = "http://admin:admin@the-internet.herokuapp.com/basic_auth";
         private readonly string _basicAuthPageUrlWithInCorrectCredentails = "http://notAdmin:notAdmin@the-internet.herokuapp.com/basic_auth";
-        private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
-
         [FindsBy(How = How.ClassName, Using = "example")]
         private readonly IWebElement _message;
 
         public void GoToAuthPage(string loginName)
         {
+            var driver = Driver.GetDriver(TestScenarioContext.ScenarioContext.Get<string>("BrowserName"));
             switch (loginName)
             {
                 case "admin":
                     {
-                        _driver.Navigate().GoToUrl(_basicAuthPageUrlWithCorrectCredentails);
+                        driver.Navigate().GoToUrl(_basicAuthPageUrlWithCorrectCredentails);
                         ExpectedConditions.UrlMatches(_basicAuthPageUrlWithCorrectCredentails);
                         return;
                     }
                 case "notAdmin":
                     {
-                        _driver.Navigate().GoToUrl(_basicAuthPageUrlWithInCorrectCredentails);
+                        driver.Navigate().GoToUrl(_basicAuthPageUrlWithInCorrectCredentails);
                         ExpectedConditions.UrlMatches(_basicAuthPageUrlWithInCorrectCredentails);
                         return;
                     }

@@ -1,4 +1,5 @@
 ﻿using AutomationPractice.Drivers;
+using AutomationPractice.Drivers.Hooks;
 using OpenQA.Selenium;
 
 namespace AutomationPractice.Helpers
@@ -7,7 +8,7 @@ namespace AutomationPractice.Helpers
     {
         public static bool GetPropertyState(IWebElement element, string property) => Convert.ToBoolean(element.GetDomProperty(property));
 
-        public static int GetNumberOfElements(By by) => Driver.GetInstanceOfDriver().GetDriver().FindElements(by).Count;
+        public static int GetNumberOfElements(By by) => Driver.GetDriver(TestScenarioContext.ScenarioContext.Get<string>("BrowserName")).FindElements(by).Count;
 
         public static bool CheckIfItemIsLoaded(IWebElement clickedButton, IWebElement itemToCheck)
         {

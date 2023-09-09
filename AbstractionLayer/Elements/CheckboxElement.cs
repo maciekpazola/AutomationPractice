@@ -1,4 +1,5 @@
 ﻿using AutomationPractice.Drivers;
+using AutomationPractice.Drivers.Hooks;
 using AutomationPractice.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -15,7 +16,7 @@ namespace AutomationPractice.AbstractionLayer.Elements
             _locator = locator;
             try
             {
-                Checkbox = Driver.GetInstanceOfDriver().GetDriver().FindElement(By.CssSelector(locator));
+                Checkbox = Driver.GetDriver(TestScenarioContext.ScenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector(locator));
             }
             catch (NoSuchElementException)
             {

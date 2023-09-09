@@ -1,4 +1,5 @@
 ﻿using AutomationPractice.Drivers;
+using AutomationPractice.Drivers.Hooks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
@@ -13,7 +14,7 @@ namespace AutomationPractice.AbstractionLayer.Elements
 
         public DropdownElement(string cssSelector)
         {
-            Dropdown = Driver.GetInstanceOfDriver().GetDriver().FindElement(By.CssSelector(cssSelector));
+            Dropdown = Driver.GetDriver(TestScenarioContext.ScenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector(cssSelector));
             _dropdown = new SelectElement(Dropdown);
         }
 

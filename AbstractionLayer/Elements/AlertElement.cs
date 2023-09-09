@@ -1,4 +1,5 @@
 ﻿using AutomationPractice.Drivers;
+using AutomationPractice.Drivers.Hooks;
 using AutomationPractice.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -14,7 +15,7 @@ namespace AutomationPractice.AbstractionLayer.Elements
         {
             try
             {
-                Alert = Driver.GetInstanceOfDriver().GetDriver().SwitchTo().Alert();
+                Alert = Driver.GetDriver(TestScenarioContext.ScenarioContext.Get<string>("BrowserName")).SwitchTo().Alert();
             }
             catch (NoAlertPresentException)
             {

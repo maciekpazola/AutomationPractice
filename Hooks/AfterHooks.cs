@@ -1,31 +1,39 @@
 ﻿using AutomationPractice.Drivers;
 using AutomationPractice.Helpers;
+using NUnit.Framework;
+using OpenQA.Selenium;
 using System.Reflection;
 
 namespace AutomationPractice.Drivers.Hooks
 {
     [Binding]
-    public static class AfterHooks
+    public class AfterHooks
     {
-        [AfterTestRun]
-        public static void CloseApp() => Driver.GetInstanceOfDriver().GetDriver().Quit();
+        private readonly ScenarioContext _scenarioContext;
+        public AfterHooks(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
+        [AfterScenario]
+        public void Cleanup()
+        {
+            var driver = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName"));
+            driver.Quit();
+            driver.Dispose();
+        }
 
-        [AfterStep]
-        public static void InsertLogs(ScenarioContext sc)
+        public void InsertLogs()
         {
             {
                 PropertyInfo pInfo = typeof(ScenarioContext).GetProperty("ScenarioExecutionStatus", BindingFlags.Instance | BindingFlags.Public);
                 MethodInfo getter = pInfo.GetGetMethod(nonPublic: true);
-                object TestResult = getter.Invoke(sc, null);
+                object TestResult = getter.Invoke(_scenarioContext, null);
 
-                if (sc.TestError == null)
+                if (_scenarioContext.TestError == null)
                 {
-                    Logger.WriteInfoLog(ScenarioStepContext.Current.StepInfo.Text);
+                    Logger.WriteInfoLog(_scenarioContext.StepContext.StepInfo.Text);
                     Logger.WriteToLog(TestResult.ToString());
                 }
-                if (sc.TestError != null)
+                if (_scenarioContext.TestError != null)
                 {
-                    Logger.WriteErrorLog(sc.TestError.ToString());
+                    Logger.WriteErrorLog(_scenarioContext.TestError.ToString());
                 }
             }
         }

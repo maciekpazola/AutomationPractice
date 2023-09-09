@@ -1,5 +1,7 @@
 ﻿using AutomationPractice.Drivers;
+using AutomationPractice.Drivers.Hooks;
 using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.PageObjects;
 
@@ -7,9 +9,11 @@ namespace AutomationPractice.PageObjects
 {
     public static class Page
     {
+        public static IWebDriver driver;
+
         private static T GetPage<T>() where T : new()
         {
-            IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
+            IWebDriver driver = Driver.GetDriver(TestScenarioContext.ScenarioContext.Get<string>("BrowserName"));
             var page = new T();
             PageFactory.InitElements(driver, page);
             WebDriverWait _wait = new WebDriverWait(driver, TimeSpan.FromSeconds(20));
@@ -17,19 +21,19 @@ namespace AutomationPractice.PageObjects
             return page;
         }
 
-        public static HomePage Home
-        {
-            get { return GetPage<HomePage>(); }
-        }
+        //public static HomePage Home
+        //{
+        //    get { return GetPage<HomePage>(); }
+        //}
         public static DropdownPage Dropdown
         {
             get { return GetPage<DropdownPage>(); }
         }
 
-        public static ContextMenuPage ContextMenu
-        {
-            get { return GetPage<ContextMenuPage>(); }
-        }
+        //public static ContextMenuPage ContextMenu
+        //{
+        //    get { return GetPage<ContextMenuPage>(); }
+        //}
         public static BasicAuthPage BasicAuth
         {
             get { return GetPage<BasicAuthPage>(); }

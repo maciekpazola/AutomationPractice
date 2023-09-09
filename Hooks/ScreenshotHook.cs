@@ -1,4 +1,5 @@
 ﻿using AutomationPractice.Drivers;
+using AutomationPractice.Drivers.Hooks;
 using AutomationPractice.Helpers;
 using OpenQA.Selenium;
 
@@ -7,12 +8,12 @@ namespace AutomationPractice.Hooks
     [Binding]
     public class ScreenshotHook
     {
-        private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
-
-        [AfterScenario]
+        private readonly IWebDriver _driver = Driver.GetDriver(TestScenarioContext.ScenarioContext.Get<string>("BrowserName"));
+        private readonly ScenarioContext _scenarioContext;
+        public ScreenshotHook(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
         public void AfterWebTest()
         {
-            if (ScenarioContext.Current.TestError != null)
+            if (_scenarioContext.TestError != null)
             {
                 Logger.WriteWarningLog("Screenshot is taken, because test is failed");
                 TakeScreenshot(_driver);

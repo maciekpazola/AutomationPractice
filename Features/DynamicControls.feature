@@ -6,6 +6,9 @@ Second one is form that is disabled when site is loaded, after clicking button i
 
 @Test7
 Scenario: Remove and add checkbox
+	Given Website is opened with following browsers
+	| Browsers   |
+	| <Browsers> |
 	When 'Dynamic Controls' section is opened
 	And I will check all checkboxes
 	Then All checkboxes are checked
@@ -13,12 +16,25 @@ Scenario: Remove and add checkbox
 	Then Checkbox will gone
 	When I will add checkbox
 	Then Checkbox will appear
+	
+	Examples: 
+	| Browsers |
+	| chrome   |
+	| msedge   |
 
 @Test8
 Scenario: Enable form and type text
+	Given Website is opened with following browsers
+	| Browsers   |
+	| <Browsers> |
 	When 'Dynamic Controls' section is opened
 	And I will click enable
 	Then form will be enable
 	When I will fill in form
 	And I will click disable
 	Then form will be disable
+	
+	Examples: 
+	| Browsers |
+	| chrome   |
+	| msedge   |
