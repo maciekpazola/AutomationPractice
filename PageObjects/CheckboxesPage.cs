@@ -5,12 +5,14 @@ namespace AutomationPractice.PageObjects
 {
     public class CheckboxesPage
     {
+        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
         private readonly CheckboxElement _checkbox;
-        public CheckboxesPage(ScenarioContext scenarioContext)
+        public CheckboxesPage(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
+            _featureContext = featureContext;
             _scenarioContext = scenarioContext;
-            _checkbox = new(_scenarioContext, Locator.GetCheckboxLocator());
+            _checkbox = new(_featureContext, _scenarioContext, Locator.GetCheckboxLocator());
         }
 
         public void CheckAllCheckboxes() => _checkbox.CheckAll();

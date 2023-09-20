@@ -1,19 +1,22 @@
 ﻿using AutomationPractice.AbstractionLayer.Elements;
 using AutomationPractice.Helpers;
+using NUnit.Framework;
 using OpenQA.Selenium;
 
 namespace AutomationPractice.PageObjects
 {
     public class AddRemoveElementsPage
     {
+        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
         private readonly StateChecker _stateChecker;
         private ButtonElement AddElementButton() => new(_scenarioContext, Locator.GetButtonLocator("addElement"));
 
-        public AddRemoveElementsPage(ScenarioContext scenarioContext)
+        public AddRemoveElementsPage(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
+            _featureContext = featureContext;
             _scenarioContext = scenarioContext;
-            _stateChecker = new(_scenarioContext);
+            _stateChecker = new(_featureContext, _scenarioContext);
         }
         public void ClickAddElementButton()=> AddElementButton().Click();
 

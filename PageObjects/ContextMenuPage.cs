@@ -1,22 +1,22 @@
 ﻿using AutomationPractice.AbstractionLayer.Elements;
 using AutomationPractice.Drivers;
-using AutomationPractice.Drivers.Hooks;
 using AutomationPractice.Helpers;
 using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
 
 
 namespace AutomationPractice.PageObjects
 {
     public class ContextMenuPage
     {
+        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
-        public ContextMenuPage(ScenarioContext scenarioContext)
+        public ContextMenuPage(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
+            _featureContext = featureContext;
             _scenarioContext = scenarioContext;
         }
 
-        AlertElement Alert() => new(_scenarioContext);
+        AlertElement Alert() => new(_featureContext, _scenarioContext);
 
         public void RightClickOnContextMenu()
         {

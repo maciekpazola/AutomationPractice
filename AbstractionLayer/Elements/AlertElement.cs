@@ -11,21 +11,25 @@ namespace AutomationPractice.AbstractionLayer.Elements
     public class AlertElement
     {
         public readonly IAlert Alert;
+        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
         private readonly Waits _waits;
-        public AlertElement(ScenarioContext scenarioContext)
+        private readonly Logger _logger;
+
+        public AlertElement(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
+            _featureContext = featureContext;
             _scenarioContext = scenarioContext;
             _waits = new(_scenarioContext);
+            _logger = new(_featureContext, _scenarioContext);
             try
             {
                 Alert = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).SwitchTo().Alert();
             }
             catch (NoAlertPresentException)
             {
-                Logger.WriteInfoLog("Can't find alert element");
+                _logger.WriteInfoLog("Can't find alert element");
             }
-            _scenarioContext = scenarioContext;
         }
 
         public void AssertTextInTheAlert(string expectedText) => Assert.AreEqual(expectedText, Alert.Text);

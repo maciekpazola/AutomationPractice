@@ -1,7 +1,4 @@
-﻿using AutomationPractice.Drivers;
-using AutomationPractice.PageObjects;
-using AutomationPractice.Helpers;
-using OpenQA.Selenium;
+﻿using AutomationPractice.Helpers;
 using NUnit.Framework;
 [assembly: Parallelizable(ParallelScope.Fixtures)]
 [assembly: LevelOfParallelism(3)]
@@ -11,27 +8,14 @@ namespace AutomationPractice.Drivers.Hooks
     [Binding]
     public class BeforeHooks
     {
+        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
-        //TO DO DEPENDENCY INJECTION FOR DRIVER TO SHARE IT BETWEEN CLASSES
-        public BeforeHooks(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
-        private IWebDriver _driver;
-
-        [BeforeScenario]
-        public void Initialize()
+        private readonly Logger _logger;
+        public BeforeHooks(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
-            TestScenarioContext.ScenarioContext = _scenarioContext;
-            //Logger.ClearLogFile();
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
+            _logger = new(_featureContext, _scenarioContext);
         }
-
-        //[BeforeScenario] NEED TO FIX LOGGING
-        public void BeforeScenario()
-        {
-            Logger.WriteToLog(string.Empty);
-            Logger.WriteToLog($"{_scenarioContext.ScenarioInfo.Title}:");
-        }
-    }
-    public static class TestScenarioContext
-    {
-        public static ScenarioContext ScenarioContext { get; set; }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using AutomationPractice.Drivers;
-using AutomationPractice.Drivers.Hooks;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 

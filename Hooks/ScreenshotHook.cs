@@ -1,5 +1,4 @@
 ﻿using AutomationPractice.Drivers;
-using AutomationPractice.Drivers.Hooks;
 using AutomationPractice.Helpers;
 using OpenQA.Selenium;
 
@@ -8,15 +7,27 @@ namespace AutomationPractice.Hooks
     [Binding]
     public class ScreenshotHook
     {
-        private readonly IWebDriver _driver = Driver.GetDriver(TestScenarioContext.ScenarioContext.Get<string>("BrowserName"));
+        private IWebDriver DriverInstance() => Driver.GetDriver(_scenarioContext.Get<string>("BrowserName"));
+        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
-        public ScreenshotHook(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
+        private readonly Logger _logger;
+        private readonly FileManager _fileManager;
+
+        public ScreenshotHook(FeatureContext featureContext, ScenarioContext scenarioContext)
+        {
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
+            _logger = new(_featureContext, _scenarioContext);
+            _fileManager = new(_featureContext, _scenarioContext);
+        }
+
+        [AfterScenario]
         public void AfterWebTest()
         {
             if (_scenarioContext.TestError != null)
             {
-                Logger.WriteWarningLog("Screenshot is taken, because test is failed");
-                TakeScreenshot(_driver);
+                _logger.WriteWarningLog("Screenshot is taken, because test is failed");
+                TakeScreenshot(DriverInstance());
             }
         }
 
@@ -24,8 +35,8 @@ namespace AutomationPractice.Hooks
         {
             try
             {
-                string fileNameBase = FileManager.GetFileNameBaseForScreenshot();
-                string artifactDirectory = FileManager.GetArtifactDirectory();
+                string fileNameBase = _fileManager.GetFileNameBaseForScreenshot();
+                string artifactDirectory = _fileManager.GetArtifactDirectory();
 
                 ITakesScreenshot takesScreenshot = driver as ITakesScreenshot;
 
@@ -33,8 +44,8 @@ namespace AutomationPractice.Hooks
                 {
                     var screenshot = takesScreenshot.GetScreenshot();
 
-                    FileManager.CreateSourceFile(_driver, artifactDirectory, fileNameBase);
-                    FileManager.CreateErrorFile(screenshot, artifactDirectory, fileNameBase);
+                    _fileManager.CreateSourceFile(DriverInstance(), artifactDirectory, fileNameBase);
+                    _fileManager.CreateErrorFile(screenshot, artifactDirectory, fileNameBase);
                 }
             }
             catch (Exception ex)

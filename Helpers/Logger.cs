@@ -1,31 +1,39 @@
-﻿namespace AutomationPractice.Helpers
+﻿using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using OpenQA.Selenium;
+
+namespace AutomationPractice.Helpers
 {
-    public static class Logger
+    public class Logger
     {
-        public static void WriteErrorLog(string message) => WriteLog(message, "Error");
-
-        public static void WriteInfoLog(string message) => WriteLog(message, "Info");
-
-        public static void WriteWarningLog(string message) => WriteLog(message, "Warning");
-
-        public static void WriteToLog(string message)
+        private readonly FeatureContext _featureContext;
+        private readonly ScenarioContext _scenarioContext;
+        private readonly FileManager _fileManager;
+        private readonly DatabaseConnector _dbConnector;
+        public Logger(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
-            string logFile = FileManager.GetArtifactDirectory() + @"\log.txt";
-            using StreamWriter sw = new StreamWriter(logFile, true);
-            sw.WriteLine(message);
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
+            _fileManager = new(_featureContext, _scenarioContext);
+            _dbConnector = new();
         }
 
-        public static void ClearLogFile()
-        {
-            string logFile = FileManager.GetArtifactDirectory() + @"\log.txt";
-            File.Delete(logFile);
-        }
+        public void WriteErrorLog(string message) => WriteLog(message, "Error");
 
-        private static void WriteLog(string message, string type)
+        public void WriteInfoLog(string message) => WriteLog(message, "Info");
+
+        public void WriteWarningLog(string message) => WriteLog(message, "Warning");
+
+        private void WriteLog(string message, string type)
         {
-            string logFile = FileManager.GetArtifactDirectory() + @"\log.txt";
-            using StreamWriter sw = new StreamWriter(logFile, true);
-            sw.WriteLine($"{DateTime.Now} : [{type}] {message}");
+            var logEntry = new LogEntry
+            {
+                TestName = _scenarioContext.ScenarioInfo.Title,
+                LogTime = DateTime.Now,
+                LogLevel = type,
+                Message = message
+            };
+            logEntry.Id = _dbConnector.GetNextSequenceValue("log_entries");
+            _dbConnector.GetLogsStorage().InsertOne(logEntry);
         }
     }
 }

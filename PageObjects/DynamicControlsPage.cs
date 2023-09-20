@@ -3,28 +3,27 @@ using AutomationPractice.Drivers;
 using AutomationPractice.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.PageObjects;
 
 namespace AutomationPractice.PageObjects
 {
     public class DynamicControlsPage
     {
+        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
         private readonly StateChecker _stateChecker;
         private readonly Waits _waits;
-
-        private ButtonElement RemoveOrAddButton() => new(_scenarioContext, Locator.GetButtonLocator("swapCheckbox"));
-        private ButtonElement EnableOrDisableButton() => new(_scenarioContext, Locator.GetButtonLocator("swapInput"));
-        private CheckboxElement Checkbox() => new(_scenarioContext, Locator.GetCheckboxLocator());
-        private IWebElement FormField() => Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector("input[type='text']"));
-
-        public DynamicControlsPage(ScenarioContext scenarioContext)
+        public DynamicControlsPage(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
+            _featureContext = featureContext;
             _scenarioContext = scenarioContext;
-            _stateChecker = new(_scenarioContext);
+            _stateChecker = new(_featureContext, _scenarioContext);
             _waits = new(_scenarioContext);
         }
+        private ButtonElement RemoveOrAddButton() => new(_scenarioContext, Locator.GetButtonLocator("swapCheckbox"));
+        private ButtonElement EnableOrDisableButton() => new(_scenarioContext, Locator.GetButtonLocator("swapInput"));
+        private CheckboxElement Checkbox() => new(_featureContext, _scenarioContext, Locator.GetCheckboxLocator());
+        private IWebElement FormField() => Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector("input[type='text']"));
+
 
         public void RemoveCheckbox()=> RemoveOrAddButton().Click();
 

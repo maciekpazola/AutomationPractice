@@ -1,7 +1,4 @@
-﻿using AutomationPractice.Drivers;
-using AutomationPractice.Helpers;
-using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using AutomationPractice.Helpers;
 using System.Reflection;
 
 namespace AutomationPractice.Drivers.Hooks
@@ -9,8 +6,17 @@ namespace AutomationPractice.Drivers.Hooks
     [Binding]
     public class AfterHooks
     {
+        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
-        public AfterHooks(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
+        private readonly Logger _logger;
+
+        public AfterHooks(FeatureContext featureContext, ScenarioContext scenarioContext)
+        {
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
+            _logger = new(_featureContext, _scenarioContext);
+        }
+
         [AfterScenario]
         public void Cleanup()
         {
@@ -18,7 +24,7 @@ namespace AutomationPractice.Drivers.Hooks
             driver.Quit();
             driver.Dispose();
         }
-
+        [AfterStep]
         public void InsertLogs()
         {
             {
@@ -28,12 +34,12 @@ namespace AutomationPractice.Drivers.Hooks
 
                 if (_scenarioContext.TestError == null)
                 {
-                    Logger.WriteInfoLog(_scenarioContext.StepContext.StepInfo.Text);
-                    Logger.WriteToLog(TestResult.ToString());
+                    _logger.WriteInfoLog(_scenarioContext.StepContext.StepInfo.Text);
+                    _logger.WriteInfoLog("Step Done");
                 }
                 if (_scenarioContext.TestError != null)
                 {
-                    Logger.WriteErrorLog(_scenarioContext.TestError.ToString());
+                    _logger.WriteErrorLog(_scenarioContext.TestError.ToString());
                 }
             }
         }

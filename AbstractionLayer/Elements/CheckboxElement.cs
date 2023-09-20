@@ -1,31 +1,33 @@
 ﻿using AutomationPractice.Drivers;
-using AutomationPractice.Drivers.Hooks;
 using AutomationPractice.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using TechTalk.SpecFlow;
 
 namespace AutomationPractice.AbstractionLayer.Elements
 {
     public class CheckboxElement
     {
         public readonly IWebElement Checkbox;
+        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
         private readonly string _locator;
         private readonly StateChecker _stateChecker;
+        private readonly Logger _logger;
 
-        public CheckboxElement(ScenarioContext scenarioContext, string locator)
+        public CheckboxElement(FeatureContext featureContext, ScenarioContext scenarioContext, string locator)
         {
+            _featureContext = featureContext;
             _scenarioContext = scenarioContext;
             _locator = locator;
-            _stateChecker = new(_scenarioContext);
+            _stateChecker = new(_featureContext, _scenarioContext);
+            _logger = new(_featureContext, _scenarioContext);
             try
             {
                 Checkbox = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector(locator));
             }
             catch (NoSuchElementException)
             {
-                Logger.WriteInfoLog("Can't find checkbox element");
+                _logger.WriteInfoLog("Can't find checkbox element");
             }
         }
 
@@ -63,6 +65,6 @@ namespace AutomationPractice.AbstractionLayer.Elements
 
         private void Click() => Checkbox.Click();
 
-        private bool GetCheckedState() => _stateChecker.GetPropertyState(Checkbox, Properties.Checked);
+        private bool GetCheckedState() => StateChecker.GetPropertyState(Checkbox, Properties.Checked);
     }
 }

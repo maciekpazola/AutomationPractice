@@ -37,3 +37,14 @@ services:
       - "4442:4442"
       - "4443:4443"
       - "4444:4444"
+
+  mongodb:
+    image: mongo:latest
+    container_name: my-mongodb-container
+    ports:
+      - "27017:27017"
+    volumes:
+      - C:\Program Files (x86)/data/db
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: TestAutomationUser
+      MONGO_INITDB_ROOT_PASSWORD: Password

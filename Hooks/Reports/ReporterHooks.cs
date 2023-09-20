@@ -2,6 +2,7 @@
 using AventStack.ExtentReports;
 using System.Reflection;
 using AutomationPractice.Helpers;
+using TechTalk.SpecFlow;
 
 namespace AutomationPractice.Drivers.Hooks.Reports.Properties
 {
@@ -11,12 +12,15 @@ namespace AutomationPractice.Drivers.Hooks.Reports.Properties
         private static ExtentTest _featureName;
         private static ExtentTest _scenario;
         private static ExtentReports _extent;
+        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
-        public Reporter(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
-        [BeforeTestRun]
-        public static void InitializeReport()
+        private readonly FileManager _fileManager;
+        public Reporter(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
-            var htmlReporter = new ExtentHtmlReporter(FileManager.GetReportFilePath());
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
+            _fileManager = new(_featureContext, _scenarioContext);
+            var htmlReporter = new ExtentHtmlReporter(_fileManager.GetReportFilePath());
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             _extent = new ExtentReports();
             _extent.AttachReporter(htmlReporter);
@@ -25,6 +29,7 @@ namespace AutomationPractice.Drivers.Hooks.Reports.Properties
         [BeforeFeature]
         public static void BeforeFeature(FeatureContext featureContext)
         {
+            _extent = new ExtentReports();
             _featureName = _extent.CreateTest(new GherkinKeyword("Feature"), featureContext.FeatureInfo.Title);
             _scenario = _featureName.CreateNode(new GherkinKeyword("Scenario"), featureContext.FeatureInfo.Title);
         }

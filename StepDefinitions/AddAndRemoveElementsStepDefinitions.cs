@@ -9,8 +9,13 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class AddAndRemoveElementsStepDefinitions
     {
+        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
-        public AddAndRemoveElementsStepDefinitions(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
+        public AddAndRemoveElementsStepDefinitions(FeatureContext featureContext, ScenarioContext scenarioContext)
+        {
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
+        }
 
         [Given(@"Website is opened with following browsers")]
         public void GivenWebsiteIsOpenedWithFollowingBrowsers(Table table)
@@ -32,13 +37,13 @@ namespace AutomationPractice.StepDefinitions
         [When(@"Element is added")]
         public void WhenElementIsAdded()
         {
-            AddRemoveElementsPage page = new(_scenarioContext);
+            AddRemoveElementsPage page = new(_featureContext, _scenarioContext);
             page.ClickAddElementButton();
         }
         [When(@"All elements are removed")]
         public void WhenAllElementsAreRemoved()
         {
-            AddRemoveElementsPage page = new(_scenarioContext);
+            AddRemoveElementsPage page = new(_featureContext, _scenarioContext);
             page.RemoveAllTheElements();
         }
     }
