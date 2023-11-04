@@ -42,9 +42,14 @@ services:
     image: mongo:latest
     container_name: my-mongodb-container
     ports:
-      - "27017:27017"
-    volumes:
-      - C:\Program Files (x86)/data/db
+      - "27018:27017"
     environment:
       MONGO_INITDB_ROOT_USERNAME: TestAutomationUser
       MONGO_INITDB_ROOT_PASSWORD: Password
+      MONGO_INITDB_DATABASE: AutomationPracticeDB
+    command: --auth
+    volumes:
+      - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js:ro
+
+volumes:
+  my_db_data:
