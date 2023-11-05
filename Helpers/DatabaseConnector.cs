@@ -8,7 +8,7 @@ namespace AutomationPractice.Helpers
         public readonly IMongoDatabase MongoDB;
         public DatabaseConnector()
         {
-            var client = new MongoClient("mongodb://localhost:27018/");
+            var client = new MongoClient("mongodb://TestAutomationUser:Password@localhost:27018/");
             MongoDB = client.GetDatabase("AutomationPracticeDB");
         }
 
