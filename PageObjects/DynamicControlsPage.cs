@@ -1,24 +1,31 @@
 ﻿using AutomationPractice.AbstractionLayer.Elements;
+using AutomationPractice.Drivers;
 using AutomationPractice.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
 
 namespace AutomationPractice.PageObjects
 {
     public class DynamicControlsPage
     {
-        private readonly ButtonElement _removeOrAddButton = new(Locator.GetButtonLocator("swapCheckbox"));
+        private readonly FeatureContext _featureContext;
+        private readonly ScenarioContext _scenarioContext;
+        private readonly StateChecker _stateChecker;
+        private readonly Waits _waits;
+        public DynamicControlsPage(FeatureContext featureContext, ScenarioContext scenarioContext)
+        {
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
+            _stateChecker = new(_featureContext, _scenarioContext);
+            _waits = new(_scenarioContext);
+        }
+        private ButtonElement RemoveOrAddButton() => new(_scenarioContext, Locator.GetButtonLocator("swapCheckbox"));
+        private ButtonElement EnableOrDisableButton() => new(_scenarioContext, Locator.GetButtonLocator("swapInput"));
+        private CheckboxElement Checkbox() => new(_featureContext, _scenarioContext, Locator.GetCheckboxLocator());
+        private IWebElement FormField() => Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector("input[type='text']"));
 
-        private readonly ButtonElement _enableOrDisableButton = new(Locator.GetButtonLocator("swapInput"));
-        private CheckboxElement Checkbox() => new CheckboxElement(Locator.GetCheckboxLocator());
 
-
-        [FindsBy(How = How.CssSelector, Using = "input[type='text']")]
-        private readonly IWebElement _formField;
-
-
-        public void RemoveCheckbox()=> _removeOrAddButton.Click();
+        public void RemoveCheckbox()=> RemoveOrAddButton().Click();
 
         public void AssertIfCheckboxIsPresent(bool expectedResult)
         {
@@ -27,7 +34,7 @@ namespace AutomationPractice.PageObjects
             {
                 try
                 {
-                    state = StateChecker.CheckIfItemIsLoaded(_removeOrAddButton.Button, Checkbox().Checkbox);
+                    state = _stateChecker.CheckIfItemIsLoaded(RemoveOrAddButton().Button, Checkbox().Checkbox);
                 }
                 catch (Exception ex)
                 {
@@ -39,21 +46,21 @@ namespace AutomationPractice.PageObjects
             }
             if(expectedResult)
             {
-                var wait = Waits.GetFluentWait(timeoutInSeconds:5);
+                var wait = _waits.GetFluentWait(timeoutInSeconds:5);
                 wait.Until(driver => Checkbox().Checkbox);
-                state = StateChecker.CheckIfItemIsLoaded(_removeOrAddButton.Button, Checkbox().Checkbox);
+                state = _stateChecker.CheckIfItemIsLoaded(RemoveOrAddButton().Button, Checkbox().Checkbox);
                 Assert.AreEqual(expectedResult, state);
             }
         }
 
-        public void AddCheckbox() => _removeOrAddButton.Click();
+        public void AddCheckbox() => RemoveOrAddButton().Click();
 
-        public void ClickEnable() => _enableOrDisableButton.Click();
+        public void ClickEnable() => EnableOrDisableButton().Click();
 
-        public void AssertIfFormIsEnable(bool expectedResult) => Assert.AreEqual(expectedResult, StateChecker.CheckIfItemIsLoaded(_enableOrDisableButton.Button, _formField));
+        public void AssertIfFormIsEnable(bool expectedResult) => Assert.AreEqual(expectedResult, _stateChecker.CheckIfItemIsLoaded(EnableOrDisableButton().Button, FormField()));
 
-        public void FillInFormField(string text) => _formField.SendKeys(text);
+        public void FillInFormField(string text) => FormField().SendKeys(text);
 
-        public void ClickDisable() => _enableOrDisableButton.Click();
+        public void ClickDisable() => EnableOrDisableButton().Click();
     }
 }

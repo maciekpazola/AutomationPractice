@@ -6,19 +6,47 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class FormAuthenticationStepDefinitions
     {
+        private readonly FeatureContext _featureContext;
+        private readonly ScenarioContext _scenarioContext;
+        public FormAuthenticationStepDefinitions(FeatureContext featureContext, ScenarioContext scenarioContext)
+        {
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
+        }
+
         [When(@"Correct credentials are filled in")]
-        public void WhenCorrectCredentialsAreFilledIn() => Page.FormAuthentication.Login(username: "tomsmith", password: "SuperSecretPassword!");
+        public void WhenCorrectCredentialsAreFilledIn()
+        {
+            FormAuthenticationPage page = new(_featureContext, _scenarioContext);
+            page.Login(username: "tomsmith", password: "SuperSecretPassword!");
+        }
 
         [When(@"Login button is clicked")]
-        public void WhenLoginButtonIsClicked() => Page.FormAuthentication.ClickLoginButton();
+        public void WhenLoginButtonIsClicked()
+        {
+            FormAuthenticationPage page = new(_featureContext, _scenarioContext);
+            page.ClickLoginButton();
+        }
 
         [Then(@"User is successfully logged in")]
-        public void ThenUserIsSuccessfullyLoggedIn() => Assert.IsTrue(Page.FormAuthentication.CheckIfUserIsLoggedIn());
+        public void ThenUserIsSuccessfullyLoggedIn()
+        {
+            FormAuthenticationPage page = new(_featureContext, _scenarioContext);
+            Assert.IsTrue(page.CheckIfUserIsLoggedIn());
+        }
 
         [When(@"Wrong credentials are filled in")]
-        public void WhenWrongCredentialsAreFilledIn() => Page.FormAuthentication.Login(username: "WrongUser", password: "WrongPassword!");
+        public void WhenWrongCredentialsAreFilledIn()
+        {
+            FormAuthenticationPage page = new(_featureContext, _scenarioContext);
+            page.Login(username: "WrongUser", password: "WrongPassword!");
+        }
 
         [Then(@"User is not successfully logged in")]
-        public void ThenUserIsNotSuccessfullyLoggedIn() => Assert.IsFalse(Page.FormAuthentication.CheckIfUserIsLoggedIn());
+        public void ThenUserIsNotSuccessfullyLoggedIn()
+        {
+            FormAuthenticationPage page = new(_featureContext, _scenarioContext);
+            Assert.IsFalse(page.CheckIfUserIsLoggedIn());
+        }
     }
 }

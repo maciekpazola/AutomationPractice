@@ -1,4 +1,5 @@
 ﻿using AutomationPractice.Drivers;
+using AutomationPractice.Drivers.Hooks;
 using AutomationPractice.Helpers;
 using NUnit.Framework;
 using OpenQA.Selenium;
@@ -10,15 +11,24 @@ namespace AutomationPractice.AbstractionLayer.Elements
     public class AlertElement
     {
         public readonly IAlert Alert;
-        public AlertElement()
+        private readonly FeatureContext _featureContext;
+        private readonly ScenarioContext _scenarioContext;
+        private readonly Waits _waits;
+        private readonly Logger _logger;
+
+        public AlertElement(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
+            _waits = new(_scenarioContext);
+            _logger = new(_featureContext, _scenarioContext);
             try
             {
-                Alert = Driver.GetInstanceOfDriver().GetDriver().SwitchTo().Alert();
+                Alert = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).SwitchTo().Alert();
             }
             catch (NoAlertPresentException)
             {
-                Logger.WriteInfoLog("Can't find alert element");
+                _logger.WriteInfoLog("Can't find alert element");
             }
         }
 
@@ -28,7 +38,7 @@ namespace AutomationPractice.AbstractionLayer.Elements
         {
             try
             {
-                Waits.GetWebDriverWait().Until(ExpectedConditions.AlertState(false));
+                _waits.GetWebDriverWait().Until(ExpectedConditions.AlertState(false));
             }
             catch (WebDriverTimeoutException)
             {

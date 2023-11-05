@@ -8,18 +8,26 @@ namespace AutomationPractice.AbstractionLayer.Elements
     public class CheckboxElement
     {
         public readonly IWebElement Checkbox;
-
+        private readonly FeatureContext _featureContext;
+        private readonly ScenarioContext _scenarioContext;
         private readonly string _locator;
-        public CheckboxElement(string locator)
+        private readonly StateChecker _stateChecker;
+        private readonly Logger _logger;
+
+        public CheckboxElement(FeatureContext featureContext, ScenarioContext scenarioContext, string locator)
         {
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
             _locator = locator;
+            _stateChecker = new(_featureContext, _scenarioContext);
+            _logger = new(_featureContext, _scenarioContext);
             try
             {
-                Checkbox = Driver.GetInstanceOfDriver().GetDriver().FindElement(By.CssSelector(locator));
+                Checkbox = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector(locator));
             }
             catch (NoSuchElementException)
             {
-                Logger.WriteInfoLog("Can't find checkbox element");
+                _logger.WriteInfoLog("Can't find checkbox element");
             }
         }
 
@@ -31,7 +39,7 @@ namespace AutomationPractice.AbstractionLayer.Elements
 
         public void CheckAll()
         {
-            int numberOfCheckboxes = StateChecker.GetNumberOfElements(By.CssSelector(_locator));
+            int numberOfCheckboxes = _stateChecker.GetNumberOfElements(By.CssSelector(_locator));
             for (int i = 0; i < numberOfCheckboxes; i++)
             {
                 bool isChecked = GetCheckedState();
@@ -44,7 +52,7 @@ namespace AutomationPractice.AbstractionLayer.Elements
 
         public void UnCheckAll()
         {
-            int numberOfCheckboxes = StateChecker.GetNumberOfElements(By.CssSelector(_locator));
+            int numberOfCheckboxes = _stateChecker.GetNumberOfElements(By.CssSelector(_locator));
             for (int i = 0; i < numberOfCheckboxes; i++)
             {
                 bool isChecked = GetCheckedState();

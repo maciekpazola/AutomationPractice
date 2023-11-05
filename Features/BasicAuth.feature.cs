@@ -76,11 +76,19 @@ namespace AutomationPractice.Features
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Authentication happy path")]
         [NUnit.Framework.CategoryAttribute("Test2")]
-        public void AuthenticationHappyPath()
+        [NUnit.Framework.TestCaseAttribute("chrome", null)]
+        [NUnit.Framework.TestCaseAttribute("msedge", null)]
+        public void AuthenticationHappyPath(string browsers, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "Test2"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Browsers", browsers);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Authentication happy path", null, tagsOfScenario, argumentsOfScenario, featureTags);
 #line 6
 this.ScenarioInitialize(scenarioInfo);
@@ -92,13 +100,20 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
+                TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Browsers"});
+                table2.AddRow(new string[] {
+                            string.Format("{0}", browsers)});
 #line 7
+ testRunner.Given("Website is opened with following browsers", ((string)(null)), table2, "Given ");
+#line hidden
+#line 10
  testRunner.When("\'Basic Auth\' section is opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 8
+#line 11
  testRunner.And("User login as \'admin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 9
+#line 12
  testRunner.Then("User will be logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
@@ -108,13 +123,21 @@ this.ScenarioInitialize(scenarioInfo);
         [NUnit.Framework.TestAttribute()]
         [NUnit.Framework.DescriptionAttribute("Authentication fail path")]
         [NUnit.Framework.CategoryAttribute("Test3")]
-        public void AuthenticationFailPath()
+        [NUnit.Framework.TestCaseAttribute("chrome", null)]
+        [NUnit.Framework.TestCaseAttribute("msedge", null)]
+        public void AuthenticationFailPath(string browsers, string[] exampleTags)
         {
-            string[] tagsOfScenario = new string[] {
+            string[] @__tags = new string[] {
                     "Test3"};
+            if ((exampleTags != null))
+            {
+                @__tags = System.Linq.Enumerable.ToArray(System.Linq.Enumerable.Concat(@__tags, exampleTags));
+            }
+            string[] tagsOfScenario = @__tags;
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            argumentsOfScenario.Add("Browsers", browsers);
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Authentication fail path", null, tagsOfScenario, argumentsOfScenario, featureTags);
-#line 12
+#line 20
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             if ((TagHelper.ContainsIgnoreTag(tagsOfScenario) || TagHelper.ContainsIgnoreTag(featureTags)))
@@ -124,13 +147,20 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 13
+                TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Browsers"});
+                table3.AddRow(new string[] {
+                            string.Format("{0}", browsers)});
+#line 21
+ testRunner.Given("Website is opened with following browsers", ((string)(null)), table3, "Given ");
+#line hidden
+#line 24
  testRunner.When("\'Basic Auth\' section is opened", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 14
+#line 25
  testRunner.And("User login as \'notAdmin\'", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 15
+#line 26
  testRunner.Then("User will not be logged in", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }

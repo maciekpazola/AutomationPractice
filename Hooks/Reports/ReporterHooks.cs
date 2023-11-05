@@ -2,6 +2,7 @@
 using AventStack.ExtentReports;
 using System.Reflection;
 using AutomationPractice.Helpers;
+using TechTalk.SpecFlow;
 
 namespace AutomationPractice.Drivers.Hooks.Reports.Properties
 {
@@ -11,11 +12,15 @@ namespace AutomationPractice.Drivers.Hooks.Reports.Properties
         private static ExtentTest _featureName;
         private static ExtentTest _scenario;
         private static ExtentReports _extent;
-
-        [BeforeTestRun]
-        public static void InitializeReport()
+        private readonly FeatureContext _featureContext;
+        private readonly ScenarioContext _scenarioContext;
+        private readonly FileManager _fileManager;
+        public Reporter(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
-            var htmlReporter = new ExtentHtmlReporter(FileManager.GetReportFilePath());
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
+            _fileManager = new(_featureContext, _scenarioContext);
+            var htmlReporter = new ExtentHtmlReporter(_fileManager.GetReportFilePath());
             htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
             _extent = new ExtentReports();
             _extent.AttachReporter(htmlReporter);
@@ -24,6 +29,7 @@ namespace AutomationPractice.Drivers.Hooks.Reports.Properties
         [BeforeFeature]
         public static void BeforeFeature(FeatureContext featureContext)
         {
+            _extent = new ExtentReports();
             _featureName = _extent.CreateTest(new GherkinKeyword("Feature"), featureContext.FeatureInfo.Title);
             _scenario = _featureName.CreateNode(new GherkinKeyword("Scenario"), featureContext.FeatureInfo.Title);
         }
@@ -34,31 +40,31 @@ namespace AutomationPractice.Drivers.Hooks.Reports.Properties
         [AfterStep]
         public void InsertReportingSteps(ScenarioContext sc)
         {
-            var stepType = ScenarioStepContext.Current.StepInfo.StepDefinitionType.ToString();
+            var stepType = _scenarioContext.StepContext.StepInfo.StepDefinitionType.ToString();
             PropertyInfo pInfo = typeof(ScenarioContext).GetProperty("ScenarioExecutionStatus", BindingFlags.Instance | BindingFlags.Public);
             MethodInfo getter = pInfo.GetGetMethod(nonPublic: true);
             object TestResult = getter.Invoke(sc, null);
             if (sc.TestError == null)
             {
                 if (stepType == "Given")
-                    _scenario.CreateNode(new GherkinKeyword("Given"), ScenarioStepContext.Current.StepInfo.Text).Pass("Pass");
+                    _scenario.CreateNode(new GherkinKeyword("Given"), _scenarioContext.StepContext.StepInfo.Text).Pass("Pass");
                 else if (stepType == "When")
-                    _scenario.CreateNode(new GherkinKeyword("When"), ScenarioStepContext.Current.StepInfo.Text).Pass("Pass");
+                    _scenario.CreateNode(new GherkinKeyword("When"), _scenarioContext.StepContext.StepInfo.Text).Pass("Pass");
                 else if (stepType == "Then")
-                    _scenario.CreateNode(new GherkinKeyword("Then"), ScenarioStepContext.Current.StepInfo.Text).Pass("Pass");
+                    _scenario.CreateNode(new GherkinKeyword("Then"), _scenarioContext.StepContext.StepInfo.Text).Pass("Pass");
                 else if (stepType == "And")
-                    _scenario.CreateNode(new GherkinKeyword("And"), ScenarioStepContext.Current.StepInfo.Text).Pass("Pass");
+                    _scenario.CreateNode(new GherkinKeyword("And"), _scenarioContext.StepContext.StepInfo.Text).Pass("Pass");
             }
             if (sc.TestError != null)
             {
                 if (stepType == "Given")
-                    _scenario.CreateNode(new GherkinKeyword("Given"), ScenarioStepContext.Current.StepInfo.Text).Fail(sc.TestError.Message);
+                    _scenario.CreateNode(new GherkinKeyword("Given"), _scenarioContext.StepContext.StepInfo.Text).Fail(sc.TestError.Message);
                 if (stepType == "When")
-                    _scenario.CreateNode(new GherkinKeyword("When"), ScenarioStepContext.Current.StepInfo.Text).Fail(sc.TestError.Message);
+                    _scenario.CreateNode(new GherkinKeyword("When"), _scenarioContext.StepContext.StepInfo.Text).Fail(sc.TestError.Message);
                 if (stepType == "Then")
-                    _scenario.CreateNode(new GherkinKeyword("Then"), ScenarioStepContext.Current.StepInfo.Text).Fail(sc.TestError.Message);
+                    _scenario.CreateNode(new GherkinKeyword("Then"), _scenarioContext.StepContext.StepInfo.Text).Fail(sc.TestError.Message);
                 if (stepType == "And")
-                    _scenario.CreateNode(new GherkinKeyword("And"), ScenarioStepContext.Current.StepInfo.Text).Fail(sc.TestError.Message);
+                    _scenario.CreateNode(new GherkinKeyword("And"), _scenarioContext.StepContext.StepInfo.Text).Fail(sc.TestError.Message);
             }
         }
     }

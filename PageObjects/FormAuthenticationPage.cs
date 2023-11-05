@@ -1,4 +1,6 @@
-﻿using AutomationPractice.Helpers;
+﻿using AutomationPractice.AbstractionLayer.Elements;
+using AutomationPractice.Drivers;
+using AutomationPractice.Helpers;
 using OpenQA.Selenium;
 using SeleniumExtras.PageObjects;
 
@@ -6,36 +8,36 @@ namespace AutomationPractice.PageObjects
 {
     public class FormAuthenticationPage
     {
-        [FindsBy(How = How.CssSelector, Using = "input[type='text']#username")]
-        private readonly IWebElement _usernameField;
+        private readonly FeatureContext _featureContext;
+        private readonly ScenarioContext _scenarioContext;
+        private readonly StateChecker _stateChecker;
+        private IWebElement UsernameField() => Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector("input[type='text']#username"));
+        private IWebElement PasswordField() => Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector("input[type='password']#password"));
+        private IWebElement LoginButton() => Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector(".radius[type='submit']"));
+        private readonly By MessageWhenLoggedInLocator = By.CssSelector("#flash[class='flash success']");
+        private readonly By MessageWhenNotLoggedInLocator = By.CssSelector("#flash[class='flash error']");
 
-        [FindsBy(How = How.CssSelector, Using = "input[type='password']#password")]
-        private readonly IWebElement _passwordField;
-
-        [FindsBy(How = How.CssSelector, Using = ".radius[type='submit']")]
-        private readonly IWebElement _loginButton;
-
-        [FindsBy(How = How.CssSelector, Using = "#flash[class='flash success']")]
-        private readonly IWebElement _messageWhenLoggedIn;
-
-        [FindsBy(How = How.CssSelector, Using = "#flash[class='flash error']")]
-        private readonly IWebElement _messageWhenNotLoggedIn;
-
+        public FormAuthenticationPage(FeatureContext featureContext, ScenarioContext scenarioContext)
+        {
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
+            _stateChecker = new(_featureContext, _scenarioContext);
+        }
 
         public void Login(string username, string password)
         {
-            _usernameField.SendKeys(username);
-            _passwordField.SendKeys(password);
+            UsernameField().SendKeys(username);
+            PasswordField().SendKeys(password);
         }
 
-        public void ClickLoginButton() => _loginButton.Click();
+        public void ClickLoginButton() => LoginButton().Click();
 
         public bool CheckIfUserIsLoggedIn()
         {
-            if (StateChecker.CheckIfItemIsEnabled(_messageWhenLoggedIn))
+            if (_stateChecker.CheckIfItemIsEnabled(MessageWhenLoggedInLocator))
                 return true;
 
-            else if (StateChecker.CheckIfItemIsEnabled(_messageWhenNotLoggedIn))
+            else if (_stateChecker.CheckIfItemIsEnabled(MessageWhenNotLoggedInLocator))
                 return false;
 
             throw new Exception("Can't find message!");

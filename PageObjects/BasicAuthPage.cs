@@ -1,33 +1,39 @@
 ﻿using AutomationPractice.Drivers;
 using AutomationPractice.Helpers;
 using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
 using SeleniumExtras.WaitHelpers;
 
 namespace AutomationPractice.PageObjects
 {
     public class BasicAuthPage
     {
+        private readonly FeatureContext _featureContext;
+        private readonly ScenarioContext _scenarioContext;
+        private readonly StateChecker _stateChecker;
         private readonly string _basicAuthPageUrlWithCorrectCredentails = "http://admin:admin@the-internet.herokuapp.com/basic_auth";
         private readonly string _basicAuthPageUrlWithInCorrectCredentails = "http://notAdmin:notAdmin@the-internet.herokuapp.com/basic_auth";
-        private readonly IWebDriver _driver = Driver.GetInstanceOfDriver().GetDriver();
 
-        [FindsBy(How = How.ClassName, Using = "example")]
-        private readonly IWebElement _message;
+        public BasicAuthPage(FeatureContext featureContext, ScenarioContext scenarioContext)
+        {
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
+            _stateChecker = new(_featureContext, _scenarioContext);
+        }
 
         public void GoToAuthPage(string loginName)
         {
+            var driver = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName"));
             switch (loginName)
             {
                 case "admin":
                     {
-                        _driver.Navigate().GoToUrl(_basicAuthPageUrlWithCorrectCredentails);
+                        driver.Navigate().GoToUrl(_basicAuthPageUrlWithCorrectCredentails);
                         ExpectedConditions.UrlMatches(_basicAuthPageUrlWithCorrectCredentails);
                         return;
                     }
                 case "notAdmin":
                     {
-                        _driver.Navigate().GoToUrl(_basicAuthPageUrlWithInCorrectCredentails);
+                        driver.Navigate().GoToUrl(_basicAuthPageUrlWithInCorrectCredentails);
                         ExpectedConditions.UrlMatches(_basicAuthPageUrlWithInCorrectCredentails);
                         return;
                     }
@@ -36,7 +42,8 @@ namespace AutomationPractice.PageObjects
 
         public void AssertThatYouAreloggedIn()
         {
-            bool visibilityOfMessage = StateChecker.CheckIfItemIsEnabled(_message);
+            By _messageLocator = By.ClassName("example");
+            bool visibilityOfMessage = _stateChecker.CheckIfItemIsEnabled(_messageLocator);
             if (!visibilityOfMessage )
             {
                 throw new Exception("Test is failed, can't find the message after authorization");
@@ -44,10 +51,11 @@ namespace AutomationPractice.PageObjects
         }
         public void AssertThatYouAreNotloggedIn()
         {
-            bool visibilityOfMessage = StateChecker.CheckIfItemIsEnabled(_message);
+            By _messageLocator = By.ClassName("example");
+            bool visibilityOfMessage = _stateChecker.CheckIfItemIsEnabled(_messageLocator);
             if (visibilityOfMessage)
             {
-                throw new Exception("Test is failed, message was found");
+                throw new Exception("Test is failed, can't find the message after authorization");
             }
         }
     }

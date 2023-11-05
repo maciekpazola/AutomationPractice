@@ -4,11 +4,15 @@ using OpenQA.Selenium.Interactions;
 
 namespace AutomationPractice.Helpers
 {
-    public static class ActionsBuilder
+    public class ActionsBuilder
     {
-        private readonly static Actions _actions = new(Driver.GetInstanceOfDriver().GetDriver());
+        private readonly ScenarioContext _scenarioContext;
+        public ActionsBuilder(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
 
-        public static IAction RightClickOnContextMenu(IWebElement contextMenu) =>
-            _actions.MoveToElement(contextMenu).ContextClick().Build();
+        public IAction RightClickOnContextMenu(IWebElement contextMenu)
+        {
+            Actions actions = new(Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")));
+            return actions.MoveToElement(contextMenu).ContextClick().Build();
+        }
     }
 }

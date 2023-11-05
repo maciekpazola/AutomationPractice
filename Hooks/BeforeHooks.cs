@@ -1,30 +1,21 @@
-﻿using AutomationPractice.Drivers;
-using AutomationPractice.PageObjects;
-using AutomationPractice.Helpers;
-using OpenQA.Selenium;
+﻿using AutomationPractice.Helpers;
+using NUnit.Framework;
+[assembly: Parallelizable(ParallelScope.Fixtures)]
+[assembly: LevelOfParallelism(3)]
 
 namespace AutomationPractice.Drivers.Hooks
 {
     [Binding]
-    public static class BeforeHooks
+    public class BeforeHooks
     {
-        [BeforeTestRun]
-        public static void Setup()
+        private readonly FeatureContext _featureContext;
+        private readonly ScenarioContext _scenarioContext;
+        private readonly Logger _logger;
+        public BeforeHooks(FeatureContext featureContext, ScenarioContext scenarioContext)
         {
-            IWebDriver driver = Driver.GetInstanceOfDriver().GetDriver();
-
-            driver.Manage().Window.Maximize();
-            driver.Manage().Cookies.DeleteAllCookies();
-            Logger.ClearLogFile();
-        }
-
-        [BeforeScenario]
-        public static void BeforeScenario()
-        {
-            Logger.WriteToLog(string.Empty);
-            Logger.WriteToLog($"{ScenarioContext.Current.ScenarioInfo.Title}:");
-
-            Page.Home.GoToHomePage();
+            _featureContext = featureContext;
+            _scenarioContext = scenarioContext;
+            _logger = new(_featureContext, _scenarioContext);
         }
     }
 }
