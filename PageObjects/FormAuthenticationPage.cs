@@ -1,8 +1,6 @@
-﻿using AutomationPractice.AbstractionLayer.Elements;
-using AutomationPractice.Drivers;
-using AutomationPractice.Helpers;
-using OpenQA.Selenium;
-using SeleniumExtras.PageObjects;
+﻿using OpenQA.Selenium;
+using TestUtilities.UITesting.Drivers;
+using TestUtilities.UITesting.Helpers;
 
 namespace AutomationPractice.PageObjects
 {

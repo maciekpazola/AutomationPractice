@@ -1,6 +1,7 @@
-﻿using AutomationPractice.Drivers;
-using AutomationPractice.Helpers;
+﻿using TestUtilities.UITesting.Helpers;
+using TestUtilities.UITesting.Drivers;
 using OpenQA.Selenium;
+using TestUtilities.Logs;
 
 namespace AutomationPractice.Hooks
 {

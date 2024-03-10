@@ -10,7 +10,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace AutomationPractice.Features
+namespace UIAutomationTests.Features
 {
     using TechTalk.SpecFlow;
     using System;

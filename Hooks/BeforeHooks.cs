@@ -1,5 +1,5 @@
-﻿using AutomationPractice.Helpers;
-using NUnit.Framework;
+﻿using NUnit.Framework;
+using TestUtilities.Logs;
 [assembly: Parallelizable(ParallelScope.Fixtures)]
 [assembly: LevelOfParallelism(3)]
 

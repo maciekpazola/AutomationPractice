@@ -1,5 +1,5 @@
-﻿using AutomationPractice.AbstractionLayer.Elements;
-using AutomationPractice.Helpers;
+﻿using TestUtilities.UITesting.AbstractionLayer.Elements;
+using TestUtilities.UITesting.Helpers;
 
 namespace AutomationPractice.PageObjects
 {

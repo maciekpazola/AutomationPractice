@@ -1,8 +1,6 @@
 ﻿using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
-using AutomationPractice.Drivers;
-using OpenQA.Selenium.Remote;
-using AutomationPractice.Drivers.Hooks;
+using TestUtilities.UITesting.Drivers;
 
 namespace AutomationPractice.PageObjects
 {

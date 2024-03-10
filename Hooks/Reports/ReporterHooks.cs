@@ -1,12 +1,10 @@
-﻿using AventStack.ExtentReports.Reporter;
+﻿using System.Reflection;
 using AventStack.ExtentReports;
-using System.Reflection;
-using AutomationPractice.Helpers;
-using TechTalk.SpecFlow;
-
+using AventStack.ExtentReports.Reporter;
+using TestUtilities.UITesting.Helpers;
 namespace AutomationPractice.Drivers.Hooks.Reports.Properties
 {
-     [Binding]
+    [Binding]
     class Reporter : Steps
     {
         private static ExtentTest _featureName;

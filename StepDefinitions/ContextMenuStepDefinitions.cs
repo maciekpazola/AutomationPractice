@@ -1,9 +1,4 @@
 using AutomationPractice.PageObjects;
-using AutomationPractice.Helpers;
-using OpenQA.Selenium;
-using AutomationPractice.Drivers;
-using AutomationPractice.Drivers.Hooks;
-using TechTalk.SpecFlow;
 
 namespace AutomationPractice.StepDefinitions
 {

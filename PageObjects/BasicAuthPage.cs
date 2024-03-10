@@ -1,7 +1,7 @@
-﻿using AutomationPractice.Drivers;
-using AutomationPractice.Helpers;
+﻿using TestUtilities.UITesting.Drivers;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
+using TestUtilities.UITesting.Helpers;
 
 namespace AutomationPractice.PageObjects
 {
