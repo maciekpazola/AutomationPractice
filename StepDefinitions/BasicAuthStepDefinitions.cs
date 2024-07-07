@@ -5,31 +5,19 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class BasicAuthStepDefinitions
     {
-        private readonly FeatureContext _featureContext;
-        private readonly ScenarioContext _scenarioContext;
-        public BasicAuthStepDefinitions(FeatureContext featureContext, ScenarioContext scenarioContext)
+        private readonly BasicAuthPage _basicAuthPage;
+        public BasicAuthStepDefinitions(ScenarioContext scenarioContext)
         {
-            _featureContext = featureContext;
-            _scenarioContext = scenarioContext;
+            _basicAuthPage = new(scenarioContext);
         }
 
         [When(@"User login as '([^']*)'")]
-        public void WhenUserLoginAs(string loginName)
-        {
-            BasicAuthPage page = new(_featureContext, _scenarioContext);
-            page.GoToAuthPage(loginName);
-        }
+        public void WhenUserLoginAs(string loginName) => _basicAuthPage.GoToAuthPage(loginName);
+
         [Then(@"User will be logged in")]
-        public void ThenUserWillBeLoggedIn()
-        {
-            BasicAuthPage page = new(_featureContext, _scenarioContext);
-            page.AssertThatYouAreloggedIn();
-        }
+        public void ThenUserWillBeLoggedIn() => _basicAuthPage.AssertThatYouAreloggedIn();
+
         [Then(@"User will not be logged in")]
-        public void ThenUserWillNotBeLoggedIn()
-        {
-            BasicAuthPage page = new(_featureContext, _scenarioContext);
-            page.AssertThatYouAreNotloggedIn();
-        }
+        public void ThenUserWillNotBeLoggedIn() => _basicAuthPage.AssertThatYouAreNotloggedIn();
     }
 }

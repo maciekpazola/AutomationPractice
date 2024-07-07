@@ -5,76 +5,37 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class DynamicControlsStepDefinitions
     {
-        private readonly FeatureContext _featureContext;
-        private readonly ScenarioContext _scenarioContext;
-        public DynamicControlsStepDefinitions(FeatureContext featureContext, ScenarioContext scenarioContext)
+        private readonly DynamicControlsPage _dynamicControlsPage;
+        public DynamicControlsStepDefinitions(ScenarioContext scenarioContext)
         {
-            _featureContext = featureContext;
-            _scenarioContext = scenarioContext;
+            _dynamicControlsPage = new DynamicControlsPage(scenarioContext);
         }
 
         [When(@"I will remove checkbox")]
-        public void WhenIWillRemoveCheckbox()
-        {
-            DynamicControlsPage page = new(_featureContext, _scenarioContext);
-            page.RemoveCheckbox();
-        }
+        public void WhenIWillRemoveCheckbox() => _dynamicControlsPage.RemoveCheckbox();
 
         [Then(@"Checkbox will gone")]
-        public void ThenCheckboxWillGone()
-        {
-            DynamicControlsPage page = new(_featureContext, _scenarioContext);
-            page.AssertIfCheckboxIsPresent(false);
-        }
+        public void ThenCheckboxWillGone() => _dynamicControlsPage.AssertIfCheckboxIsPresent(false);
 
         [When(@"I will add checkbox")]
-        public void WhenIWillAddCheckbox()
-        {
-            DynamicControlsPage page = new(_featureContext, _scenarioContext);
-            page.AddCheckbox();
-        }
+        public void WhenIWillAddCheckbox() => _dynamicControlsPage.AddCheckbox();
 
         [Then(@"Checkbox will appear")]
-        public void ThenCheckboxWillAppear()
-        {
-            DynamicControlsPage page = new(_featureContext, _scenarioContext);
-            page.AssertIfCheckboxIsPresent(true);
-        }
-
+        public void ThenCheckboxWillAppear() => _dynamicControlsPage.AssertIfCheckboxIsPresent(true);
 
         [When(@"I will click enable")]
-        public void WhenIWillClickEnable()
-        {
-            DynamicControlsPage page = new(_featureContext, _scenarioContext);
-            page.ClickEnable();
-        }
+        public void WhenIWillClickEnable() => _dynamicControlsPage.ClickEnable();
 
         [Then(@"form will be enable")]
-        public void ThenFormWillBeEnable()
-        {
-            DynamicControlsPage page = new(_featureContext, _scenarioContext);
-            page.AssertIfFormIsEnable(true);
-        }
+        public void ThenFormWillBeEnable() => _dynamicControlsPage.AssertIfFormIsEnable(true);
 
         [When(@"I will fill in form")]
-        public void WhenIWillFillInForm()
-        {
-            DynamicControlsPage page = new(_featureContext, _scenarioContext);
-            page.FillInFormField("Text123");
-        }
+        public void WhenIWillFillInForm() => _dynamicControlsPage.FillInFormField("Text123");
 
         [When(@"I will click disable")]
-        public void WhenIWillClickDisable()
-        {
-            DynamicControlsPage page = new(_featureContext, _scenarioContext);
-            page.ClickDisable();
-        }
+        public void WhenIWillClickDisable() => _dynamicControlsPage.ClickDisable();
 
         [Then(@"form will be disable")]
-        public void ThenFormWillBeDisable()
-        {
-            DynamicControlsPage page = new(_featureContext, _scenarioContext);
-            page.AssertIfFormIsEnable(false);
-        }
+        public void ThenFormWillBeDisable() => _dynamicControlsPage.AssertIfFormIsEnable(false);
     }
 }

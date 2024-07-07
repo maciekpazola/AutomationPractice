@@ -6,16 +6,10 @@ using TestUtilities.Logs;
 namespace AutomationPractice.Drivers.Hooks
 {
     [Binding]
-    public class BeforeHooks
+    public class BeforeHooks(FeatureContext featureContext, ScenarioContext scenarioContext)
     {
-        private readonly FeatureContext _featureContext;
-        private readonly ScenarioContext _scenarioContext;
-        private readonly Logger _logger;
-        public BeforeHooks(FeatureContext featureContext, ScenarioContext scenarioContext)
-        {
-            _featureContext = featureContext;
-            _scenarioContext = scenarioContext;
-            _logger = new(_featureContext, _scenarioContext);
-        }
+        private readonly FeatureContext _featureContext = featureContext;
+        private readonly ScenarioContext _scenarioContext = scenarioContext;
+        private readonly Logger _logger = new(scenarioContext.ScenarioInfo.Title);
     }
 }

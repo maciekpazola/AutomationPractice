@@ -5,18 +5,10 @@ using TestUtilities.Logs;
 namespace AutomationPractice.Drivers.Hooks
 {
     [Binding]
-    public class AfterHooks
+    public class AfterHooks(ScenarioContext scenarioContext)
     {
-        private readonly FeatureContext _featureContext;
-        private readonly ScenarioContext _scenarioContext;
-        private readonly Logger _logger;
-
-        public AfterHooks(FeatureContext featureContext, ScenarioContext scenarioContext)
-        {
-            _featureContext = featureContext;
-            _scenarioContext = scenarioContext;
-            _logger = new(_featureContext, _scenarioContext);
-        }
+        private readonly ScenarioContext _scenarioContext = scenarioContext;
+        private readonly Logger _logger = new(scenarioContext.ScenarioInfo.Title);
 
         [AfterScenario]
         public void Cleanup()
@@ -25,6 +17,7 @@ namespace AutomationPractice.Drivers.Hooks
             driver.Quit();
             driver.Dispose();
         }
+
         [AfterStep]
         public void InsertLogs()
         {

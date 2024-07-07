@@ -8,15 +8,13 @@ namespace AutomationPractice.PageObjects
 {
     public class ContextMenuPage
     {
-        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
-        public ContextMenuPage(FeatureContext featureContext, ScenarioContext scenarioContext)
+        public ContextMenuPage(ScenarioContext scenarioContext)
         {
-            _featureContext = featureContext;
             _scenarioContext = scenarioContext;
         }
 
-        AlertElement Alert() => new(_featureContext, _scenarioContext);
+        AlertElement Alert() => new(_scenarioContext);
 
         public void RightClickOnContextMenu()
         {
