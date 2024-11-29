@@ -1,4 +1,4 @@
-name: Static Code Analysis
+name: Build and tests
 
 on:
   push:
@@ -17,7 +17,7 @@ jobs:
       - name: Setup .NET
         uses: actions/setup-dotnet@v3
         with:
-          dotnet-version: 8.0 #
+          dotnet-version: 8.0
 
       - name: Restore dependencies
         run: dotnet restore
@@ -30,4 +30,9 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: static-analysis-report
-          path: ./path-to-repor
+          path: ./path-to-report
+
+      - name: Run Docker Compose
+        run: |
+          cd TestUtilities/DockerFiles && docker-compose up --scale chrome=3 --scale edge=3 -d
+        shell: bash
