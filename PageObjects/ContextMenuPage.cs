@@ -8,15 +8,13 @@ namespace AutomationPractice.PageObjects
 {
     public class ContextMenuPage
     {
-        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
-        public ContextMenuPage(FeatureContext featureContext, ScenarioContext scenarioContext)
+        public ContextMenuPage(ScenarioContext scenarioContext)
         {
-            _featureContext = featureContext;
             _scenarioContext = scenarioContext;
         }
 
-        AlertElement Alert() => new(_featureContext, _scenarioContext);
+        AlertElement Alert => new(_scenarioContext);
 
         public void RightClickOnContextMenu()
         {
@@ -24,10 +22,10 @@ namespace AutomationPractice.PageObjects
             actionsBuilder.RightClickOnContextMenu(Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.Id("hot-spot"))).Perform();
         }
 
-        public void AcceptTheAllert() => Alert().Alert.Accept();
+        public void AcceptTheAllert() => Alert.Accept();
 
-        public void AssertTextInTheAlert(string textInAlert) => Alert().AssertTextInTheAlert(textInAlert);
+        public void AssertTextInTheAlert(string textInAlert) => Alert.AssertTextInTheAlert(textInAlert);
 
-        public void AssertIfAllertDissapeared() => Alert().CheckIfAlertDissapeared();
+        public void AssertIfAllertDissapeared() => Alert.CheckIfAlertDissapeared();
     }
 }

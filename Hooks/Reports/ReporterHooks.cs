@@ -1,6 +1,8 @@
 ﻿using System.Reflection;
 using AventStack.ExtentReports;
+using AventStack.ExtentReports.Gherkin;
 using AventStack.ExtentReports.Reporter;
+using AventStack.ExtentReports.Reporter.Config;
 using TestUtilities.UITesting.Helpers;
 namespace AutomationPractice.Drivers.Hooks.Reports.Properties
 {
@@ -18,8 +20,8 @@ namespace AutomationPractice.Drivers.Hooks.Reports.Properties
             _featureContext = featureContext;
             _scenarioContext = scenarioContext;
             _fileManager = new(_featureContext, _scenarioContext);
-            var htmlReporter = new ExtentHtmlReporter(_fileManager.GetReportFilePath());
-            htmlReporter.Config.Theme = AventStack.ExtentReports.Reporter.Configuration.Theme.Dark;
+            var htmlReporter = new ExtentSparkReporter(_fileManager.GetReportFilePath());
+            htmlReporter.Config.Theme = Theme.Dark;
             _extent = new ExtentReports();
             _extent.AttachReporter(htmlReporter);
         }
