@@ -46,8 +46,11 @@ jobs:
 
       - name: Run Docker Compose
         run: |
-          cd TestUtilities/DockerFiles && docker-compose up --scale chrome=1 --scale edge=1 -d
+          cd TestUtilities/DockerFiles && docker-compose up --scale chrome=3 --scale edge=3 -d
         shell: bash
+
+      - name: Wait for Docker Compose to start (30 seconds)
+        run: sleep 30s
         
       - name: Run tests
         run: |
