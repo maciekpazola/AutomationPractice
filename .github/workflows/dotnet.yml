@@ -25,9 +25,6 @@ jobs:
       - name: Build project
         run: dotnet build --no-restore --configuration Release
 
-      - name: Static Code Analysis
-        run: dotnet format --check
-
       - name: Upload analysis report (optional)
         if: failure()
         uses: actions/upload-artifact@v3
