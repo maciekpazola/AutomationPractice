@@ -1,22 +1,20 @@
-﻿using AutomationPractice.Drivers;
-using AutomationPractice.Drivers.Hooks;
+﻿using TestUtilities.UITesting.Drivers;
 using OpenQA.Selenium;
+using TestUtilities.Logs;
 
-namespace AutomationPractice.Helpers
+namespace TestUtilities.UITesting.Helpers
 {
     public class StateChecker
     {
-        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
         private readonly Waits _waits;
         private readonly Logger _logger;
 
-        public StateChecker(FeatureContext featureContext, ScenarioContext scenarioContext)
+        public StateChecker(ScenarioContext scenarioContext)
         {
-            _featureContext = featureContext;
             _scenarioContext = scenarioContext;
             _waits = new(_scenarioContext);
-            _logger = new(_featureContext, _scenarioContext);
+            _logger = new(scenarioContext.ScenarioInfo.Title);
         }
         public static bool GetPropertyState(IWebElement element, string property) => Convert.ToBoolean(element.GetDomProperty(property));
 

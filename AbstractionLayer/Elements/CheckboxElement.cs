@@ -1,26 +1,25 @@
-﻿using AutomationPractice.Drivers;
-using AutomationPractice.Helpers;
+﻿using TestUtilities.UITesting.Drivers;
+using TestUtilities.UITesting.Helpers;
+using TestUtilities.Logs;
 using NUnit.Framework;
 using OpenQA.Selenium;
 
-namespace AutomationPractice.AbstractionLayer.Elements
+namespace TestUtilities.UITesting.AbstractionLayer.Elements
 {
     public class CheckboxElement
     {
-        public readonly IWebElement Checkbox;
-        private readonly FeatureContext _featureContext;
+        public readonly IWebElement ?Checkbox;
         private readonly ScenarioContext _scenarioContext;
         private readonly string _locator;
         private readonly StateChecker _stateChecker;
         private readonly Logger _logger;
 
-        public CheckboxElement(FeatureContext featureContext, ScenarioContext scenarioContext, string locator)
+        public CheckboxElement(ScenarioContext scenarioContext, string locator)
         {
-            _featureContext = featureContext;
             _scenarioContext = scenarioContext;
             _locator = locator;
-            _stateChecker = new(_featureContext, _scenarioContext);
-            _logger = new(_featureContext, _scenarioContext);
+            _stateChecker = new(_scenarioContext);
+            _logger = new(scenarioContext.ScenarioInfo.Title);
             try
             {
                 Checkbox = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector(locator));
@@ -34,7 +33,7 @@ namespace AutomationPractice.AbstractionLayer.Elements
         public void AssertIfChecked(bool expectedResult)
         {
                 bool isChecked = GetCheckedState();
-                Assert.AreEqual(expectedResult, isChecked);
+                Assert.That(isChecked, Is.EqualTo(expectedResult));
         }
 
         public void CheckAll()
@@ -63,7 +62,7 @@ namespace AutomationPractice.AbstractionLayer.Elements
             }
         }
 
-        private void Click() => Checkbox.Click();
+        private void Click() => Checkbox?.Click();
 
         private bool GetCheckedState() => StateChecker.GetPropertyState(Checkbox, Properties.Checked);
     }

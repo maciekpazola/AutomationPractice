@@ -1,23 +1,21 @@
-﻿using AutomationPractice.Drivers;
-using AutomationPractice.Helpers;
+﻿using TestUtilities.UITesting.Drivers;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
+using TestUtilities.UITesting.Helpers;
 
 namespace AutomationPractice.PageObjects
 {
     public class BasicAuthPage
     {
-        private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
         private readonly StateChecker _stateChecker;
         private readonly string _basicAuthPageUrlWithCorrectCredentails = "http://admin:admin@the-internet.herokuapp.com/basic_auth";
         private readonly string _basicAuthPageUrlWithInCorrectCredentails = "http://notAdmin:notAdmin@the-internet.herokuapp.com/basic_auth";
 
-        public BasicAuthPage(FeatureContext featureContext, ScenarioContext scenarioContext)
+        public BasicAuthPage(ScenarioContext scenarioContext)
         {
-            _featureContext = featureContext;
             _scenarioContext = scenarioContext;
-            _stateChecker = new(_featureContext, _scenarioContext);
+            _stateChecker = new(_scenarioContext);
         }
 
         public void GoToAuthPage(string loginName)

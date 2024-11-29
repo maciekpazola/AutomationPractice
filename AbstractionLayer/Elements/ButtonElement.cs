@@ -1,10 +1,8 @@
-﻿using AutomationPractice.Drivers;
-using AutomationPractice.Drivers.Hooks;
-using AutomationPractice.Helpers;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
+using TestUtilities.UITesting.Drivers;
 
 
-namespace AutomationPractice.AbstractionLayer.Elements
+namespace TestUtilities.UITesting.AbstractionLayer.Elements
 {
     public class ButtonElement
     {

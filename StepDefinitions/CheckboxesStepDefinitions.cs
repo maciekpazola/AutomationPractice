@@ -5,39 +5,22 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class CheckboxesStepDefinitions
     {
-        private readonly FeatureContext _featureContext;
-        private readonly ScenarioContext _scenarioContext;
-        public CheckboxesStepDefinitions(FeatureContext featureContext, ScenarioContext scenarioContext)
+        private readonly CheckboxesPage _checkboxesPage;
+        public CheckboxesStepDefinitions(ScenarioContext scenarioContext)
         {
-            _featureContext = featureContext;
-            _scenarioContext = scenarioContext;
+            _checkboxesPage = new(scenarioContext);
         }
 
         [When(@"I will check all checkboxes")]
-        public void WhenIWillCheckAllCheckboxes()
-        {
-            CheckboxesPage page = new(_featureContext, _scenarioContext);
-            page.CheckAllCheckboxes();
-        }
+        public void WhenIWillCheckAllCheckboxes() => _checkboxesPage.CheckAllCheckboxes();
 
         [Then(@"All checkboxes are checked")]
-        public void ThenAllCheckboxesAreChecked()
-        {
-            CheckboxesPage page = new(_featureContext, _scenarioContext);
-            page.AssertIfAllCheckboxesAreChecked();
-        }
+        public void ThenAllCheckboxesAreChecked() => _checkboxesPage.AssertIfAllCheckboxesAreChecked();
 
         [When(@"I will uncheck all checkboxes")]
-        public void WhenIWillUncheckAllCheckboxes()
-        {
-            CheckboxesPage page = new(_featureContext, _scenarioContext);
-            page.UnCheckAllCheckboxes();
-        }
+        public void WhenIWillUncheckAllCheckboxes() => _checkboxesPage.UnCheckAllCheckboxes();
+
         [Then(@"All checkboxes are unchecked")]
-        public void ThenAllCheckboxesAreUnchecked()
-        {
-            CheckboxesPage page = new(_featureContext, _scenarioContext);
-            page.AssertIfAllCheckboxesAreUnChecked();
-        }
+        public void ThenAllCheckboxesAreUnchecked() => _checkboxesPage.AssertIfAllCheckboxesAreUnChecked();
     }
 }

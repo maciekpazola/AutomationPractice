@@ -1,30 +1,26 @@
-﻿using AutomationPractice.Drivers;
-using AutomationPractice.Drivers.Hooks;
-using AutomationPractice.Helpers;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
+using TestUtilities.UITesting.Drivers;
+using TestUtilities.UITesting.Helpers;
+using TestUtilities.Logs;
 
 
-namespace AutomationPractice.AbstractionLayer.Elements
+namespace TestUtilities.UITesting.AbstractionLayer.Elements
 {
     public class AlertElement
     {
-        public readonly IAlert Alert;
-        private readonly FeatureContext _featureContext;
-        private readonly ScenarioContext _scenarioContext;
+        private readonly IAlert Alert;
         private readonly Waits _waits;
         private readonly Logger _logger;
 
-        public AlertElement(FeatureContext featureContext, ScenarioContext scenarioContext)
+        public AlertElement(ScenarioContext scenarioContext)
         {
-            _featureContext = featureContext;
-            _scenarioContext = scenarioContext;
-            _waits = new(_scenarioContext);
-            _logger = new(_featureContext, _scenarioContext);
+            _waits = new(scenarioContext);
+            _logger = new(scenarioContext.ScenarioInfo.Title);
             try
             {
-                Alert = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).SwitchTo().Alert();
+                Alert = Driver.GetDriver(scenarioContext.Get<string>("BrowserName")).SwitchTo().Alert();
             }
             catch (NoAlertPresentException)
             {
@@ -32,7 +28,11 @@ namespace AutomationPractice.AbstractionLayer.Elements
             }
         }
 
-        public void AssertTextInTheAlert(string expectedText) => Assert.AreEqual(expectedText, Alert.Text);
+        public void Accept() => Alert.Accept();
+
+        public void SendKeys(string value) => Alert.SendKeys(value);
+
+        public void AssertTextInTheAlert(string expectedText) => Assert.That(Alert.Text, Is.EqualTo(expectedText));
 
         public void CheckIfAlertDissapeared()
         {

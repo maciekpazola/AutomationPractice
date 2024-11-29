@@ -1,4 +1,4 @@
-﻿namespace AutomationPractice
+﻿namespace TestUtilities.UITesting.AbstractionLayer
 {
     public static class Properties
     {

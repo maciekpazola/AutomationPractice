@@ -1,10 +1,8 @@
-﻿using AutomationPractice.Drivers;
-using AutomationPractice.Drivers.Hooks;
+﻿using TestUtilities.UITesting.Drivers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
-using TechTalk.SpecFlow;
 
-namespace AutomationPractice.Helpers
+namespace TestUtilities.UITesting.Helpers
 {
     public class Waits
     {

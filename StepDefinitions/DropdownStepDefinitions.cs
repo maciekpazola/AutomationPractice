@@ -5,24 +5,17 @@ namespace AutomationPractice.StepDefinitions
     [Binding]
     public class DropdownStepDefinitions
     {
-        private readonly ScenarioContext _scenarioContext;
+        private readonly DropdownPage _dropdownPage;
         public DropdownStepDefinitions(ScenarioContext scenarioContext)
         {
-            _scenarioContext = scenarioContext;
+            _dropdownPage = new(scenarioContext);
         }
 
         [When(@"User select every option")]
-        public void WhenUserSelectEveryOption()
-        {
-            DropdownPage page = new(_scenarioContext);
-            page.SelectAllElementsInDropdown();
-        }
+        public void WhenUserSelectEveryOption() => _dropdownPage.SelectAllElementsInDropdown();
 
         [Then(@"'([^']*)' options should be visible in the dropdown")]
-        public void ThenOptionsShouldBeVisibleInTheDropdown(string numberOfOptions)
-        {
-            DropdownPage page = new(_scenarioContext);
-            page.AssertNumberOfElementsInDropdown(Int16.Parse(numberOfOptions));
-        }
+        public void ThenOptionsShouldBeVisibleInTheDropdown(string numberOfOptions) => 
+            _dropdownPage.AssertNumberOfElementsInDropdown(Int16.Parse(numberOfOptions));
     }
 }

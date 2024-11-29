@@ -1,4 +1,4 @@
-﻿namespace AutomationPractice.Helpers
+﻿namespace TestUtilities.UITesting.Helpers
 {
     public static class Locator
     {

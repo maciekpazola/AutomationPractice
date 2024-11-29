@@ -1,6 +1,7 @@
-﻿using AutomationPractice.Drivers;
-using AutomationPractice.Helpers;
+﻿using TestUtilities.UITesting.Helpers;
+using TestUtilities.UITesting.Drivers;
 using OpenQA.Selenium;
+using TestUtilities.Logs;
 
 namespace AutomationPractice.Hooks
 {
@@ -17,7 +18,7 @@ namespace AutomationPractice.Hooks
         {
             _featureContext = featureContext;
             _scenarioContext = scenarioContext;
-            _logger = new(_featureContext, _scenarioContext);
+            _logger = new(scenarioContext.ScenarioInfo.Title);
             _fileManager = new(_featureContext, _scenarioContext);
         }
 
@@ -38,9 +39,8 @@ namespace AutomationPractice.Hooks
                 string fileNameBase = _fileManager.GetFileNameBaseForScreenshot();
                 string artifactDirectory = _fileManager.GetArtifactDirectory();
 
-                ITakesScreenshot takesScreenshot = driver as ITakesScreenshot;
 
-                if (takesScreenshot != null)
+                if (driver is ITakesScreenshot takesScreenshot)
                 {
                     var screenshot = takesScreenshot.GetScreenshot();
 

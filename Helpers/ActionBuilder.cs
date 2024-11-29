@@ -1,8 +1,8 @@
-﻿using AutomationPractice.Drivers;
+﻿using TestUtilities.UITesting.Drivers;
 using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
 
-namespace AutomationPractice.Helpers
+namespace TestUtilities.UITesting.Helpers
 {
     public class ActionsBuilder
     {

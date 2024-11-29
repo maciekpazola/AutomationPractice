@@ -1,19 +1,13 @@
-﻿using OpenQA.Selenium;
-using System.Text;
-using TechTalk.SpecFlow;
+﻿using System.Text;
+using OpenQA.Selenium;
 using TechTalk.SpecFlow.Tracing;
 
-namespace AutomationPractice.Helpers
+namespace TestUtilities.UITesting.Helpers
 {
-    public class FileManager
+    public class FileManager(FeatureContext featureContext, ScenarioContext scenarioContext)
     {
-        private readonly ScenarioContext _scenarioContext;
-        private readonly FeatureContext _featureContext;
-        public FileManager(FeatureContext featureContext, ScenarioContext scenarioContext)
-        {
-            _featureContext = featureContext;
-            _scenarioContext = scenarioContext;
-        }
+        private readonly ScenarioContext _scenarioContext = scenarioContext;
+        private readonly FeatureContext _featureContext = featureContext;
 
         public string GetFileNameBaseForScreenshot() => string.Format(
             "Error_{0}_{1}_{2}",
@@ -54,7 +48,7 @@ namespace AutomationPractice.Helpers
         {
             string screenshotFilePath = Path.Combine(artifactDirectory, fileNameBase + "_screenshot.png");
 
-            screenshot.SaveAsFile(screenshotFilePath, ScreenshotImageFormat.Png);
+            screenshot.SaveAsFile(screenshotFilePath);
             Console.WriteLine("Screenshot: {0}", new Uri(screenshotFilePath));
         }
     }

@@ -1,11 +1,9 @@
-﻿using AutomationPractice.Drivers;
-using AutomationPractice.Drivers.Hooks;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
-using TechTalk.SpecFlow;
+using TestUtilities.UITesting.Drivers;
 
-namespace AutomationPractice.AbstractionLayer.Elements
+namespace TestUtilities.UITesting.AbstractionLayer.Elements
 {
     public class DropdownElement
     {
