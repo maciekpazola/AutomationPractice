@@ -1,0 +1,36 @@
+name: Static Code Analysis
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  static-analysis:
+    name: Run Static Code Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: 8.0 #
+
+      - name: Restore dependencies
+        run: dotnet restore
+
+      - name: Build project
+        run: dotnet build --no-restore --configuration Release
+
+      - name: Static Code Analysis
+        run: dotnet format --check
+
+      - name: Upload analysis report (optional)
+        if: failure()
+        uses: actions/upload-artifact@v3
+        with:
+          name: static-analysis-report
+          path: ./path-to-repor
