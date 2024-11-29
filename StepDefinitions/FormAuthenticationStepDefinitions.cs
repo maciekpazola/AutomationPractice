@@ -19,12 +19,12 @@ namespace AutomationPractice.StepDefinitions
         public void WhenLoginButtonIsClicked() => _loginPage.ClickLoginButton();
 
         [Then(@"User is successfully logged in")]
-        public void ThenUserIsSuccessfullyLoggedIn() => Assert.IsTrue(_loginPage.CheckIfUserIsLoggedIn());
+        public void ThenUserIsSuccessfullyLoggedIn() => Assert.That(_loginPage.CheckIfUserIsLoggedIn(), Is.True);
 
         [When(@"Wrong credentials are filled in")]
         public void WhenWrongCredentialsAreFilledIn() => _loginPage.Login(username: "WrongUser", password: "WrongPassword!");
 
         [Then(@"User is not successfully logged in")]
-        public void ThenUserIsNotSuccessfullyLoggedIn() => Assert.IsFalse(_loginPage.CheckIfUserIsLoggedIn());
+        public void ThenUserIsNotSuccessfullyLoggedIn() => Assert.That(_loginPage.CheckIfUserIsLoggedIn(), Is.False);
     }
 }

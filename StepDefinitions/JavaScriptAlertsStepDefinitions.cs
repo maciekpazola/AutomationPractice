@@ -6,9 +6,9 @@ namespace AutomationPractice.StepDefinitions
     public class JavaScriptAlertsStepDefinitions
     {
         private readonly JavaScriptAlertsPage _javaScriptAlertsPage;
-        public JavaScriptAlertsStepDefinitions(FeatureContext featureContext, ScenarioContext scenarioContext)
+        public JavaScriptAlertsStepDefinitions(ScenarioContext scenarioContext)
         {
-            _javaScriptAlertsPage = new(featureContext, scenarioContext);
+            _javaScriptAlertsPage = new(scenarioContext);
         }
 
         [When(@"User click on '([^']*)' button")]

@@ -1,6 +1,9 @@
 ﻿using TestUtilities.UITesting.Drivers;
 using System.Reflection;
 using TestUtilities.Logs;
+using NUnit.Framework;
+[assembly: Parallelizable(ParallelScope.Fixtures)]
+[assembly: LevelOfParallelism(3)]
 
 namespace AutomationPractice.Drivers.Hooks
 {

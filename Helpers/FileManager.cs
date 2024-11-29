@@ -48,7 +48,7 @@ namespace TestUtilities.UITesting.Helpers
         {
             string screenshotFilePath = Path.Combine(artifactDirectory, fileNameBase + "_screenshot.png");
 
-            screenshot.SaveAsFile(screenshotFilePath, ScreenshotImageFormat.Png);
+            screenshot.SaveAsFile(screenshotFilePath);
             Console.WriteLine("Screenshot: {0}", new Uri(screenshotFilePath));
         }
     }

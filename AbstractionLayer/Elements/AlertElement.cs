@@ -10,7 +10,7 @@ namespace TestUtilities.UITesting.AbstractionLayer.Elements
 {
     public class AlertElement
     {
-        public readonly IAlert Alert;
+        private readonly IAlert Alert;
         private readonly Waits _waits;
         private readonly Logger _logger;
 
@@ -25,11 +25,14 @@ namespace TestUtilities.UITesting.AbstractionLayer.Elements
             catch (NoAlertPresentException)
             {
                 _logger.WriteInfoLog("Can't find alert element");
-                throw;
             }
         }
 
-        public void AssertTextInTheAlert(string expectedText) => Assert.AreEqual(expectedText, Alert.Text);
+        public void Accept() => Alert.Accept();
+
+        public void SendKeys(string value) => Alert.SendKeys(value);
+
+        public void AssertTextInTheAlert(string expectedText) => Assert.That(Alert.Text, Is.EqualTo(expectedText));
 
         public void CheckIfAlertDissapeared()
         {

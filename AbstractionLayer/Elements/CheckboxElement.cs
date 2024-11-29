@@ -8,7 +8,7 @@ namespace TestUtilities.UITesting.AbstractionLayer.Elements
 {
     public class CheckboxElement
     {
-        public readonly IWebElement Checkbox;
+        public readonly IWebElement ?Checkbox;
         private readonly ScenarioContext _scenarioContext;
         private readonly string _locator;
         private readonly StateChecker _stateChecker;
@@ -27,14 +27,13 @@ namespace TestUtilities.UITesting.AbstractionLayer.Elements
             catch (NoSuchElementException)
             {
                 _logger.WriteInfoLog("Can't find checkbox element");
-                throw;
             }
         }
 
         public void AssertIfChecked(bool expectedResult)
         {
                 bool isChecked = GetCheckedState();
-                Assert.AreEqual(expectedResult, isChecked);
+                Assert.That(isChecked, Is.EqualTo(expectedResult));
         }
 
         public void CheckAll()
@@ -63,7 +62,7 @@ namespace TestUtilities.UITesting.AbstractionLayer.Elements
             }
         }
 
-        private void Click() => Checkbox.Click();
+        private void Click() => Checkbox?.Click();
 
         private bool GetCheckedState() => StateChecker.GetPropertyState(Checkbox, Properties.Checked);
     }

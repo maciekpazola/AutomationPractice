@@ -18,7 +18,7 @@ namespace TestUtilities.UITesting.Drivers
             }
             else
             {
-                string currentBrowser = GetDriverCapabilities().GetCapability("browserName").ToString();
+                string? currentBrowser = GetDriverCapabilities()?.GetCapability("browserName").ToString();
                 if (currentBrowser != browserName && !String.IsNullOrEmpty(currentBrowser))
                 {
                     dynamic options = GetBrowserOptions(browserName);
@@ -28,7 +28,7 @@ namespace TestUtilities.UITesting.Drivers
             return _threadLocalDriver.Value;
         }
 
-        public static ICapabilities GetDriverCapabilities()
+        public static ICapabilities? GetDriverCapabilities()
         {
             if (_threadLocalDriver.Value == null)
             {
