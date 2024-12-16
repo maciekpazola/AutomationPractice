@@ -9,9 +9,10 @@ namespace TestUtilities.UITesting.Drivers
     public class Driver
     {
         private static readonly ThreadLocal<IWebDriver> _threadLocalDriver = new();
+
         public static IWebDriver GetDriver(string browserName)
         {
-            if (!_threadLocalDriver.IsValueCreated)
+            if (!_threadLocalDriver.IsValueCreated || _threadLocalDriver.Value == null)
             {
                 dynamic options = GetBrowserOptions(browserName);
                 _threadLocalDriver.Value = new RemoteWebDriver(new Uri("http://localhost:4444/wd/hub"), options.ToCapabilities());
@@ -28,7 +29,16 @@ namespace TestUtilities.UITesting.Drivers
             return _threadLocalDriver.Value;
         }
 
-        public static ICapabilities? GetDriverCapabilities()
+        public static void Quit()
+        {
+            if (_threadLocalDriver.IsValueCreated && _threadLocalDriver.Value != null)
+            {
+                _threadLocalDriver.Value.Quit();
+                _threadLocalDriver.Value.Dispose();
+            }
+        }
+
+        private static ICapabilities? GetDriverCapabilities()
         {
             if (_threadLocalDriver.Value == null)
             {

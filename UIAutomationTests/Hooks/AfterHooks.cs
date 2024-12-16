@@ -14,12 +14,7 @@ namespace AutomationPractice.Drivers.Hooks
         private readonly Logger _logger = new(scenarioContext.ScenarioInfo.Title);
 
         [AfterScenario]
-        public void Cleanup()
-        {
-            var driver = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName"));
-            driver.Quit();
-            driver.Dispose();
-        }
+        public static void Cleanup() => Driver.Quit();
 
         [AfterStep]
         public void InsertLogs()
