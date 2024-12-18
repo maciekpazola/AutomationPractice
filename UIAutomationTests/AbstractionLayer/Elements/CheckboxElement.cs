@@ -1,14 +1,13 @@
-﻿using TestUtilities.UITesting.Drivers;
-using TestUtilities.UITesting.Helpers;
-using TestUtilities.Logs;
-using NUnit.Framework;
+﻿using TestUtilities.Logs;
 using OpenQA.Selenium;
+using UIAutomationTests.Drivers;
+using UIAutomationTests.Helpers;
 
-namespace TestUtilities.UITesting.AbstractionLayer.Elements
+namespace UIAutomationTests.AbstractionLayer.Elements
 {
     public class CheckboxElement
     {
-        public readonly IWebElement ?Checkbox;
+        public readonly IWebElement? Checkbox;
         private readonly ScenarioContext _scenarioContext;
         private readonly string _locator;
         private readonly StateChecker _stateChecker;
@@ -22,18 +21,12 @@ namespace TestUtilities.UITesting.AbstractionLayer.Elements
             _logger = new(scenarioContext.ScenarioInfo.Title);
             try
             {
-                Checkbox = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector(locator));
+                Checkbox = Driver.GetDriver(_scenarioContext).FindElement(By.CssSelector(locator));
             }
             catch (NoSuchElementException)
             {
                 _logger.WriteInfoLog("Can't find checkbox element");
             }
-        }
-
-        public void AssertIfChecked(bool expectedResult)
-        {
-                bool isChecked = GetCheckedState();
-                Assert.That(isChecked, Is.EqualTo(expectedResult));
         }
 
         public void CheckAll()
@@ -62,8 +55,8 @@ namespace TestUtilities.UITesting.AbstractionLayer.Elements
             }
         }
 
-        private void Click() => Checkbox?.Click();
+        public bool GetCheckedState() => StateChecker.GetPropertyState(Checkbox, Properties.Checked);
 
-        private bool GetCheckedState() => StateChecker.GetPropertyState(Checkbox, Properties.Checked);
+        private void Click() => Checkbox?.Click();
     }
 }

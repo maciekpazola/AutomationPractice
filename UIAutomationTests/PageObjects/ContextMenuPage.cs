@@ -1,25 +1,27 @@
 ﻿using OpenQA.Selenium;
-using TestUtilities.UITesting.AbstractionLayer.Elements;
-using TestUtilities.UITesting.Drivers;
-using TestUtilities.UITesting.Helpers;
+using UIAutomationTests.AbstractionLayer.Elements;
+using UIAutomationTests.Drivers;
+using UIAutomationTests.Helpers;
 
 
-namespace AutomationPractice.PageObjects
+namespace UIAutomationTests.PageObjects
 {
     public class ContextMenuPage
     {
+        private AlertElement Alert => new(_scenarioContext);
+        private IWebElement ContextMenu => Driver.GetDriver(_scenarioContext).FindElement(By.Id("hot-spot"));
+
         private readonly ScenarioContext _scenarioContext;
+
         public ContextMenuPage(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
         }
 
-        AlertElement Alert => new(_scenarioContext);
-
         public void RightClickOnContextMenu()
         {
             ActionsBuilder actionsBuilder = new(_scenarioContext);
-            actionsBuilder.RightClickOnContextMenu(Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.Id("hot-spot"))).Perform();
+            actionsBuilder.RightClickOnContextMenu(ContextMenu).Perform();
         }
 
         public void AcceptTheAllert() => Alert.Accept();

@@ -1,11 +1,12 @@
 using AutomationPractice.PageObjects;
 
-namespace AutomationPractice.StepDefinitions
+namespace UIAutomationTests.StepDefinitions
 {
     [Binding]
     public class JavaScriptAlertsStepDefinitions
     {
         private readonly JavaScriptAlertsPage _javaScriptAlertsPage;
+
         public JavaScriptAlertsStepDefinitions(ScenarioContext scenarioContext)
         {
             _javaScriptAlertsPage = new(scenarioContext);

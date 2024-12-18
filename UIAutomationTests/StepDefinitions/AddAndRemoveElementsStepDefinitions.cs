@@ -1,7 +1,8 @@
 using AutomationPractice.PageObjects;
 using TechTalk.SpecFlow.Assist;
+using UIAutomationTests.PageObjects;
 
-namespace AutomationPractice.StepDefinitions
+namespace UIAutomationTests.StepDefinitions
 {
     [Binding]
     public class AddAndRemoveElementsStepDefinitions
@@ -9,6 +10,7 @@ namespace AutomationPractice.StepDefinitions
         private readonly ScenarioContext _scenarioContext;
         private readonly HomePage _homePage;
         private readonly AddRemoveElementsPage _addRemoveElementsPage;
+
         public AddAndRemoveElementsStepDefinitions(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;

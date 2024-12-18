@@ -4,14 +4,15 @@ using OpenQA.Selenium.Edge;
 using OpenQA.Selenium.Firefox;
 using OpenQA.Selenium.Remote;
 
-namespace TestUtilities.UITesting.Drivers
+namespace UIAutomationTests.Drivers
 {
     public class Driver
     {
         private static readonly ThreadLocal<IWebDriver> _threadLocalDriver = new();
 
-        public static IWebDriver GetDriver(string browserName)
+        public static IWebDriver GetDriver(ScenarioContext scenarioContext)
         {
+            var browserName = scenarioContext.Get<string>("BrowserName");
             if (!_threadLocalDriver.IsValueCreated || _threadLocalDriver.Value == null)
             {
                 dynamic options = GetBrowserOptions(browserName);

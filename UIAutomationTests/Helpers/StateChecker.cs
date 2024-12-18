@@ -1,8 +1,8 @@
-﻿using TestUtilities.UITesting.Drivers;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using TestUtilities.Logs;
+using UIAutomationTests.Drivers;
 
-namespace TestUtilities.UITesting.Helpers
+namespace UIAutomationTests.Helpers
 {
     public class StateChecker
     {
@@ -18,61 +18,20 @@ namespace TestUtilities.UITesting.Helpers
         }
         public static bool GetPropertyState(IWebElement element, string property) => Convert.ToBoolean(element.GetDomProperty(property));
 
-        public int GetNumberOfElements(By by) => Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElements(by).Count;
+        public int GetNumberOfElements(By by) => Driver.GetDriver(_scenarioContext).FindElements(by).Count;
 
-        public bool CheckIfItemIsLoaded(IWebElement clickedButton, IWebElement itemToCheck)
-        {
-            var wait = _waits.GetWebDriverWait();
-            wait.Until(_ => clickedButton.Enabled);
-
-            _logger.WriteInfoLog($"Clicked element enable state: {clickedButton.Enabled}");
-            return CheckIfItemIsEnabled(itemToCheck);
-        }
-
-        public bool CheckIfItemIsEnabled(By locator)
+        public bool IsElementDisplayed(Func<IWebElement> element)
         {
             try
             {
-                IWebElement element = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(locator);
-                var wait = _waits.GetWebDriverWait();
-                wait.Until(_ => element.Enabled);
+                return _waits.WaitUntil(() => element().Displayed);
+            }
+            catch(Exception)
+            {
+                _logger.WriteWarningLog("Exception was found during waiting for element");
+                return false;
+            }
 
-                _logger.WriteInfoLog($"Clicked element enable state: {element.Enabled}");
-                return element.Enabled;
-            }
-            catch (Exception ex)
-            {
-                if (ex is NoSuchElementException
-                    || ex is StaleElementReferenceException
-                    || ex is WebDriverTimeoutException)
-                {
-                    _logger.WriteInfoLog($"Clicked element enable state: False\nException occurred: {ex.Message}");
-                    return false;
-                }
-                throw;
-            }
-        }
-        public bool CheckIfItemIsEnabled(IWebElement element)
-        {
-            try
-            {
-                var wait = _waits.GetWebDriverWait();
-                wait.Until(_ => element.Enabled);
-
-                _logger.WriteInfoLog($"Clicked element enable state: {element.Enabled}");
-                return element.Enabled;
-            }
-            catch (Exception ex)
-            {
-                if (ex is NoSuchElementException
-                    || ex is StaleElementReferenceException
-                    || ex is WebDriverTimeoutException)
-                {
-                    _logger.WriteInfoLog($"Clicked element enable state: False\nException occurred: {ex.Message}");
-                    return false;
-                }
-                throw;
-            }
         }
     }
 }

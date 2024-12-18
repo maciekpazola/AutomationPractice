@@ -7,6 +7,7 @@ namespace AutomationPractice.StepDefinitions
     public class FormAuthenticationStepDefinitions
     {
         private readonly FormAuthenticationPage _loginPage;
+
         public FormAuthenticationStepDefinitions(ScenarioContext scenarioContext)
         {
             _loginPage = new(scenarioContext);
@@ -19,12 +20,12 @@ namespace AutomationPractice.StepDefinitions
         public void WhenLoginButtonIsClicked() => _loginPage.ClickLoginButton();
 
         [Then(@"User is successfully logged in")]
-        public void ThenUserIsSuccessfullyLoggedIn() => Assert.That(_loginPage.CheckIfUserIsLoggedIn(), Is.True);
+        public void ThenUserIsSuccessfullyLoggedIn() => Assert.That(_loginPage.IsUserLoggedIn(), Is.True);
 
         [When(@"Wrong credentials are filled in")]
         public void WhenWrongCredentialsAreFilledIn() => _loginPage.Login(username: "WrongUser", password: "WrongPassword!");
 
         [Then(@"User is not successfully logged in")]
-        public void ThenUserIsNotSuccessfullyLoggedIn() => Assert.That(_loginPage.CheckIfUserIsLoggedIn(), Is.False);
+        public void ThenUserIsNotSuccessfullyLoggedIn() => Assert.That(_loginPage.IsUserLoggedIn(), Is.False);
     }
 }

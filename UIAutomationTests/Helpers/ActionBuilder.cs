@@ -1,8 +1,8 @@
-﻿using TestUtilities.UITesting.Drivers;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
+using UIAutomationTests.Drivers;
 
-namespace TestUtilities.UITesting.Helpers
+namespace UIAutomationTests.Helpers
 {
     public class ActionsBuilder
     {
@@ -11,7 +11,7 @@ namespace TestUtilities.UITesting.Helpers
 
         public IAction RightClickOnContextMenu(IWebElement contextMenu)
         {
-            Actions actions = new(Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")));
+            Actions actions = new(Driver.GetDriver(_scenarioContext));
             return actions.MoveToElement(contextMenu).ContextClick().Build();
         }
     }

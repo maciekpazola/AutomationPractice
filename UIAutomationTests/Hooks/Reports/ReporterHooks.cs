@@ -3,7 +3,7 @@ using AventStack.ExtentReports;
 using AventStack.ExtentReports.Gherkin;
 using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports.Reporter.Config;
-using TestUtilities.UITesting.Helpers;
+using UIAutomationTests.Helpers;
 namespace AutomationPractice.Drivers.Hooks.Reports.Properties
 {
     [Binding]

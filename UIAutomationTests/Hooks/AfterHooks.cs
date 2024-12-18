@@ -1,7 +1,7 @@
-﻿using TestUtilities.UITesting.Drivers;
-using System.Reflection;
+﻿using System.Reflection;
 using TestUtilities.Logs;
 using NUnit.Framework;
+using UIAutomationTests.Drivers;
 [assembly: Parallelizable(ParallelScope.Fixtures)]
 [assembly: LevelOfParallelism(3)]
 

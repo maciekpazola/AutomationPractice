@@ -1,12 +1,12 @@
 ﻿using NUnit.Framework;
 using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
-using TestUtilities.UITesting.Drivers;
-using TestUtilities.UITesting.Helpers;
 using TestUtilities.Logs;
+using UIAutomationTests.Drivers;
+using UIAutomationTests.Helpers;
 
 
-namespace TestUtilities.UITesting.AbstractionLayer.Elements
+namespace UIAutomationTests.AbstractionLayer.Elements
 {
     public class AlertElement
     {
@@ -18,9 +18,10 @@ namespace TestUtilities.UITesting.AbstractionLayer.Elements
         {
             _waits = new(scenarioContext);
             _logger = new(scenarioContext.ScenarioInfo.Title);
+
             try
             {
-                Alert = Driver.GetDriver(scenarioContext.Get<string>("BrowserName")).SwitchTo().Alert();
+                Alert = Driver.GetDriver(scenarioContext).SwitchTo().Alert();
             }
             catch (NoAlertPresentException)
             {

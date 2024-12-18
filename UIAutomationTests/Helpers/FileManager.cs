@@ -2,7 +2,7 @@
 using OpenQA.Selenium;
 using TechTalk.SpecFlow.Tracing;
 
-namespace TestUtilities.UITesting.Helpers
+namespace UIAutomationTests.Helpers
 {
     public class FileManager(FeatureContext featureContext, ScenarioContext scenarioContext)
     {

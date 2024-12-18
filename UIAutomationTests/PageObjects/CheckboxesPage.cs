@@ -1,26 +1,23 @@
-﻿using TestUtilities.UITesting.AbstractionLayer.Elements;
-using TestUtilities.UITesting.Helpers;
+﻿using UIAutomationTests.AbstractionLayer.Elements;
+using UIAutomationTests.Helpers;
 
-namespace AutomationPractice.PageObjects
+namespace UIAutomationTests.PageObjects
 {
     public class CheckboxesPage
     {
+        private CheckboxElement Checkbox => new (_scenarioContext, Locator.GetCheckboxLocator());
+
         private readonly ScenarioContext _scenarioContext;
-        private readonly CheckboxElement _checkbox;
+
         public CheckboxesPage(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
-            _checkbox = new(_scenarioContext, Locator.GetCheckboxLocator());
         }
 
-        public void CheckAllCheckboxes() => _checkbox.CheckAll();
+        public void CheckAllCheckboxes() => Checkbox.CheckAll();
 
-        public void UnCheckAllCheckboxes() => _checkbox.UnCheckAll();
+        public void UnCheckAllCheckboxes() => Checkbox.UnCheckAll();
 
-        private void AssertCheckboxes(bool expectedResult) => _checkbox.AssertIfChecked(expectedResult);
-
-        public void AssertIfAllCheckboxesAreChecked() => AssertCheckboxes(expectedResult : true);
-
-        public void AssertIfAllCheckboxesAreUnChecked() => AssertCheckboxes(expectedResult : false);
+        public bool IsChecked() => Checkbox.GetCheckedState();
     }
 }
