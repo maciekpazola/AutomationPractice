@@ -1,8 +1,8 @@
 ﻿using OpenQA.Selenium;
-using TestUtilities.UITesting.Drivers;
+using UIAutomationTests.Drivers;
 
 
-namespace TestUtilities.UITesting.AbstractionLayer.Elements
+namespace UIAutomationTests.AbstractionLayer.Elements
 {
     public class ButtonElement
     {
@@ -11,7 +11,7 @@ namespace TestUtilities.UITesting.AbstractionLayer.Elements
         public ButtonElement(ScenarioContext scenarioContext, string locator)
         {
             _scenarioContext = scenarioContext;
-            Button = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector(locator));
+            Button = Driver.GetDriver(_scenarioContext).FindElement(By.CssSelector(locator));
         }
 
         public void Click() => Button.Click();

@@ -1,14 +1,19 @@
-﻿using TestUtilities.UITesting.AbstractionLayer.Elements;
-using TestUtilities.UITesting.Helpers;
+﻿using UIAutomationTests.Helpers;
+using UIAutomationTests.AbstractionLayer.Elements;
 
 namespace AutomationPractice.PageObjects
 {
     public class JavaScriptAlertsPage
     {
-        private readonly ScenarioContext _scenarioContext;
         private ButtonElement JavaScriptButton(string onClickValue) => new(_scenarioContext, Locator.GetButtonLocator(onClickValue));
         private AlertElement Alert => new(_scenarioContext);
-        public JavaScriptAlertsPage(ScenarioContext scenarioContext) => _scenarioContext = scenarioContext;
+
+        private readonly ScenarioContext _scenarioContext;
+
+        public JavaScriptAlertsPage(ScenarioContext scenarioContext)
+        {
+            _scenarioContext = scenarioContext;
+        }
 
         public void ClickJavaScriptButton(string onClickValue) => JavaScriptButton(onClickValue).Click();
 

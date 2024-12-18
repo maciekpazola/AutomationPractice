@@ -1,12 +1,14 @@
-﻿using TestUtilities.UITesting.Drivers;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using SeleniumExtras.WaitHelpers;
-using TestUtilities.UITesting.Helpers;
+using UIAutomationTests.Helpers;
+using UIAutomationTests.Drivers;
 
-namespace AutomationPractice.PageObjects
+namespace UIAutomationTests.PageObjects
 {
     public class BasicAuthPage
     {
+        private IWebElement Message => Driver.GetDriver(_scenarioContext).FindElement(By.ClassName("example"));
+
         private readonly ScenarioContext _scenarioContext;
         private readonly StateChecker _stateChecker;
         private readonly string _basicAuthPageUrlWithCorrectCredentails = "http://admin:admin@the-internet.herokuapp.com/basic_auth";
@@ -20,7 +22,7 @@ namespace AutomationPractice.PageObjects
 
         public void GoToAuthPage(string loginName)
         {
-            var driver = Driver.GetDriver(_scenarioContext.Get<string>("BrowserName"));
+            var driver = Driver.GetDriver(_scenarioContext);
             switch (loginName)
             {
                 case "admin":
@@ -38,23 +40,6 @@ namespace AutomationPractice.PageObjects
             }
         }
 
-        public void AssertThatYouAreloggedIn()
-        {
-            By _messageLocator = By.ClassName("example");
-            bool visibilityOfMessage = _stateChecker.CheckIfItemIsEnabled(_messageLocator);
-            if (!visibilityOfMessage )
-            {
-                throw new Exception("Test is failed, can't find the message after authorization");
-            }
-        }
-        public void AssertThatYouAreNotloggedIn()
-        {
-            By _messageLocator = By.ClassName("example");
-            bool visibilityOfMessage = _stateChecker.CheckIfItemIsEnabled(_messageLocator);
-            if (visibilityOfMessage)
-            {
-                throw new Exception("Test is failed, can't find the message after authorization");
-            }
-        }
+        public bool IsUserLoggedIn() => _stateChecker.IsElementDisplayed(() => Message);
     }
 }

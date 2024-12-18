@@ -1,20 +1,20 @@
-﻿using TestUtilities.UITesting.AbstractionLayer.Elements;
+﻿using UIAutomationTests.AbstractionLayer.Elements;
 
-namespace AutomationPractice.PageObjects
+namespace UIAutomationTests.PageObjects
 {
     public class DropdownPage
     {
+        private DropdownElement Dropdown => new(_scenarioContext, "#dropdown");
+
         private readonly ScenarioContext _scenarioContext;
-        private readonly DropdownElement _dropdown;
+
         public DropdownPage(ScenarioContext scenarioContext)
         {
             _scenarioContext = scenarioContext;
-            _dropdown = new(_scenarioContext, "#dropdown");
         }
 
-        public void SelectAllElementsInDropdown() => _dropdown.SelectAllElementsInDropdown();
+        public void SelectAllElementsInDropdown() => Dropdown.SelectAllElementsInDropdown();
 
-        public void AssertNumberOfElementsInDropdown(int numberOfOptions) =>
-            _dropdown.GetNumberOfElementsInDropdown().Should().Be(numberOfOptions);
+        public int GetNumberOfElementsInDropdown() => Dropdown.GetNumberOfElementsInDropdown();
     }
 }

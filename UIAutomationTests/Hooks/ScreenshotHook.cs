@@ -1,14 +1,14 @@
-﻿using TestUtilities.UITesting.Helpers;
-using TestUtilities.UITesting.Drivers;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using TestUtilities.Logs;
+using UIAutomationTests.Helpers;
+using UIAutomationTests.Drivers;
 
-namespace AutomationPractice.Hooks
+namespace UIAutomationTests.Hooks
 {
     [Binding]
     public class ScreenshotHook
     {
-        private IWebDriver DriverInstance() => Driver.GetDriver(_scenarioContext.Get<string>("BrowserName"));
+        private IWebDriver DriverInstance() => Driver.GetDriver(_scenarioContext);
         private readonly FeatureContext _featureContext;
         private readonly ScenarioContext _scenarioContext;
         private readonly Logger _logger;

@@ -1,4 +1,4 @@
-﻿namespace TestUtilities.UITesting.AbstractionLayer
+﻿namespace UIAutomationTests.AbstractionLayer
 {
     public static class Properties
     {

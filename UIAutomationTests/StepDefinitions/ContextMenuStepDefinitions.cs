@@ -1,11 +1,12 @@
-using AutomationPractice.PageObjects;
+using UIAutomationTests.PageObjects;
 
-namespace AutomationPractice.StepDefinitions
+namespace UIAutomationTests.StepDefinitions
 {
     [Binding]
     public class ContextMenuStepDefinitions
     {
         private readonly ContextMenuPage _contextMenuPage;
+
         public ContextMenuStepDefinitions(ScenarioContext scenarioContext)
         {
             _contextMenuPage = new(scenarioContext);

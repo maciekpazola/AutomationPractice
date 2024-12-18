@@ -1,11 +1,13 @@
-using AutomationPractice.PageObjects;
+using UIAutomationTests.PageObjects;
+using NUnit.Framework;
 
-namespace AutomationPractice.StepDefinitions
+namespace UIAutomationTests.StepDefinitions
 {
     [Binding]
     public class DropdownStepDefinitions
     {
         private readonly DropdownPage _dropdownPage;
+
         public DropdownStepDefinitions(ScenarioContext scenarioContext)
         {
             _dropdownPage = new(scenarioContext);
@@ -15,7 +17,7 @@ namespace AutomationPractice.StepDefinitions
         public void WhenUserSelectEveryOption() => _dropdownPage.SelectAllElementsInDropdown();
 
         [Then(@"'([^']*)' options should be visible in the dropdown")]
-        public void ThenOptionsShouldBeVisibleInTheDropdown(string numberOfOptions) => 
-            _dropdownPage.AssertNumberOfElementsInDropdown(Int16.Parse(numberOfOptions));
+        public void ThenOptionsShouldBeVisibleInTheDropdown(int numberOfOptions) =>
+            Assert.That(_dropdownPage.GetNumberOfElementsInDropdown(), Is.EqualTo(numberOfOptions));
     }
 }

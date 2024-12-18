@@ -1,18 +1,19 @@
 ﻿using OpenQA.Selenium;
-using TestUtilities.UITesting.Drivers;
-using TestUtilities.UITesting.Helpers;
+using UIAutomationTests.Drivers;
+using UIAutomationTests.Helpers;
 
 namespace AutomationPractice.PageObjects
 {
     public class FormAuthenticationPage
     {
+        private IWebElement UsernameField => Driver.GetDriver(_scenarioContext).FindElement(By.CssSelector("input[type='text']#username"));
+        private IWebElement PasswordField => Driver.GetDriver(_scenarioContext).FindElement(By.CssSelector("input[type='password']#password"));
+        private IWebElement LoginButton => Driver.GetDriver(_scenarioContext).FindElement(By.CssSelector(".radius[type='submit']"));
+        private IWebElement MessageWhenLoggedIn => Driver.GetDriver(_scenarioContext).FindElement(By.CssSelector("#flash[class='flash success']"));
+        private IWebElement MessageWhenNotLoggedIn => Driver.GetDriver(_scenarioContext).FindElement(By.CssSelector("#flash[class='flash error']"));
+
         private readonly ScenarioContext _scenarioContext;
         private readonly StateChecker _stateChecker;
-        private IWebElement UsernameField() => Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector("input[type='text']#username"));
-        private IWebElement PasswordField() => Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector("input[type='password']#password"));
-        private IWebElement LoginButton() => Driver.GetDriver(_scenarioContext.Get<string>("BrowserName")).FindElement(By.CssSelector(".radius[type='submit']"));
-        private readonly By MessageWhenLoggedInLocator = By.CssSelector("#flash[class='flash success']");
-        private readonly By MessageWhenNotLoggedInLocator = By.CssSelector("#flash[class='flash error']");
 
         public FormAuthenticationPage(ScenarioContext scenarioContext)
         {
@@ -22,18 +23,18 @@ namespace AutomationPractice.PageObjects
 
         public void Login(string username, string password)
         {
-            UsernameField().SendKeys(username);
-            PasswordField().SendKeys(password);
+            UsernameField.SendKeys(username);
+            PasswordField.SendKeys(password);
         }
 
-        public void ClickLoginButton() => LoginButton().Click();
+        public void ClickLoginButton() => LoginButton.Click();
 
-        public bool CheckIfUserIsLoggedIn()
+        public bool IsUserLoggedIn()
         {
-            if (_stateChecker.CheckIfItemIsEnabled(MessageWhenLoggedInLocator))
+            if (_stateChecker.IsElementDisplayed(() => MessageWhenLoggedIn))
                 return true;
 
-            else if (_stateChecker.CheckIfItemIsEnabled(MessageWhenNotLoggedInLocator))
+            else if (_stateChecker.IsElementDisplayed(() => MessageWhenNotLoggedIn))
                 return false;
 
             throw new Exception("Can't find message!");
