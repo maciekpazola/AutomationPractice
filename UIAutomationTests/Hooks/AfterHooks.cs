@@ -19,20 +19,14 @@ namespace AutomationPractice.Drivers.Hooks
         [AfterStep]
         public void InsertLogs()
         {
+            if (_scenarioContext.TestError == null)
             {
-                PropertyInfo pInfo = typeof(ScenarioContext).GetProperty("ScenarioExecutionStatus", BindingFlags.Instance | BindingFlags.Public);
-                MethodInfo getter = pInfo.GetGetMethod(nonPublic: true);
-                object TestResult = getter.Invoke(_scenarioContext, null);
-
-                if (_scenarioContext.TestError == null)
-                {
-                    _logger.WriteInfoLog(_scenarioContext.StepContext.StepInfo.Text);
-                    _logger.WriteInfoLog("Step Done");
-                }
-                if (_scenarioContext.TestError != null)
-                {
-                    _logger.WriteErrorLog(_scenarioContext.TestError.ToString());
-                }
+                _logger.WriteInfoLog(_scenarioContext.StepContext.StepInfo.Text);
+                _logger.WriteInfoLog("Step Done");
+            }
+            if (_scenarioContext.TestError != null)
+            {
+                _logger.WriteErrorLog(_scenarioContext.TestError.ToString());
             }
         }
     }

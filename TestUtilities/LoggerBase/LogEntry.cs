@@ -8,4 +8,11 @@
         public required string LogLevel { get; set; }
         public required string Message { get; set; }
     }
+
+    public enum LogType
+    {
+        Info,
+        Warning,
+        Error,
+    }
 }
